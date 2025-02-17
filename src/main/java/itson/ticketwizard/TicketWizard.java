@@ -12,5 +12,6 @@ public class TicketWizard {
     public static void main(String[] args) {
         ControlIniciarSesion control = new ControlIniciarSesion();
         control.iniciarSesion();
+        System.out.println("hola");
     }
 }
