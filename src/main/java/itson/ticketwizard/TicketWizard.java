@@ -14,5 +14,6 @@ public class TicketWizard {
         control.iniciarSesion();
         System.out.println("hola");
         System.out.println("holaa");
+        System.out.println("saul");
     }
 }
