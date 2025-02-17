@@ -27,6 +27,15 @@ public class FrmInicioSesion extends JFrame {
 
         pnl1 = new javax.swing.JPanel();
         icono = new javax.swing.JLabel();
+        pnl2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JTextField();
+        txtContrasenia = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnIngresar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        btnCrearCuenta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -35,7 +44,54 @@ public class FrmInicioSesion extends JFrame {
 
         icono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/itson/ticketwizard/resources/logoChikito.png"))); // NOI18N
         pnl1.add(icono);
-        icono.setBounds(30, 120, 360, 340);
+        icono.setBounds(0, 110, 360, 360);
+
+        pnl2.setBackground(new java.awt.Color(57, 57, 57));
+        pnl2.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Inicio de Sesión");
+        pnl2.add(jLabel1);
+        jLabel1.setBounds(100, 50, 260, 44);
+        pnl2.add(txtUsuario);
+        txtUsuario.setBounds(200, 160, 170, 30);
+        pnl2.add(txtContrasenia);
+        txtContrasenia.setBounds(200, 210, 170, 30);
+
+        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Usuario");
+        pnl2.add(jLabel2);
+        jLabel2.setBounds(100, 160, 100, 29);
+
+        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Contraseña");
+        pnl2.add(jLabel3);
+        jLabel3.setBounds(60, 210, 140, 29);
+
+        btnIngresar.setBackground(new java.awt.Color(153, 153, 153));
+        btnIngresar.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        btnIngresar.setText("Ingresar");
+        pnl2.add(btnIngresar);
+        btnIngresar.setBounds(150, 320, 140, 40);
+
+        pnl1.add(pnl2);
+        pnl2.setBounds(390, 50, 440, 400);
+
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jLabel4.setText("¿No tienes una cuenta? ");
+        pnl1.add(jLabel4);
+        jLabel4.setBounds(480, 480, 270, 29);
+
+        btnCrearCuenta.setBackground(new java.awt.Color(95, 84, 163));
+        btnCrearCuenta.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        btnCrearCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearCuenta.setText("Crear una cuenta");
+        pnl1.add(btnCrearCuenta);
+        btnCrearCuenta.setBounds(520, 520, 190, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,8 +147,17 @@ public class FrmInicioSesion extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCrearCuenta;
+    private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel icono;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel pnl1;
+    private javax.swing.JPanel pnl2;
+    private javax.swing.JTextField txtContrasenia;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
 
