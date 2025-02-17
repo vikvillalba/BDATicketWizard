@@ -1,5 +1,6 @@
 package itson.ticketwizard.presentacion;
 import itson.ticketwizard.control.ControlIniciarSesion;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
@@ -8,7 +9,7 @@ import javax.swing.JFrame;
  */
 public class FrmInicioSesion extends JFrame {
      private final ControlIniciarSesion control;
-    
+
      
 
     /**
@@ -37,6 +38,7 @@ public class FrmInicioSesion extends JFrame {
         btnIngresar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         btnCrearCuenta = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,9 +70,9 @@ public class FrmInicioSesion extends JFrame {
         pnl2.add(jLabel3);
         jLabel3.setBounds(60, 210, 140, 29);
 
-        btnIngresar.setBackground(new java.awt.Color(153, 153, 153));
+        btnIngresar.setBackground(new java.awt.Color(204, 204, 204));
         btnIngresar.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        btnIngresar.setForeground(new java.awt.Color(51, 51, 51));
         btnIngresar.setText("Ingresar");
         btnIngresar.setFocusPainted(false);
         pnl2.add(btnIngresar);
@@ -84,12 +86,15 @@ public class FrmInicioSesion extends JFrame {
         pnl1.add(jLabel4);
         jLabel4.setBounds(480, 480, 270, 29);
 
-        btnCrearCuenta.setBackground(new java.awt.Color(95, 84, 163));
         btnCrearCuenta.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        btnCrearCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearCuenta.setForeground(new java.awt.Color(51, 0, 102));
         btnCrearCuenta.setText("Crear una cuenta");
         pnl1.add(btnCrearCuenta);
         btnCrearCuenta.setBounds(520, 520, 190, 40);
+
+        jLabel5.setText("imagen");
+        pnl1.add(jLabel5);
+        jLabel5.setBounds(130, 250, 42, 17);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,12 +123,17 @@ public class FrmInicioSesion extends JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel pnl1;
     private javax.swing.JPanel pnl2;
     private javax.swing.JTextField txtContrasenia;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
+            
+            
+            
+            
 
 
 }
