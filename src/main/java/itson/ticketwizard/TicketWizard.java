@@ -13,5 +13,6 @@ public class TicketWizard {
         ControlIniciarSesion control = new ControlIniciarSesion();
         control.iniciarSesion();
         System.out.println("hola");
+        System.out.println("holaa");
     }
 }
