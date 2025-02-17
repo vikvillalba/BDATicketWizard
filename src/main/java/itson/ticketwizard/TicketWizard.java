@@ -15,5 +15,6 @@ public class TicketWizard {
         System.out.println("hola");
         System.out.println("holaa");
         System.out.println("saul");
+        System.out.println("bien");
     }
 }
