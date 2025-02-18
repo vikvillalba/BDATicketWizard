@@ -1,6 +1,6 @@
 package itson.ticketwizard.presentacion;
 import itson.ticketwizard.control.ControlIniciarSesion;
-import javax.swing.JButton;
+import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -9,8 +9,6 @@ import javax.swing.JFrame;
  */
 public class FrmInicioSesion extends JFrame {
      private final ControlIniciarSesion control;
-
-     
 
     /**
      * Creates new form FrmInicioSesion
@@ -92,9 +90,10 @@ public class FrmInicioSesion extends JFrame {
         pnl1.add(btnCrearCuenta);
         btnCrearCuenta.setBounds(520, 520, 190, 40);
 
-        jLabel5.setText("imagen");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoChikito.png"))); // NOI18N
+        jLabel5.setText("jLabel5");
         pnl1.add(jLabel5);
-        jLabel5.setBounds(130, 250, 42, 17);
+        jLabel5.setBounds(10, 110, 370, 350);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
