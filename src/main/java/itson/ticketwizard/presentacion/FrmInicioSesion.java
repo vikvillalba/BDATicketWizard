@@ -1,6 +1,5 @@
 package itson.ticketwizard.presentacion;
 import itson.ticketwizard.control.ControlIniciarSesion;
-import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -15,6 +14,7 @@ public class FrmInicioSesion extends JFrame {
      */
     public FrmInicioSesion(ControlIniciarSesion control) {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.control = control;
     }
     
@@ -40,55 +40,64 @@ public class FrmInicioSesion extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pnl1.setBackground(new java.awt.Color(221, 210, 234));
+        pnl1.setBackground(new java.awt.Color(223, 218, 255));
         pnl1.setLayout(null);
 
         pnl2.setBackground(new java.awt.Color(57, 57, 57));
         pnl2.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Galvji", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Inicio de Sesión");
         pnl2.add(jLabel1);
-        jLabel1.setBounds(100, 50, 260, 44);
-        pnl2.add(txtUsuario);
-        txtUsuario.setBounds(200, 160, 170, 30);
-        pnl2.add(txtContrasenia);
-        txtContrasenia.setBounds(200, 210, 170, 30);
+        jLabel1.setBounds(120, 60, 300, 43);
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        txtUsuario.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        pnl2.add(txtUsuario);
+        txtUsuario.setBounds(200, 160, 230, 30);
+
+        txtContrasenia.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        pnl2.add(txtContrasenia);
+        txtContrasenia.setBounds(200, 210, 230, 30);
+
+        jLabel2.setFont(new java.awt.Font("Galvji", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Usuario");
         pnl2.add(jLabel2);
-        jLabel2.setBounds(100, 160, 100, 29);
+        jLabel2.setBounds(90, 160, 100, 29);
 
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Galvji", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Contraseña");
         pnl2.add(jLabel3);
-        jLabel3.setBounds(60, 210, 140, 29);
+        jLabel3.setBounds(50, 210, 140, 29);
 
-        btnIngresar.setBackground(new java.awt.Color(204, 204, 204));
-        btnIngresar.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        btnIngresar.setForeground(new java.awt.Color(51, 51, 51));
+        btnIngresar.setBackground(new java.awt.Color(119, 118, 126));
+        btnIngresar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
+        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("Ingresar");
         btnIngresar.setFocusPainted(false);
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
         pnl2.add(btnIngresar);
-        btnIngresar.setBounds(150, 320, 140, 40);
+        btnIngresar.setBounds(160, 320, 190, 40);
 
         pnl1.add(pnl2);
-        pnl2.setBounds(390, 50, 440, 400);
+        pnl2.setBounds(390, 50, 500, 400);
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Galvji", 0, 24)); // NOI18N
         jLabel4.setText("¿No tienes una cuenta? ");
         pnl1.add(jLabel4);
-        jLabel4.setBounds(480, 480, 270, 29);
+        jLabel4.setBounds(490, 480, 290, 30);
 
-        btnCrearCuenta.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        btnCrearCuenta.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnCrearCuenta.setForeground(new java.awt.Color(51, 0, 102));
         btnCrearCuenta.setText("Crear una cuenta");
         pnl1.add(btnCrearCuenta);
-        btnCrearCuenta.setBounds(520, 520, 190, 40);
+        btnCrearCuenta.setBounds(540, 530, 190, 40);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoChikito.png"))); // NOI18N
         jLabel5.setText("jLabel5");
@@ -100,18 +109,22 @@ public class FrmInicioSesion extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnl1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnl1, javax.swing.GroupLayout.PREFERRED_SIZE, 953, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnl1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnl1, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
  
 
