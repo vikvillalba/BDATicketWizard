@@ -35,31 +35,40 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(223, 218, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Galvji", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(95, 84, 163));
         jLabel1.setText("Resultados de la Búsqueda");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 500, 60));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(300, 300, 300)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jPanel3.setBackground(new java.awt.Color(223, 218, 255));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(95, 84, 163));
         jLabel2.setText("Código del boleto");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, -1, -1));
-        jPanel3.add(txtCodigoBoleto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 260, 40));
 
         txtSeleccionar.setBackground(new java.awt.Color(95, 84, 163));
         txtSeleccionar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         txtSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         txtSeleccionar.setText("Seleccionar");
-        jPanel3.add(txtSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 210, 40));
 
         txtRegresarMenu.setBackground(new java.awt.Color(119, 118, 126));
         txtRegresarMenu.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
@@ -70,7 +79,35 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
                 txtRegresarMenuActionPerformed(evt);
             }
         });
-        jPanel3.add(txtRegresarMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 250, 40));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(340, 340, 340)
+                .addComponent(jLabel2))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(290, 290, 290)
+                .addComponent(txtCodigoBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(txtSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(340, 340, 340)
+                .addComponent(txtRegresarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2)
+                .addGap(8, 8, 8)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCodigoBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(txtRegresarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 

@@ -42,91 +42,164 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         btnVerDepositos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnl1.setBackground(new java.awt.Color(221, 210, 234));
         pnl1.setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(175, 169, 209));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoPequeno1.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 260, 280));
 
         btnCerrarSesion.setBackground(new java.awt.Color(95, 84, 163));
         btnCerrarSesion.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btnCerrarSesion.setText("Cerrar Sesión");
-        jPanel1.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 180, 50));
 
         btnActualizar.setBackground(new java.awt.Color(95, 84, 163));
         btnActualizar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar Perfil");
         btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 180, 50));
 
         btmAgregarSaldo.setBackground(new java.awt.Color(95, 84, 163));
         btmAgregarSaldo.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btmAgregarSaldo.setForeground(new java.awt.Color(255, 255, 255));
         btmAgregarSaldo.setText("Agregar Saldo");
-        jPanel1.add(btmAgregarSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 180, 50));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(btmAgregarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btmAgregarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pnl1.add(jPanel1, java.awt.BorderLayout.LINE_START);
 
         jPanel2.setBackground(new java.awt.Color(223, 218, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Galvji", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(95, 84, 163));
         jLabel2.setText("Bienvenido");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 290, 80));
 
         btnComprarBoleto.setBackground(new java.awt.Color(119, 118, 126));
         btnComprarBoleto.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnComprarBoleto.setForeground(new java.awt.Color(255, 255, 255));
         btnComprarBoleto.setText("Comprar Boletos");
-        jPanel2.add(btnComprarBoleto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 390, 50));
 
         btnVenderBoleto.setBackground(new java.awt.Color(119, 118, 126));
         btnVenderBoleto.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVenderBoleto.setForeground(new java.awt.Color(255, 255, 255));
         btnVenderBoleto.setText("Vender Boletos");
-        jPanel2.add(btnVenderBoleto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 390, 50));
 
         btnVerBoletos.setBackground(new java.awt.Color(119, 118, 126));
         btnVerBoletos.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVerBoletos.setForeground(new java.awt.Color(255, 255, 255));
         btnVerBoletos.setText("Ver Mis Boletos");
-        jPanel2.add(btnVerBoletos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 390, 50));
 
         btnVerHistorialCompras.setBackground(new java.awt.Color(119, 118, 126));
         btnVerHistorialCompras.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVerHistorialCompras.setForeground(new java.awt.Color(255, 255, 255));
         btnVerHistorialCompras.setText("Consultar Historial de Compras");
-        jPanel2.add(btnVerHistorialCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 390, 50));
 
         btnVerHistorialVentas.setBackground(new java.awt.Color(119, 118, 126));
         btnVerHistorialVentas.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVerHistorialVentas.setForeground(new java.awt.Color(255, 255, 255));
         btnVerHistorialVentas.setText("Consultar Historial de Ventas");
-        jPanel2.add(btnVerHistorialVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 390, 50));
 
         btnVerBoletosApartados.setBackground(new java.awt.Color(119, 118, 126));
         btnVerBoletosApartados.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVerBoletosApartados.setForeground(new java.awt.Color(255, 255, 255));
         btnVerBoletosApartados.setText("Mis Boletos Apartados");
-        jPanel2.add(btnVerBoletosApartados, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, 390, 50));
 
         btnVerDepositos.setBackground(new java.awt.Color(119, 118, 126));
         btnVerDepositos.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVerDepositos.setForeground(new java.awt.Color(255, 255, 255));
         btnVerDepositos.setText("Consultar Historial de Depósitos");
-        jPanel2.add(btnVerDepositos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 430, 390, 50));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(130, 130, 130)
+                .addComponent(btnComprarBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(130, 130, 130)
+                .addComponent(btnVenderBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(130, 130, 130)
+                .addComponent(btnVerBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(130, 130, 130)
+                .addComponent(btnVerHistorialCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(130, 130, 130)
+                .addComponent(btnVerHistorialVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(130, 130, 130)
+                .addComponent(btnVerDepositos, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(130, 130, 130)
+                .addComponent(btnVerBoletosApartados, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btnComprarBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnVenderBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnVerBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnVerHistorialCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnVerHistorialVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnVerDepositos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnVerBoletosApartados, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pnl1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(pnl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 600));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnl1, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnl1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

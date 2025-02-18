@@ -36,13 +36,24 @@ public class FrmBoletosApartados extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(223, 218, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Galvji", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(95, 84, 163));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Mis Boletos Apartados");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 580, 90));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(300, 300, 300)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
@@ -71,13 +82,26 @@ public class FrmBoletosApartados extends javax.swing.JFrame {
         jPanel1.add(pnlResultadosBoletos, java.awt.BorderLayout.CENTER);
 
         jPanel3.setBackground(new java.awt.Color(223, 218, 255));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnVolverMenu.setBackground(new java.awt.Color(119, 118, 126));
         btnVolverMenu.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVolverMenu.setForeground(new java.awt.Color(255, 255, 255));
         btnVolverMenu.setText("Regresar al menú");
-        jPanel3.add(btnVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 200, 50));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(470, 470, 470)
+                .addComponent(btnVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(btnVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
