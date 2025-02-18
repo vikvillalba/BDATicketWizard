@@ -6,13 +6,13 @@ import itson.ticketwizard.control.ControlRegistrarCompra;
  *
  * @author victoria
  */
-public class FrmHistorialBoletos extends javax.swing.JFrame {
+public class FrmBoletosApartados extends javax.swing.JFrame {
      private final ControlRegistrarCompra control;
     
     /**
      * Creates new form FrmHistorialBoletos
      */
-    public FrmHistorialBoletos(ControlRegistrarCompra control) {
+    public FrmBoletosApartados(ControlRegistrarCompra control) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.control = control;
@@ -41,8 +41,8 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Galvji", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(95, 84, 163));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Mis Boletos");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 410, 90));
+        jLabel1.setText("Mis Boletos Apartados");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 580, 90));
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
@@ -53,17 +53,17 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
         tblBoletos.setFont(new java.awt.Font("Galvji", 0, 24)); // NOI18N
         tblBoletos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código Boleto", "Nombre Evento", "Fecha Evento", "Recinto", "Asiento", "Ciudad", "Estado", "Descripción", "Número Transacción", "FechaHora Compra", "Forma Compra"
+                "Evento", "Fecha", "Recinto", "Asiento", "Ciudad", "Estado", "Precio"
             }
         ));
         pnlResultadosBoletos.setViewportView(tblBoletos);
@@ -77,7 +77,7 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
         btnVolverMenu.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVolverMenu.setForeground(new java.awt.Color(255, 255, 255));
         btnVolverMenu.setText("Regresar al menú");
-        jPanel3.add(btnVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, 200, 50));
+        jPanel3.add(btnVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 200, 50));
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
