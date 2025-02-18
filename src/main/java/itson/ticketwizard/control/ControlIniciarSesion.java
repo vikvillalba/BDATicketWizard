@@ -1,4 +1,5 @@
 package itson.ticketwizard.control;
+import itson.ticketwizard.presentacion.FrmHistorialBoletos;
 import itson.ticketwizard.presentacion.FrmInicioSesion;
 
 /**
