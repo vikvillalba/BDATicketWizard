@@ -27,9 +27,11 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtVolverMenu = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        pnlResultadosBoletos = new javax.swing.JScrollPane();
         tblBoletos = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        txtVolverMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,15 +44,11 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
         jLabel1.setText("Mis Boletos");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 410, 90));
 
-        txtVolverMenu.setBackground(new java.awt.Color(119, 118, 126));
-        txtVolverMenu.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        txtVolverMenu.setForeground(new java.awt.Color(255, 255, 255));
-        txtVolverMenu.setText("Regresar al menú");
-        jPanel2.add(txtVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 200, 40));
-
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
-        jScrollPane1.setBackground(new java.awt.Color(223, 218, 255));
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        pnlResultadosBoletos.setBackground(new java.awt.Color(223, 218, 255));
 
         tblBoletos.setFont(new java.awt.Font("Galvji", 0, 24)); // NOI18N
         tblBoletos.setModel(new javax.swing.table.DefaultTableModel(
@@ -68,9 +66,22 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
                 "Código Boleto", "Nombre Evento", "Fecha Evento", "Recinto", "Asiento", "Ciudad", "Estado", "Descripción", "Número Transacción", "FechaHora Compra", "Forma Compra"
             }
         ));
-        jScrollPane1.setViewportView(tblBoletos);
+        pnlResultadosBoletos.setViewportView(tblBoletos);
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jPanel1.add(pnlResultadosBoletos, java.awt.BorderLayout.CENTER);
+
+        jPanel3.setBackground(new java.awt.Color(223, 218, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtVolverMenu.setBackground(new java.awt.Color(119, 118, 126));
+        txtVolverMenu.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
+        txtVolverMenu.setForeground(new java.awt.Color(255, 255, 255));
+        txtVolverMenu.setText("Regresar al menú");
+        jPanel3.add(txtVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, 200, 50));
+
+        jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -79,8 +90,10 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane pnlResultadosBoletos;
     private javax.swing.JTable tblBoletos;
     private javax.swing.JButton txtVolverMenu;
     // End of variables declaration//GEN-END:variables
