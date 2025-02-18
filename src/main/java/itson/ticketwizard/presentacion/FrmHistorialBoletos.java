@@ -60,23 +60,39 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         pnlResultadosBoletos.setBackground(new java.awt.Color(223, 218, 255));
+        pnlResultadosBoletos.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
 
         tblBoletos.setFont(new java.awt.Font("Galvji", 0, 24)); // NOI18N
         tblBoletos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código Boleto", "Nombre Evento", "Fecha Evento", "Recinto", "Asiento", "Ciudad", "Estado", "Descripción", "Número Transacción", "FechaHora Compra", "Forma Compra"
+                "Código Boleto", "Nombre Evento", "Fecha Evento", "Recinto", "Fila", "Asiento", "Ciudad", "Estado", "Descripción", "Número Transacción", "FechaHora Compra", "Forma Compra", "Reventa"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         pnlResultadosBoletos.setViewportView(tblBoletos);
 
         jPanel1.add(pnlResultadosBoletos, java.awt.BorderLayout.CENTER);
