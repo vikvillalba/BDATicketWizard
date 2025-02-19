@@ -1,21 +1,17 @@
 package itson.ticketwizard.presentacion;
 
-import itson.ticketwizard.control.ControlRegistrarCompra;
-
 /**
  *
  * @author victoria
  */
-public class FrmHistorialBoletos extends javax.swing.JFrame {
-     private final ControlRegistrarCompra control;
+public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
     
     /**
      * Creates new form FrmHistorialBoletos
      */
-    public FrmHistorialBoletos(ControlRegistrarCompra control) {
+    public FrmDetallesBoletoCompra() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.control = control;
     }
 
     /**
@@ -31,7 +27,8 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
         pnlResultadosBoletos = new javax.swing.JScrollPane();
         tblBoletos = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        btnVolverMenu = new javax.swing.JButton();
+        btnComprar = new javax.swing.JButton();
+        btnVolverMenu1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,15 +37,15 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Galvji", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(95, 84, 163));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Mis Boletos");
+        jLabel1.setText("Detalles del Boleto");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(500, 500, 500)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(300, 300, 300)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -60,63 +57,62 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         pnlResultadosBoletos.setBackground(new java.awt.Color(223, 218, 255));
-        pnlResultadosBoletos.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        pnlResultadosBoletos.setMaximumSize(new java.awt.Dimension(22767, 22767));
+        pnlResultadosBoletos.setPreferredSize(new java.awt.Dimension(400, 400));
 
         tblBoletos.setFont(new java.awt.Font("Galvji", 0, 24)); // NOI18N
         tblBoletos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código Boleto", "Nombre Evento", "Fecha Evento", "Recinto", "Fila", "Asiento", "Ciudad", "Estado", "Descripción", "Número Transacción", "FechaHora Compra", "Forma Compra", "Reventa"
+                "Evento", "Fecha", "Recinto", "Fila", "Asiento", "Ciudad", "Estado", "Precio"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         pnlResultadosBoletos.setViewportView(tblBoletos);
 
         jPanel1.add(pnlResultadosBoletos, java.awt.BorderLayout.CENTER);
 
         jPanel3.setBackground(new java.awt.Color(223, 218, 255));
 
-        btnVolverMenu.setBackground(new java.awt.Color(119, 118, 126));
-        btnVolverMenu.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnVolverMenu.setForeground(new java.awt.Color(255, 255, 255));
-        btnVolverMenu.setText("Regresar al menú");
+        btnComprar.setBackground(new java.awt.Color(95, 84, 163));
+        btnComprar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
+        btnComprar.setForeground(new java.awt.Color(255, 255, 255));
+        btnComprar.setText("Comprar");
+
+        btnVolverMenu1.setBackground(new java.awt.Color(119, 118, 126));
+        btnVolverMenu1.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
+        btnVolverMenu1.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolverMenu1.setText("Regresar al menú");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(600, 600, 600)
-                .addComponent(btnVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolverMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(492, 492, 492))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(401, 401, 401)
+                .addComponent(btnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(436, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(btnVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(btnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVolverMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
@@ -129,7 +125,8 @@ public class FrmHistorialBoletos extends javax.swing.JFrame {
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVolverMenu;
+    private javax.swing.JButton btnComprar;
+    private javax.swing.JButton btnVolverMenu1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
