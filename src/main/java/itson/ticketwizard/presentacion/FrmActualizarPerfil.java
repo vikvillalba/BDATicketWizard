@@ -2,10 +2,14 @@
 package itson.ticketwizard.presentacion;
 
 import itson.ticketwizard.control.ControlActualizarPerfil;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author victo
+ * @author victoria
  */
 public class FrmActualizarPerfil extends javax.swing.JFrame {
     private ControlActualizarPerfil control;
@@ -376,7 +380,37 @@ public class FrmActualizarPerfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+         // Recolectar datos del formulario
+        String correo = txtCorreo.getText();
+        String calle = txtCalle.getText();
+        String apellidoPat = txtApellidoPat.getText();
+        String numero = txtNumero.getText();
+        String apellidoMat = txtApellidoMat.getText();
+        String nombres = txtNombres.getText();
+        String colonia = txtColonia.getText();
+        String ciudad = txtCiudad.getText();
+        String nombreUsuario = txtNombreUsuario.getText();
+        String contrasena = txtContrasena.getText();
+        String codigoPostal = txtCodigoPostal.getText();
+        String fechaNacimientoStr = txtFechaNacimiento.getText();
+        String estado = cbxEstado.getSelectedItem().toString();
+
+        try {
+        // Convierte fecha de string a date
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        Date fechaNacimiento = sdf.parse(fechaNacimientoStr);
+
+        control.actualizarPerfil(
+            correo, apellidoPat, apellidoMat, nombres, fechaNacimiento,
+            nombreUsuario, contrasena, calle, numero, colonia, ciudad,
+            estado, codigoPostal
+        );
+        } catch (ParseException e) {
+        JOptionPane.showMessageDialog(this, "Formato de fecha invalido (dd/MM/yy).", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al actualizar el perfil: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
