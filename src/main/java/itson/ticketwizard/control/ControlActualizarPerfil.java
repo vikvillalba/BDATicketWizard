@@ -30,16 +30,16 @@ public class ControlActualizarPerfil {
         this.actualizarPerfil.setVisible(true);
     }
     
-    public void actualizarPerfil(NuevoUsuarioDTO usuarioActualizado, NuevoDomicilioUsuarioDTO domicilioActualizado){
-        boolean usuarioActualizadoExitosamente = usuariosDAO.registrarUsuario(usuarioActualizado) != null;
-        boolean domicilioActualizadoExitosamente = direccionesDAO.registrarDireccion(domicilioActualizado, usuarioActualizado) != null;  
-        
-        if(usuarioActualizadoExitosamente && domicilioActualizadoExitosamente){
-            mostrarMensajeExito();
-        } else {
-            mostrarMensajeError();
-        }
-    }
+//    public void actualizarPerfil(NuevoUsuarioDTO usuarioActualizado, NuevoDomicilioUsuarioDTO domicilioActualizado){
+//        boolean usuarioActualizadoExitosamente = usuariosDAO.registrarUsuario(usuarioActualizado) != null;
+//        boolean domicilioActualizadoExitosamente = direccionesDAO.registrarDireccion(domicilioActualizado, usuarioActualizado) != null;  
+//        
+//        if(usuarioActualizadoExitosamente && domicilioActualizadoExitosamente){
+//            mostrarMensajeExito();
+//        } else {
+//            mostrarMensajeError();
+//        }
+//    }
     
     private void mostrarMensajeExito(){
         JOptionPane.showMessageDialog(actualizarPerfil, "El perfil ha sido actualizado correctamente.", "Exito", JOptionPane.INFORMATION_MESSAGE);

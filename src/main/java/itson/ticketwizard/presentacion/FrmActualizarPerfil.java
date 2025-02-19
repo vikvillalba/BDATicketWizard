@@ -1,17 +1,21 @@
 
 package itson.ticketwizard.presentacion;
 
+import itson.ticketwizard.control.ControlActualizarPerfil;
+
 /**
  *
  * @author victo
  */
 public class FrmActualizarPerfil extends javax.swing.JFrame {
-
+    private ControlActualizarPerfil control;
     /**
      * Creates new form FrmCrearCuenta
+     * @param control
      */
-    public FrmActualizarPerfil() {
+    public FrmActualizarPerfil (ControlActualizarPerfil control) {
         initComponents();
+        this.control = control;
         this.setLocationRelativeTo(null);
     }
 

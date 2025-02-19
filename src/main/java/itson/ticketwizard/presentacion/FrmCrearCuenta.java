@@ -387,7 +387,6 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
 
         NuevoUsuarioDTO nuevoUsuarioDTO = new NuevoUsuarioDTO(nombres, apellidoPat, apellidoMat, fechaNacimiento, nombreUsuario, contrasena, correoElectronico);
 
-        // manda el DTO a la DAO
         
         // Obtener los datos del formulario para crear una nueva direccion
         String calle = txtCalle.getText();

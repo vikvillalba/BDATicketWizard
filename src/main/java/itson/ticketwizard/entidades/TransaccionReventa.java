@@ -12,22 +12,26 @@ public class TransaccionReventa extends Transaccion{
     private Integer codigoTransaccion;
     private Date fechaLimite;
     private float precioVenta;
+    private Integer codigoComprador;
 
     public TransaccionReventa() {
     }
 
-    public TransaccionReventa(Date fechaLimite, float precioVenta, Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, float monto, String numeroSerieBoleto) {
+    public TransaccionReventa(Date fechaLimite, float precioVenta, Integer codigoComprador, Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, float monto, String numeroSerieBoleto) {
         super(codigoTransaccion, codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
         this.fechaLimite = fechaLimite;
         this.precioVenta = precioVenta;
+        this.codigoComprador = codigoComprador;
     }
 
-    public TransaccionReventa(Integer codigoTransaccion, Date fechaLimite, float precioVenta, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, float monto, String numeroSerieBoleto) {
+    public TransaccionReventa(Date fechaLimite, float precioVenta, Integer codigoComprador, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, float monto, String numeroSerieBoleto) {
         super(codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
-        this.codigoTransaccion = codigoTransaccion;
         this.fechaLimite = fechaLimite;
         this.precioVenta = precioVenta;
+        this.codigoComprador = codigoComprador;
     }
+
+   
 
     public Integer getCodigoTransaccion() {
         return codigoTransaccion;
@@ -53,9 +57,17 @@ public class TransaccionReventa extends Transaccion{
         this.precioVenta = precioVenta;
     }
 
+    public Integer getCodigoComprador() {
+        return codigoComprador;
+    }
+
+    public void setCodigoComprador(Integer codigoComprador) {
+        this.codigoComprador = codigoComprador;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         hash = 67 * hash + Objects.hashCode(this.codigoTransaccion);
         return hash;
     }
@@ -77,9 +89,10 @@ public class TransaccionReventa extends Transaccion{
 
     @Override
     public String toString() {
-        return "TransaccionReventa{" + "codigoTransaccion=" + codigoTransaccion + ", fechaLimite=" + fechaLimite + ", precioVenta=" + precioVenta + '}';
+        return "TransaccionReventa{" + "codigoTransaccion=" + codigoTransaccion + ", fechaLimite=" + fechaLimite + ", precioVenta=" + precioVenta + ", codigoComprador=" + codigoComprador + '}';
     }
-    
+
+      
     
     
 }

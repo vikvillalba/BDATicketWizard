@@ -20,7 +20,7 @@ public class TicketWizard {
         UsuariosDAO usuariosDAO = new UsuariosDAO(manejadorConexiones);
         DireccionesDAO direccionesDAO = new DireccionesDAO(manejadorConexiones);
         ControlIniciarSesion control = new ControlIniciarSesion(usuariosDAO, direccionesDAO);
-        control.iniciarSesion();
+        control.iniciar();
 
     }
 }

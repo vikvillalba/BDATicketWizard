@@ -1,6 +1,7 @@
 package itson.ticketwizard.persistencia;
 
 import itson.ticketwizard.dtos.NuevoUsuarioDTO;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.entidades.Usuario;
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -96,4 +99,32 @@ public class UsuariosDAO { // almacena usuarios en la bd
         return false;
     }
 
+    // obtener usuarios existentes en la bd
+    public List<UsuarioRegistradoDTO> ObtenerCuentasExistentes() {
+        List<UsuarioRegistradoDTO> cuentasExistentes = new LinkedList<>();
+
+        String codigoSQL = """
+                           SELECT NOMBREUSUARIO, CONTRASENA
+                           FROM USUARIOS;
+                           """;
+
+        try {
+
+            Connection conexion = manejadorConexiones.crearConexion();
+            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+            ResultSet resultadosConsulta = comando.executeQuery();
+
+            while (resultadosConsulta.next()) {
+                String nombreUsuario = resultadosConsulta.getString("NOMBREUSUARIO");
+                String contrasena = resultadosConsulta.getString("CONTRASENA");
+
+                UsuarioRegistradoDTO usuarioRegistrado = new UsuarioRegistradoDTO(nombreUsuario, contrasena);
+                cuentasExistentes.add(usuarioRegistrado);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error al obtener las cuentas existentes." + ex.getMessage());
+        }
+        return cuentasExistentes;
+    }
 }

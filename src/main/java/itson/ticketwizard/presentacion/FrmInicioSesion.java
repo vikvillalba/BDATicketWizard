@@ -1,5 +1,6 @@
 package itson.ticketwizard.presentacion;
 import itson.ticketwizard.control.ControlIniciarSesion;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import javax.swing.JFrame;
 
 /**
@@ -128,7 +129,12 @@ public class FrmInicioSesion extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here:
+        // crear dto y enviarlo al control
+        String usuario = txtUsuario.getText();
+        String contrasenia = txtContrasenia.getText();
+        
+        UsuarioRegistradoDTO usuarioRegistradoDTO = new UsuarioRegistradoDTO(usuario, contrasenia);
+        this.controlInicioSesion.iniciarSesion(usuarioRegistradoDTO);
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
