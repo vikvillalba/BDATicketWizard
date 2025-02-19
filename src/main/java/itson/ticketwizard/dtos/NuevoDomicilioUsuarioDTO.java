@@ -5,7 +5,6 @@ package itson.ticketwizard.dtos;
  * @author victoria
  */
 public class NuevoDomicilioUsuarioDTO {
-    private final Integer codigoUsuario;
     private final String calle;
     private final String numero;
     private final String colonia;
@@ -13,8 +12,7 @@ public class NuevoDomicilioUsuarioDTO {
     private final String estado;
     private final Integer codigoPostal;
 
-    public NuevoDomicilioUsuarioDTO(Integer codigoUsuario, String calle, String numero, String colonia, String ciudad, String estado, Integer codigoPostal) {
-        this.codigoUsuario = codigoUsuario;
+    public NuevoDomicilioUsuarioDTO( String calle, String numero, String colonia, String ciudad, String estado, Integer codigoPostal) {
         this.calle = calle;
         this.numero = numero;
         this.colonia = colonia;
@@ -23,10 +21,6 @@ public class NuevoDomicilioUsuarioDTO {
         this.codigoPostal = codigoPostal;
     }
     
-
-    public int getCodigoUsuario() {
-        return codigoUsuario;
-    }
 
     public String getCalle() {
         return calle;
