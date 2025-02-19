@@ -1,17 +1,27 @@
 
 package itson.ticketwizard.presentacion;
+import itson.ticketwizard.control.ControlIniciarSesion;
+import itson.ticketwizard.dtos.NuevoDomicilioUsuarioDTO;
+import itson.ticketwizard.dtos.NuevoUsuarioDTO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author victo
  */
 public class FrmCrearCuenta extends javax.swing.JFrame {
-
+    private ControlIniciarSesion control;
+    
     /**
      * Creates new form FrmCrearCuenta
      */
-    public FrmCrearCuenta() {
+    public FrmCrearCuenta(ControlIniciarSesion control) {
         initComponents();
+        this.control = control;
         this.setLocationRelativeTo(null);
     }
 
@@ -248,11 +258,11 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(238, 238, 238)
-                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(75, 75, 75))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(241, 241, 241))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,7 +344,7 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
                         .addGap(11, 11, 11)
                         .addComponent(jLabel10))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(26, 26, 26)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -343,9 +353,7 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,7 +364,44 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // TODO add your handling code here:
+        // se crea un DTO para mandar al control
+        
+        // Obtener los datos del formulario para crear un nuevo usuario
+        String correoElectronico = txtCorreo.getText();
+        String apellidoPat = txtApellidoPat.getText();
+        String apellidoMat = txtApellidoMat.getText();
+        String nombres = txtNombres.getText();
+        String nombreUsuario = txtNombreUsuario.getText();
+        String contrasena = txtContrasena.getText();
+
+        // darle formato a la fecha
+        String fechaTexto = txtFechaNacimiento.getText();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaNacimiento = null;
+
+        try {
+            fechaNacimiento = sdf.parse(fechaTexto); // Convertir a Date
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmCrearCuenta.class.getName()).log(Level.SEVERE, "Error de formato en la fecha", ex);
+        }
+
+        NuevoUsuarioDTO nuevoUsuarioDTO = new NuevoUsuarioDTO(nombres, apellidoPat, apellidoMat, fechaNacimiento, nombreUsuario, contrasena, correoElectronico);
+
+        // manda el DTO a la DAO
+        
+        // Obtener los datos del formulario para crear una nueva direccion
+        String calle = txtCalle.getText();
+        String numero = txtNumero.getText();
+        String colonia = txtColonia.getText();
+        String ciudad = txtCiudad.getText();
+        String Estado = (String) cbxEstado.getSelectedItem();
+        Integer codigoPostal = Integer.valueOf(txtCodigoPostal.getText());
+        
+        // armar el DTO
+        NuevoDomicilioUsuarioDTO nuevoDomicilioDTO = new NuevoDomicilioUsuarioDTO(calle, numero, colonia, ciudad, Estado, codigoPostal);
+        
+        this.control.registrarUsuario(nuevoUsuarioDTO, nuevoDomicilioDTO);
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
 

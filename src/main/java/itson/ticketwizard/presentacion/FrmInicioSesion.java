@@ -7,15 +7,15 @@ import javax.swing.JFrame;
  * @author victoria
  */
 public class FrmInicioSesion extends JFrame {
-     private final ControlIniciarSesion control;
+     private final ControlIniciarSesion controlInicioSesion;
 
     /**
      * Creates new form FrmInicioSesion
      */
-    public FrmInicioSesion(ControlIniciarSesion control) {
+    public FrmInicioSesion(ControlIniciarSesion controlInicioSesion) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.control = control;
+        this.controlInicioSesion = controlInicioSesion;
     }
     
 
@@ -96,6 +96,11 @@ public class FrmInicioSesion extends JFrame {
         btnCrearCuenta.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnCrearCuenta.setForeground(new java.awt.Color(51, 0, 102));
         btnCrearCuenta.setText("Crear una cuenta");
+        btnCrearCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearCuentaActionPerformed(evt);
+            }
+        });
         pnl1.add(btnCrearCuenta);
         btnCrearCuenta.setBounds(540, 530, 190, 40);
 
@@ -125,6 +130,10 @@ public class FrmInicioSesion extends JFrame {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
+        this.controlInicioSesion.mostrarPantallaCrearCuenta();
+    }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
  
 
