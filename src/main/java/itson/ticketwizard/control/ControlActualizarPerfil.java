@@ -9,6 +9,7 @@ import itson.ticketwizard.dtos.NuevoUsuarioDTO;
 import itson.ticketwizard.presentacion.FrmActualizarPerfil;
 import itson.ticketwizard.persistencia.UsuariosDAO;
 import itson.ticketwizard.persistencia.DireccionesDAO;
+import java.util.Date;
 import javax.swing.JOptionPane;
 /**
  * Caso de uso de actualizar la informacion de un usuario.
@@ -40,6 +41,25 @@ public class ControlActualizarPerfil {
 //            mostrarMensajeError();
 //        }
 //    }
+    
+    public void actualizarPerfil(
+        String correo, 
+        String apellidoPaterno, 
+        String apellidoMaterno, 
+        String nombres,
+        Date fechaNacimiento,
+        String nombreUsuario,
+        String contrasena,
+        String calle,
+        String numero,
+        String colonia,
+        String ciudad,
+        String estado,
+        String codigoPostal
+    ){
+        
+        System.out.println("Actualizando perfil de: " + nombreUsuario);
+    }
     
     private void mostrarMensajeExito(){
         JOptionPane.showMessageDialog(actualizarPerfil, "El perfil ha sido actualizado correctamente.", "Exito", JOptionPane.INFORMATION_MESSAGE);
