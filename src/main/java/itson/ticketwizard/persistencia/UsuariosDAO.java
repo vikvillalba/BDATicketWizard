@@ -61,5 +61,39 @@ public class UsuariosDAO { // almacena usuarios en la bd
         }
         return null;
     }
+    
+    /**
+     * Actualiza la informacion de un usuario en la base de datos.
+     * @param usuarioActualizado datos actualizados del usuario.
+     * @return true si es exitosa, false si no.
+     */
+    
+    public boolean actualizarUsuario(NuevoUsuarioDTO usuarioActualizado) throws SQLException{
+        String sql = """
+                     UPDATE USUARIOS
+                     SET NOMBRES = ?, APELLIDOPATERNO= ?, APELLIDOMATERNO = ?,
+                     FECHANACIMIENTO = ?, CONTRASENA = ?, CORREOELECTRONICO = ?
+                     WHERE NOMBREUSUARIO = ?;
+                     """;
+        
+        try(Connection conexion = manejadorConexiones.crearConexion(); PreparedStatement comando = conexion.prepareStatement(sql)){
+            
+            comando.setString(1, usuarioActualizado.getNombres());
+            comando.setString(2, usuarioActualizado.getApellidoPaterno());
+            comando.setString(3, usuarioActualizado.getApellidoMaterno());
+            comando.setDate(4, new Date(usuarioActualizado.getFechaNacimiento().getTime()));
+            comando.setString(5, usuarioActualizado.getContrasenia());
+            comando.setString(6, usuarioActualizado.getCorreoElectronico());
+            comando.setString(7, usuarioActualizado.getNombreUsuario());
+            
+            int filasActualizadas = comando.executeUpdate();
+            //devuelve true si al menos 1 fila se actualizo
+            return filasActualizadas > 0;
+            
+        } catch (SQLException ex){
+            System.err.println("Error al actualizar usuario: " + ex.getMessage());
+        }
+        return false;
+    }
 
 }
