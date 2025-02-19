@@ -7,15 +7,13 @@ import itson.ticketwizard.control.ControlRegistrarCompra;
  * @author victoria
  */
 public class FrmHistorialReventas extends javax.swing.JFrame {
-     private final ControlRegistrarCompra control;
     
     /**
      * Creates new form FrmHistorialBoletos
      */
-    public FrmHistorialReventas(ControlRegistrarCompra control) {
+    public FrmHistorialReventas() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.control = control;
     }
 
     /**
