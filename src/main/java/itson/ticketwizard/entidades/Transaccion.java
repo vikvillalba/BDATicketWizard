@@ -11,13 +11,13 @@ public class Transaccion {
     private Integer codigoTransaccion;
     private Integer codigoUsuario;
     private LocalDateTime fechaHoraTransaccion;
-    private float monto;
+    private double monto;
     private String numeroSerieBoleto;
 
     public Transaccion() {
     }
 
-    public Transaccion(Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, float monto, String numeroSerieBoleto) {
+    public Transaccion(Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, double monto, String numeroSerieBoleto) {
         this.codigoTransaccion = codigoTransaccion;
         this.codigoUsuario = codigoUsuario;
         this.fechaHoraTransaccion = fechaHoraTransaccion;
@@ -25,7 +25,7 @@ public class Transaccion {
         this.numeroSerieBoleto = numeroSerieBoleto;
     }
 
-    public Transaccion(Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, float monto, String numeroSerieBoleto) {
+    public Transaccion(Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, double monto, String numeroSerieBoleto) {
         this.codigoUsuario = codigoUsuario;
         this.fechaHoraTransaccion = fechaHoraTransaccion;
         this.monto = monto;
@@ -56,7 +56,7 @@ public class Transaccion {
         this.fechaHoraTransaccion = fechaHoraTransaccion;
     }
 
-    public float getMonto() {
+    public double getMonto() {
         return monto;
     }
 

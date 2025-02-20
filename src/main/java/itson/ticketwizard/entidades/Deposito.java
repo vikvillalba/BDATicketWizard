@@ -10,20 +10,20 @@ import java.util.Objects;
 public class Deposito {
     private Integer codigoDeposito;
     private Integer codigoUsuario;
-    private float monto;
+    private double monto;
     private LocalDateTime fechaHora;
 
     public Deposito() {
     }
 
-    public Deposito(Integer codigoDeposito, Integer codigoUsuario, float monto, LocalDateTime fechaHora) {
+    public Deposito(Integer codigoDeposito, Integer codigoUsuario, double monto, LocalDateTime fechaHora) {
         this.codigoDeposito = codigoDeposito;
         this.codigoUsuario = codigoUsuario;
         this.monto = monto;
         this.fechaHora = fechaHora;
     }
 
-    public Deposito(Integer codigoUsuario, float monto, LocalDateTime fechaHora) {
+    public Deposito(Integer codigoUsuario, double monto, LocalDateTime fechaHora) {
         this.codigoUsuario = codigoUsuario;
         this.monto = monto;
         this.fechaHora = fechaHora;
@@ -45,7 +45,7 @@ public class Deposito {
         this.codigoUsuario = codigoUsuario;
     }
 
-    public float getMonto() {
+    public double getMonto() {
         return monto;
     }
 
