@@ -399,8 +399,17 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
         String Estado = (String) cbxEstado.getSelectedItem();
         Integer codigoPostal = Integer.valueOf(txtCodigoPostal.getText());
         
+        if (codigoPostal == null) {
+            JOptionPane.showMessageDialog(this, "El código postal no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            control.validarCodigoPostal(codigoPostal);
+        }
+
+
         // armar el DTO
         NuevoDomicilioUsuarioDTO nuevoDomicilioDTO = new NuevoDomicilioUsuarioDTO(calle, numero, colonia, ciudad, Estado, codigoPostal);
+      
+     
         
         this.control.registrarUsuario(nuevoUsuarioDTO, nuevoDomicilioDTO);
 

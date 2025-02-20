@@ -5,6 +5,7 @@ import itson.ticketwizard.entidades.DomicilioUsuario;
 import itson.ticketwizard.entidades.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -38,7 +39,21 @@ public class DireccionesDAO {
             comando.setInt(7, nuevoDomicilioDTO.getCodigoPostal());
             
             int filasAfectadas = comando.executeUpdate();
-            System.out.println("se registró el domicilio");
+        
+        if (filasAfectadas > 0) {
+            System.out.println("Se registró el domicilio correctamente.");
+            
+            // Retornar el objeto con los datos insertados
+            return new DomicilioUsuario(
+                usuario.getCodigoUsuario(),
+                nuevoDomicilioDTO.getCalle(),
+                nuevoDomicilioDTO.getNumero(),
+                nuevoDomicilioDTO.getColonia(),
+                nuevoDomicilioDTO.getCiudad(),
+                nuevoDomicilioDTO.getEstado(),
+                nuevoDomicilioDTO.getCodigoPostal()
+            );
+        }
             
         }catch(SQLException ex){
             

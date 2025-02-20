@@ -10,10 +10,9 @@ import itson.ticketwizard.persistencia.UsuariosDAO;
 import itson.ticketwizard.presentacion.FrmCrearCuenta;
 import itson.ticketwizard.presentacion.FrmInicioSesion;
 import itson.ticketwizard.presentacion.FrmMenuPrincipal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -32,7 +31,7 @@ public class ControlIniciarSesion {
     private FrmMenuPrincipal menuPrincipal;
     private UsuariosDAO usuariosDAO;
     private DireccionesDAO direccionesDAO;
-    
+
     private ControlMenuPrincipal controlMenuPrincipal;
 
     public ControlIniciarSesion(UsuariosDAO usuariosDAO, DireccionesDAO direccionesDAO) {
@@ -44,23 +43,22 @@ public class ControlIniciarSesion {
         this.controlMenuPrincipal = controlMenuPrincipal;
     }
 
-
     public void iniciar() {
         this.inicioSesion = new FrmInicioSesion(this);
         this.inicioSesion.setVisible(true);
 
     }
-    
-    public void mostrarPantallaCrearCuenta(){
+
+    public void mostrarPantallaCrearCuenta() {
         this.crearCuenta = new FrmCrearCuenta(this);
         this.crearCuenta.setVisible(true);
     }
 
     // hacer algo para validar q la fecha no sea null.
     public void registrarUsuario(NuevoUsuarioDTO nuevoUsuarioDTO, NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
-        if (!validarApellidoPaterno(nuevoUsuarioDTO)
-                || !validarApellidoMaterno(nuevoUsuarioDTO)
-                || !validarNombre(nuevoUsuarioDTO)
+        if (!validarTexto(nuevoUsuarioDTO.getNombres(), "nombres")
+                || !validarTexto(nuevoUsuarioDTO.getApellidoPaterno(), "apellido paterno")
+                || !validarTexto(nuevoUsuarioDTO.getApellidoMaterno(), "apellido materno")
                 || !validarNombreUsuario(nuevoUsuarioDTO)
                 || !validarContrasenia(nuevoUsuarioDTO)
                 || !validarCorreoElectronico(nuevoUsuarioDTO)) {
@@ -72,11 +70,11 @@ public class ControlIniciarSesion {
             return;
         }
 
-        if(!validarCalle(nuevoDomicilioDTO)
-                || !validarCiudad(nuevoDomicilioDTO)
-                || !validarColonia(nuevoDomicilioDTO)
+        if (!validarTexto(nuevoDomicilioDTO.getCalle(), "calle")
+                || !validarTexto(nuevoDomicilioDTO.getCiudad(), "ciudad")
+                || !validarTexto(nuevoDomicilioDTO.getColonia(),"colonia")
                 || !validarNumeroCasa(nuevoDomicilioDTO)
-                || !validarCodigoPostal(nuevoDomicilioDTO)){
+                || !validarCodigoPostal(nuevoDomicilioDTO.getCodigoPostal())) {
             return;
         }
         DomicilioUsuario domicilio = this.direccionesDAO.registrarDireccion(nuevoDomicilioDTO, usuario);
@@ -92,7 +90,7 @@ public class ControlIniciarSesion {
     private void mostrarMensajeUsuarioRegistrado() {
         JOptionPane.showMessageDialog(crearCuenta, "Se registró el usuario correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
     public void iniciarSesion(UsuarioRegistradoDTO usuarioRegistradoDTO) {
         List<UsuarioRegistradoDTO> cuentasExistentes = this.usuariosDAO.ObtenerCuentasExistentes();
 
@@ -114,56 +112,15 @@ public class ControlIniciarSesion {
         }
     }
 
-    private void mostrarMensajeInicioSesionExitoso(){
+    private void mostrarMensajeInicioSesionExitoso() {
         JOptionPane.showMessageDialog(inicioSesion, "Se inició sesión correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
     private void mostrarMensajeUsuarioNoExiste() {
         JOptionPane.showMessageDialog(inicioSesion, "El usuario no existe. Intente nuevamente o cree una cuenta.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    private boolean validarNombre(NuevoUsuarioDTO usuarioDTO) {
-        String nombre = usuarioDTO.getNombres().trim(); // Elimina espacios en blanco
-
-        if (nombre.isEmpty()) {
-            JOptionPane.showMessageDialog(crearCuenta, "No se pueden dejar campos vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (nombre.length() > 50) {
-            JOptionPane.showMessageDialog(crearCuenta, "El nombre ingresado sobrepasa el límite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        return true;
-    }
-    
-    private boolean validarApellidoPaterno(NuevoUsuarioDTO usuarioDTO){
-        String apellido = usuarioDTO.getApellidoPaterno().trim();
-         if (apellido.isEmpty()) {
-            JOptionPane.showMessageDialog(crearCuenta, "No se pueden dejar campos vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (apellido.length() > 50) {
-            JOptionPane.showMessageDialog(crearCuenta, "El apellido ingresado sobrepasa el límite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-
-    private boolean validarApellidoMaterno(NuevoUsuarioDTO usuarioDTO) {
-        String apellido = usuarioDTO.getApellidoPaterno().trim();
-        if (apellido.isEmpty()) {
-            JOptionPane.showMessageDialog(crearCuenta, "No se pueden dejar campos vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (apellido.length() > 50) {
-            JOptionPane.showMessageDialog(crearCuenta, "El apellido ingresado sobrepasa el límite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-    
-    private boolean validarNombreUsuario(NuevoUsuarioDTO usuarioDTO) {
+    public boolean validarNombreUsuario(NuevoUsuarioDTO usuarioDTO) {
         String nombreUsuario = usuarioDTO.getNombreUsuario().trim();
         List<UsuarioRegistradoDTO> cuentasExistentes = this.usuariosDAO.ObtenerCuentasExistentes();
 
@@ -188,8 +145,20 @@ public class ControlIniciarSesion {
 
         return true;
     }
-    
-    private boolean validarContrasenia(NuevoUsuarioDTO usuarioDTO) {
+
+    public boolean validarTexto(String texto, String campo) {
+        if (texto == null || texto.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(crearCuenta, "El campo " + campo + " no puede estar vacio.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (texto.length() > 50) {
+            JOptionPane.showMessageDialog(crearCuenta, "El campo " + campo + " sobrepasa el limite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validarContrasenia(NuevoUsuarioDTO usuarioDTO) {
         String contrasenia = usuarioDTO.getContrasenia().trim();
         if (contrasenia.isEmpty()) {
             JOptionPane.showMessageDialog(crearCuenta, "No se pueden dejar campos vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -201,34 +170,8 @@ public class ControlIniciarSesion {
         }
         return true;
     }
-    
-    private boolean validarCorreoElectronico(NuevoUsuarioDTO usuarioDTO) {
-        String correo = usuarioDTO.getCorreoElectronico().trim();
-        if (correo.isEmpty()) {
-            JOptionPane.showMessageDialog(crearCuenta, "No se pueden dejar campos vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (correo.length() > 100) {
-            JOptionPane.showMessageDialog(crearCuenta, "El apellido ingresado sobrepasa el límite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-        
-    private boolean validarCalle(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
-        String calle = nuevoDomicilioDTO.getCalle().trim();
-        if (calle.isEmpty()) {
-            JOptionPane.showMessageDialog(crearCuenta, "No se pueden dejar campos vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (calle.length() > 50) {
-            JOptionPane.showMessageDialog(crearCuenta, "La calle ingresada sobrepasa el límite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
 
-    private boolean validarNumeroCasa(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
+    public boolean validarNumeroCasa(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
         String numeroCasa = nuevoDomicilioDTO.getNumero().trim();
         if (numeroCasa.isEmpty()) {
             JOptionPane.showMessageDialog(crearCuenta, "No se pueden dejar campos vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -240,45 +183,50 @@ public class ControlIniciarSesion {
         }
         return true;
     }
-    
-    private boolean validarColonia(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
-        String colonia = nuevoDomicilioDTO.getColonia().trim();
-        if (colonia.isEmpty()) {
-            JOptionPane.showMessageDialog(crearCuenta, "No se pueden dejar campos vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
+
+    public boolean validarCodigoPostal(Integer codigoPostal) {
+        if (codigoPostal == null) {
+            JOptionPane.showMessageDialog(crearCuenta, "El código postal no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        if (colonia.length() > 50) {
-            JOptionPane.showMessageDialog(crearCuenta, "La colonia ingresada sobrepasa el límite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-    
-    private boolean validarCiudad(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
-        String ciudad = nuevoDomicilioDTO.getCiudad().trim();
-        if (ciudad.isEmpty()) {
-            JOptionPane.showMessageDialog(crearCuenta, "No se pueden dejar campos vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (ciudad.length() > 50) {
-            JOptionPane.showMessageDialog(crearCuenta, "La ciudad ingresada sobrepasa el límite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-    
-    private boolean validarCodigoPostal(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
-        Integer codigoPostal = nuevoDomicilioDTO.getCodigoPostal();
-    if (codigoPostal == null || codigoPostal <= 0) {
-        JOptionPane.showMessageDialog(crearCuenta, "El código postal no puede estar vacío o ser cero.", "Error", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-    if (codigoPostal < 10000 || codigoPostal > 99999) {
-        JOptionPane.showMessageDialog(crearCuenta, "El código postal ingresado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
-        return false;
+
+        // Verifica que tenga exactamente 5 dígitos
+        String regex = "^\\d{5}$";
+        return validarConExpresionRegular(String.valueOf(codigoPostal), regex, "El código postal ingresado no es válido.");
     }
 
-    return true;
+    private boolean validarConExpresionRegular(String valor, String regex, String mensajeError) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(valor);
+
+        if (!matcher.matches()) {
+            JOptionPane.showMessageDialog(crearCuenta, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
-    
+
+
+    public boolean validarCorreoElectronico(NuevoUsuarioDTO usuarioDTO) {
+        String correo = usuarioDTO.getCorreoElectronico();
+        if (correo == null || correo.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(crearCuenta, "El correo no puede estar vacio.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        /**
+         * [A-Za-z0-9+_.-]+ permite las letras de la a a la z, nums del 0-9 y caracteres especiales. [A-Za-z0-9.-]+ permite letras, nums, puntos y guiones en el dominio
+         */
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(correo);
+
+        //el correo tiene q cumplir con el formato correcto si no no lo cuenta como valido
+        if (!matcher.matches()) {
+            JOptionPane.showMessageDialog(crearCuenta, "El correo ingresado no es valido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+
 }
