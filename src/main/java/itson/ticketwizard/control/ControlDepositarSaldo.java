@@ -29,23 +29,24 @@ public class ControlDepositarSaldo {
         this.depositarSaldo.setVisible(true);
     }
     
-    public void realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO){
-       try{
-        if(validarDeposito(nuevoDepositoDTO)){
-           Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO);
-           if (deposito != null){
-               mostrarMensajeDepositoExitoso();
-               depositarSaldo.dispose();
-           }else{
-               mostrarMensajeErrorDeposito();
-           }
-       }else{
-           mostrarMensajeErrorValidacion();
-       }}catch(SQLException e){
-           mostrarMensajeErrorDeposito();
-       }
-    }
-    
+//    public void realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO){
+//       try{
+//        if(validarDeposito(nuevoDepositoDTO)){
+//            //tengo que mandar el codigo del usuario
+//           Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO);
+//           if (deposito != null){
+//               mostrarMensajeDepositoExitoso();
+//               depositarSaldo.dispose();
+//           }else{
+//               mostrarMensajeErrorDeposito();
+//           }
+//       }else{
+//           mostrarMensajeErrorValidacion();
+//       }}catch(SQLException e){
+//           mostrarMensajeErrorDeposito();
+//       }
+//    }
+//    
     public boolean validarDeposito(NuevoDepositoDTO nuevoDepositoDTO){
         if(nuevoDepositoDTO.getSaldo() <=0){
         return false;
