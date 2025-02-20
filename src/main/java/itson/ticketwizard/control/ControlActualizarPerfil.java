@@ -40,38 +40,25 @@ public class ControlActualizarPerfil {
 //        }
 //    }
     
-    public void actualizarPerfil(
-        String correo, 
-        String apellidoPaterno, 
-        String apellidoMaterno, 
-        String nombres,
-        Date fechaNacimiento,
-        String nombreUsuario,
-        String contrasena,
-        String calle,
-        String numero,
-        String colonia,
-        String ciudad,
-        String estado,
-        String codigoPostal
-            
-    //validaciones
-    ){if (!validarCorreoElectronico(correo) ||
-            !validarTexto(apellidoPaterno, "Apellido Paterno") ||
-            !validarTexto(apellidoMaterno, "Apellido Materno") ||
-            !validarTexto(nombres, "Nombres") ||
-            !validarTexto(nombreUsuario, "Nombre de usuario") ||
-            !validarTexto(contrasena, "Contraseña") ||
-            !validarTexto(calle, "Calle") ||
-            !validarTexto(numero, "Numero de casa") ||
-            !validarTexto(colonia, "Colonia") ||
-            !validarTexto(ciudad, "Ciudad") ||
-            !validarTexto(estado, "Estado") ||
-            !validarCodigoPostal(codigoPostal)) {
-            return;
-        }
-        
-        System.out.println("Actualizando perfil de: " + nombreUsuario);
+    public void actualizarPerfil(NuevoUsuarioDTO usuarioDTO, NuevoDomicilioUsuarioDTO domicilioDTO) {
+    if (!validarCorreoElectronico(usuarioDTO.getCorreoElectronico()) ||
+        !validarTexto(usuarioDTO.getApellidoPaterno(), "Apellido Paterno") ||
+        !validarTexto(usuarioDTO.getApellidoMaterno(), "Apellido Materno") ||
+        !validarTexto(usuarioDTO.getNombres(), "Nombres") ||
+        !validarTexto(usuarioDTO.getNombreUsuario(), "Nombre de usuario") ||
+        !validarTexto(usuarioDTO.getContrasenia(), "Contraseña") ||
+        !validarTexto(domicilioDTO.getCalle(), "Calle") ||
+        !validarTexto(domicilioDTO.getNumero(), "Numero de casa") ||
+        !validarTexto(domicilioDTO.getColonia(), "Colonia") ||
+        !validarTexto(domicilioDTO.getCiudad(), "Ciudad") ||
+        !validarTexto(domicilioDTO.getEstado(), "Estado") ||
+        !validarCodigoPostal(String.valueOf(domicilioDTO.getCodigoPostal()))) {
+        return;
+    }
+
+    System.out.println("Actualizando perfil de: " + usuarioDTO.getNombreUsuario());
+}
+
     }
     
     //hace que el correo no este vacio
