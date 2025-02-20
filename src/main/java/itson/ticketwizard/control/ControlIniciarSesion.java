@@ -97,10 +97,10 @@ public class ControlIniciarSesion {
         for (int i = 0; i < cuentasExistentes.size(); i++) {
             if (cuentasExistentes.get(i).getUsuario().equals(usuarioRegistradoDTO.getUsuario())) {
                 if (BCrypt.checkpw(usuarioRegistradoDTO.getContrasenia(), cuentasExistentes.get(i).getContrasenia())) {
-
-                    System.out.println("si");
+                    
+                    usuarioRegistradoDTO.setCodigoUsuario(cuentasExistentes.get(i).getCodigoUsuario());
                     this.mostrarMensajeInicioSesionExitoso();
-                    controlMenuPrincipal.mostrarMenuPrincipal();
+                    controlMenuPrincipal.mostrarMenuPrincipal(usuarioRegistradoDTO);
                     this.inicioSesion.dispose();
                     return;
                 }

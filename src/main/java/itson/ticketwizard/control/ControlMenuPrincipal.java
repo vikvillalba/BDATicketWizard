@@ -1,5 +1,6 @@
 package itson.ticketwizard.control;
 
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.presentacion.FrmMenuPrincipal;
 
 /** Controla el flujo para el menú principal
@@ -14,21 +15,31 @@ public class ControlMenuPrincipal {
     private final ControlActualizarPerfil controlActualizarPerfil;
     private final ControlRegistrarCompra controlComprarBoletos;
     private final ControlRegistrarReventa controlRevenderBoletos;
-    private final ControlDepositarSaldo controlDepositarSaldo;
+    private ControlDepositarSaldo controlDepositarSaldo;
+    private final ControlResultadosBusqueda controlResultadosBusqueda;
 
-    public ControlMenuPrincipal(ControlIniciarSesion controlInicioSesion, ControlActualizarPerfil controlActualizarPerfil, ControlRegistrarCompra controlComprarBoletos, ControlRegistrarReventa controlRevenderBoletos, ControlDepositarSaldo controlDepositarSaldo) {
+    public ControlMenuPrincipal(ControlIniciarSesion controlInicioSesion, ControlActualizarPerfil controlActualizarPerfil, ControlRegistrarCompra controlComprarBoletos, ControlRegistrarReventa controlRevenderBoletos, ControlDepositarSaldo controlDepositarSaldo, ControlResultadosBusqueda controlResultadosBusqueda) {
         this.controlInicioSesion = controlInicioSesion;
         this.controlActualizarPerfil = controlActualizarPerfil;
         this.controlComprarBoletos = controlComprarBoletos;
         this.controlRevenderBoletos = controlRevenderBoletos;
         this.controlDepositarSaldo = controlDepositarSaldo;
+        this.controlResultadosBusqueda = controlResultadosBusqueda;
+    }
+
+    public ControlMenuPrincipal(ControlIniciarSesion controlInicioSesion, ControlActualizarPerfil controlActualizarPerfil, ControlRegistrarCompra controlComprarBoletos, ControlRegistrarReventa controlRevenderBoletos, ControlResultadosBusqueda controlResultadosBusqueda) {
+        this.controlInicioSesion = controlInicioSesion;
+        this.controlActualizarPerfil = controlActualizarPerfil;
+        this.controlComprarBoletos = controlComprarBoletos;
+        this.controlRevenderBoletos = controlRevenderBoletos;
+        this.controlResultadosBusqueda = controlResultadosBusqueda;
     }
 
 
     
     
-    public void mostrarMenuPrincipal(){
-        this.menuPrincipal = new FrmMenuPrincipal(this);
+    public void mostrarMenuPrincipal(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        this.menuPrincipal = new FrmMenuPrincipal(this, usuarioRegistradoDTO);
         this.menuPrincipal.setVisible(true);
     }
     
@@ -42,7 +53,7 @@ public class ControlMenuPrincipal {
     }
     
     public void mostrarCatalogoBoletos(){
-        controlComprarBoletos.mostrarCatalogoBoletos();
+//        controlComprarBoletos.mostrarCatalogoBoletos();
     }
     
     public void mostrarHistorialCompras(){
@@ -63,5 +74,9 @@ public class ControlMenuPrincipal {
     
     public void mostrarDepositoSaldo(){
         controlDepositarSaldo.mostrarDepositoSaldo();
+    }
+    
+    public void mostrarResultadosBusqueda(){
+        controlResultadosBusqueda.mostrarResultadosBusqueda();
     }
 }

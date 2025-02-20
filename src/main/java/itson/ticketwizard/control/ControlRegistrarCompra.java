@@ -19,10 +19,6 @@ public class ControlRegistrarCompra {
         this.boletosDAO = boletosDAO;
     }
     
-    public void mostrarCatalogoBoletos(){
-        this.catalogoBoletos = new FrmResultadosBusqueda(this);
-        this.catalogoBoletos.setVisible(true);
-    }
     
     public void mostrarHistorialCompras(){
         this.historialCompras = new FrmHistorialCompras(this);

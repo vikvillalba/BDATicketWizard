@@ -61,15 +61,15 @@ public class ControlActualizarPerfil {
         //si ambos son exitosos muestra mensaje de exito, si falla muestra mensaje de error.
         
         boolean usuarioActualizado = usuariosDAO.registrarUsuario(usuarioDTO) != null;
-        boolean domicilioRegistrado = direccionesDAO.registrarDireccion(domicilioDTO, usuarioDTO) != null;
-        
-        if (usuarioActualizado && domicilioRegistrado) {
-            mostrarMensajeExito();
-        } else {
-            mostrarMensajeError();
-        }
+////        boolean domicilioRegistrado = direccionesDAO.registrarDireccion(domicilioDTO, usuarioDTO) != null;
+//        
+//        if (usuarioActualizado && domicilioRegistrado) {
+//            mostrarMensajeExito();
+//        } else {
+//            mostrarMensajeError();
+//        }
     }
-    
+//    
     /**
      * Valida que el correo electrónico tenga el formato correcto.
      * @param correo El correo a validar.
