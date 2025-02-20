@@ -14,6 +14,12 @@ import javax.swing.JOptionPane;
  * Modifica informacion personal y el domicilio.
  * @author victoria
  */
+
+/**
+ * Caso de uso de actualizar la información de un usuario.
+ * Modifica información personal y el domicilio.
+ * @author victoria
+ */
 public class ControlActualizarPerfil {
     private FrmActualizarPerfil actualizarPerfil;
     private UsuariosDAO usuariosDAO;
@@ -29,90 +35,87 @@ public class ControlActualizarPerfil {
         this.actualizarPerfil.setVisible(true);
     }
     
-//    public void actualizarPerfil(NuevoUsuarioDTO usuarioActualizado, NuevoDomicilioUsuarioDTO domicilioActualizado){
-//        boolean usuarioActualizadoExitosamente = usuariosDAO.registrarUsuario(usuarioActualizado) != null;
-//        boolean domicilioActualizadoExitosamente = direccionesDAO.registrarDireccion(domicilioActualizado, usuarioActualizado) != null;  
-//        
-//        if(usuarioActualizadoExitosamente && domicilioActualizadoExitosamente){
-//            mostrarMensajeExito();
-//        } else {
-//            mostrarMensajeError();
-//        }
-//    }
-    
+    /**
+     * Método para actualizar el perfil de un usuario con su información personal y domicilio.
+     * @param usuarioDTO Contiene la información personal del usuario.
+     * @param domicilioDTO Contiene la información del domicilio del usuario.
+     */
     public void actualizarPerfil(NuevoUsuarioDTO usuarioDTO, NuevoDomicilioUsuarioDTO domicilioDTO) {
-    if (!validarCorreoElectronico(usuarioDTO.getCorreoElectronico()) ||
-        !validarTexto(usuarioDTO.getApellidoPaterno(), "Apellido Paterno") ||
-        !validarTexto(usuarioDTO.getApellidoMaterno(), "Apellido Materno") ||
-        !validarTexto(usuarioDTO.getNombres(), "Nombres") ||
-        !validarTexto(usuarioDTO.getNombreUsuario(), "Nombre de usuario") ||
-        !validarTexto(usuarioDTO.getContrasenia(), "Contraseña") ||
-        !validarTexto(domicilioDTO.getCalle(), "Calle") ||
-        !validarTexto(domicilioDTO.getNumero(), "Numero de casa") ||
-        !validarTexto(domicilioDTO.getColonia(), "Colonia") ||
-        !validarTexto(domicilioDTO.getCiudad(), "Ciudad") ||
-        !validarTexto(domicilioDTO.getEstado(), "Estado") ||
-        !validarCodigoPostal(String.valueOf(domicilioDTO.getCodigoPostal()))) {
-        return;
-    }
-
-    System.out.println("Actualizando perfil de: " + usuarioDTO.getNombreUsuario());
-}
-
+        if (!validarCorreoElectronico(usuarioDTO.getCorreoElectronico()) ||
+            !validarTexto(usuarioDTO.getApellidoPaterno(), "Apellido Paterno") ||
+            !validarTexto(usuarioDTO.getApellidoMaterno(), "Apellido Materno") ||
+            !validarTexto(usuarioDTO.getNombres(), "Nombres") ||
+            !validarTexto(usuarioDTO.getNombreUsuario(), "Nombre de usuario") ||
+            !validarTexto(usuarioDTO.getContrasenia(), "Contraseña") ||
+            !validarTexto(domicilioDTO.getCalle(), "Calle") ||
+            !validarTexto(domicilioDTO.getNumero(), "Número de casa") ||
+            !validarTexto(domicilioDTO.getColonia(), "Colonia") ||
+            !validarTexto(domicilioDTO.getCiudad(), "Ciudad") ||
+            !validarTexto(domicilioDTO.getEstado(), "Estado") ||
+            !validarCodigoPostal(String.valueOf(domicilioDTO.getCodigoPostal()))) {
+            return;
+        }
+        System.out.println("Actualizando perfil de: " + usuarioDTO.getNombreUsuario());
     }
     
-    //hace que el correo no este vacio
+    /**
+     * Valida que el correo electrónico tenga el formato correcto.
+     * @param correo El correo a validar.
+     * @return true si el correo es válido, false en caso contrario.
+     */
     private boolean validarCorreoElectronico(String correo) {
         if (correo == null || correo.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(actualizarPerfil, "El correo no puede estar vacio.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(actualizarPerfil, "El correo no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        /**
-         * [A-Za-z0-9+_.-]+ permite las letras de la a a la z, nums del 0-9 y caracteres especiales.
-         * [A-Za-z0-9.-]+ permite letras, nums, puntos y guiones en el dominio
-         */
+        // Expresión regular para validar el formato de un correo electrónico
         String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(correo);
-        
-        //el correo tiene q cumplir con el formato correcto si no no lo cuenta como valido
-        if (!matcher.matches()) {
-            JOptionPane.showMessageDialog(actualizarPerfil, "El correo ingresado no es valido.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
+        return validarConExpresionRegular(correo, regex, "El correo ingresado no es válido.");
     }
     
-    //valida q no este vacio y que no se pase de caracteres
-    //el texto es el q se valida
+    /**
+     * Valida que un campo de texto no esté vacío y no exceda el límite de caracteres.
+     * @param texto El texto a validar.
+     * @param campo El nombre del campo para mostrar en el mensaje de error.
+     * @return true si el texto es válido, false en caso contrario.
+     */
     private boolean validarTexto(String texto, String campo) {
         if (texto == null || texto.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(actualizarPerfil, "El campo " + campo + " no puede estar vacio.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(actualizarPerfil, "El campo " + campo + " no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (texto.length() > 50) {
-            JOptionPane.showMessageDialog(actualizarPerfil, "El campo " + campo + " sobrepasa el limite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(actualizarPerfil, "El campo " + campo + " sobrepasa el límite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
     }
-    //valida que el cp sea de 5 digitos nmericos
-     private boolean validarCodigoPostal(String codigoPostal) {
+    
+    /**
+     * Valida que el código postal sea un número de exactamente 5 dígitos.
+     * @param codigoPostal El código postal a validar.
+     * @return true si es válido, false en caso contrario.
+     */
+    private boolean validarCodigoPostal(String codigoPostal) {
         if (codigoPostal == null || codigoPostal.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(actualizarPerfil, "El codigo postal no puede estar vacio.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(actualizarPerfil, "El código postal no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        
-        //hace q sean exactamente 5 digitos
+        // Expresión regular para validar un código postal de 5 dígitos
         String regex = "^\\d{5}$";
-        return validarConExpresionRegular(codigoPostal, regex, "El codigo postal ingresado no es valido.");
+        return validarConExpresionRegular(codigoPostal, regex, "El código postal ingresado no es válido.");
     }
-     
-     //crea patron de busqueda y se compila, luego se comprueba con el matcher para comparar el string valor
-     private boolean validarConExpresionRegular(String valor, String regex, String mensajeError) {
+    
+    /**
+     * Valida que un valor cumpla con una expresión regular.
+     * @param valor El valor a validar.
+     * @param regex La expresión regular a aplicar.
+     * @param mensajeError Mensaje de error si la validación falla.
+     * @return true si el valor es válido, false en caso contrario.
+     */
+    private boolean validarConExpresionRegular(String valor, String regex, String mensajeError) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(valor);
-        
         if (!matcher.matches()) {
             JOptionPane.showMessageDialog(actualizarPerfil, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -120,13 +123,17 @@ public class ControlActualizarPerfil {
         return true;
     }
     
+    /**
+     * Muestra un mensaje de éxito al actualizar el perfil.
+     */
     private void mostrarMensajeExito(){
-        JOptionPane.showMessageDialog(actualizarPerfil, "El perfil ha sido actualizado correctamente.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(actualizarPerfil, "El perfil ha sido actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
     
+    /**
+     * Muestra un mensaje de error si no se pudo actualizar el perfil.
+     */
     private void mostrarMensajeError(){
         JOptionPane.showMessageDialog(actualizarPerfil, "No se ha podido actualizar el perfil.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-
-       
