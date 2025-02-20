@@ -127,7 +127,7 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
         try{
             Float montoFloat = Float.valueOf(monto);
             NuevoDepositoDTO nuevoDepositoDTO = new NuevoDepositoDTO(montoFloat);
-            this.controlDepositarSaldo.realizarDeposito(nuevoDepositoDTO);
+            //this.controlDepositarSaldo.realizarDeposito(nuevoDepositoDTO);
         }catch(NumberFormatException e){
              JOptionPane.showMessageDialog(this, "Por favor ingrese un monto válido.", "Error", JOptionPane.ERROR_MESSAGE);
         }
