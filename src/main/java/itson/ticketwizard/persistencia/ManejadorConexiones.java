@@ -12,7 +12,7 @@ public class ManejadorConexiones {
     
     private final String cadenaConexion = "jdbc:mysql://localhost:3306/ticketWizard_10am";
     private final String usuario = "root";
-    private final String contrasena = "luna3008";
+    private final String contrasena = "56945Apo";
     
     public Connection crearConexion() throws SQLException {
         Connection conexion = DriverManager.getConnection(cadenaConexion, usuario, contrasena);
