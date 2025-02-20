@@ -404,6 +404,7 @@ public class FrmActualizarPerfil extends javax.swing.JFrame {
         // Convierte fecha de string a date
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         Date fechaNacimiento = sdf.parse(fechaNacimientoStr);
+        sdf.setLenient(false);
 
         control.actualizarPerfil(
             correo, apellidoPat, apellidoMat, nombres, fechaNacimiento,

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -380,9 +381,11 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
         Date fechaNacimiento = null;
 
         try {
-            fechaNacimiento = sdf.parse(fechaTexto); // Convertir a Date
+            fechaNacimiento = sdf.parse(fechaTexto);
+            sdf.setLenient(false); // Convertir a Date
         } catch (ParseException ex) {
             Logger.getLogger(FrmCrearCuenta.class.getName()).log(Level.SEVERE, "Error de formato en la fecha", ex);
+            JOptionPane.showMessageDialog(null, "Formato de fecha inválido. Use dd/MM/yyyy.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         NuevoUsuarioDTO nuevoUsuarioDTO = new NuevoUsuarioDTO(nombres, apellidoPat, apellidoMat, fechaNacimiento, nombreUsuario, contrasena, correoElectronico);
@@ -448,4 +451,7 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
     private javax.swing.JTextPane txtNombres;
     private javax.swing.JTextPane txtNumero;
     // End of variables declaration//GEN-END:variables
+
+
+
 }
