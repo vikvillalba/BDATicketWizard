@@ -56,7 +56,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="236" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButton1" min="-2" pref="217" max="-2" attributes="0"/>
+                              <Component id="btnRealizarDeposito" min="-2" pref="217" max="-2" attributes="0"/>
                               <Component id="txtSaldo" min="-2" pref="234" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -79,7 +79,7 @@
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Component id="txtSaldo" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="btnRealizarDeposito" min="-2" pref="41" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton2" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace pref="66" max="32767" attributes="0"/>
@@ -112,7 +112,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtSaldo">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnRealizarDeposito">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="a3" green="54" red="5f" type="rgb"/>
@@ -125,6 +125,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Realizar dep&#xf3;sito"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRealizarDepositoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
