@@ -13,12 +13,12 @@ public class TransaccionCompra extends Transaccion {
     public TransaccionCompra() {
     }
 
-    public TransaccionCompra(Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, float monto, String numeroSerieBoleto) {
+    public TransaccionCompra(Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, double monto, String numeroSerieBoleto) {
         super(codigoTransaccion, codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
         this.codigoTransaccion = codigoTransaccion;
     }
 
-    public TransaccionCompra(Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, float monto, String numeroSerieBoleto) {
+    public TransaccionCompra(Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, double monto, String numeroSerieBoleto) {
         super(codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
     }
 

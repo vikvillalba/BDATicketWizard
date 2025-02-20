@@ -14,11 +14,12 @@ public class Boleto {
     private Integer codigoEvento;
     private Integer codigoUsuario;
     private Integer estadoReventa;
+    private double precio;
 
     public Boleto() {
     }
 
-    public Boleto(Integer codigoBoleto, String numeroSerie, String fila, String asiento, Integer codigoEvento, Integer codigoUsuario, Integer estadoReventa) {
+    public Boleto(Integer codigoBoleto, String numeroSerie, String fila, String asiento, Integer codigoEvento, Integer codigoUsuario, Integer estadoReventa, double precio) {
         this.codigoBoleto = codigoBoleto;
         this.numeroSerie = numeroSerie;
         this.fila = fila;
@@ -26,16 +27,20 @@ public class Boleto {
         this.codigoEvento = codigoEvento;
         this.codigoUsuario = codigoUsuario;
         this.estadoReventa = estadoReventa;
+        this.precio = precio;
     }
 
-    public Boleto(String numeroSerie, String fila, String asiento, Integer codigoEvento, Integer codigoUsuario, Integer estadoReventa) {
+    public Boleto(String numeroSerie, String fila, String asiento, Integer codigoEvento, Integer codigoUsuario, Integer estadoReventa, double precio) {
         this.numeroSerie = numeroSerie;
         this.fila = fila;
         this.asiento = asiento;
         this.codigoEvento = codigoEvento;
         this.codigoUsuario = codigoUsuario;
         this.estadoReventa = estadoReventa;
+        this.precio = precio;
     }
+
+    
     
     
 
@@ -95,10 +100,18 @@ public class Boleto {
         this.estadoReventa = estadoReventa;
     }
 
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.codigoBoleto);
+        hash = 89 * hash + Objects.hashCode(this.codigoBoleto);
         return hash;
     }
 
@@ -119,8 +132,10 @@ public class Boleto {
 
     @Override
     public String toString() {
-        return "Boleto{" + "codigoBoleto=" + codigoBoleto + ", numeroSerie=" + numeroSerie + ", fila=" + fila + ", asiento=" + asiento + ", codigoEvento=" + codigoEvento + ", codigoUsuario=" + codigoUsuario + ", estadoReventa=" + estadoReventa + '}';
+        return "Boleto{" + "codigoBoleto=" + codigoBoleto + ", numeroSerie=" + numeroSerie + ", fila=" + fila + ", asiento=" + asiento + ", codigoEvento=" + codigoEvento + ", codigoUsuario=" + codigoUsuario + ", estadoReventa=" + estadoReventa + ", precio=" + precio + '}';
     }
+    
+
     
     
 }

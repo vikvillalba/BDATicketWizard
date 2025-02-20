@@ -11,20 +11,20 @@ import java.util.Objects;
 public class TransaccionReventa extends Transaccion{
     private Integer codigoTransaccion;
     private Date fechaLimite;
-    private float precioVenta;
+    private double precioVenta;
     private Integer codigoComprador;
 
     public TransaccionReventa() {
     }
 
-    public TransaccionReventa(Date fechaLimite, float precioVenta, Integer codigoComprador, Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, float monto, String numeroSerieBoleto) {
+    public TransaccionReventa(Date fechaLimite, float precioVenta, Integer codigoComprador, Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, double monto, String numeroSerieBoleto) {
         super(codigoTransaccion, codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
         this.fechaLimite = fechaLimite;
         this.precioVenta = precioVenta;
         this.codigoComprador = codigoComprador;
     }
 
-    public TransaccionReventa(Date fechaLimite, float precioVenta, Integer codigoComprador, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, float monto, String numeroSerieBoleto) {
+    public TransaccionReventa(Date fechaLimite, float precioVenta, Integer codigoComprador, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, double monto, String numeroSerieBoleto) {
         super(codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
         this.fechaLimite = fechaLimite;
         this.precioVenta = precioVenta;
@@ -49,11 +49,11 @@ public class TransaccionReventa extends Transaccion{
         this.fechaLimite = fechaLimite;
     }
 
-    public float getPrecioVenta() {
+    public double getPrecioVenta() {
         return precioVenta;
     }
 
-    public void setPrecioVenta(float precioVenta) {
+    public void setPrecioVenta(double precioVenta) {
         this.precioVenta = precioVenta;
     }
 
