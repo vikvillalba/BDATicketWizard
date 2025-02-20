@@ -12,6 +12,7 @@ import itson.ticketwizard.presentacion.FrmInicioSesion;
 import itson.ticketwizard.presentacion.FrmMenuPrincipal;
 import java.util.List;
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * Controla el flujo para el caso de uso de inicio de sesión. Corresponde al inicio del sistema.
@@ -28,13 +29,18 @@ public class ControlIniciarSesion {
     private FrmMenuPrincipal menuPrincipal;
     private UsuariosDAO usuariosDAO;
     private DireccionesDAO direccionesDAO;
+    
+    private ControlMenuPrincipal controlMenuPrincipal;
 
     public ControlIniciarSesion(UsuariosDAO usuariosDAO, DireccionesDAO direccionesDAO) {
         this.usuariosDAO = usuariosDAO;
         this.direccionesDAO = direccionesDAO;
     }
 
-    
+    public void setControlMenuPrincipal(ControlMenuPrincipal controlMenuPrincipal) {
+        this.controlMenuPrincipal = controlMenuPrincipal;
+    }
+
 
     public void iniciar() {
         this.inicioSesion = new FrmInicioSesion(this);
@@ -60,32 +66,33 @@ public class ControlIniciarSesion {
         JOptionPane.showMessageDialog(crearCuenta, "Se registró el usuario correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public void iniciarSesion(UsuarioRegistradoDTO usuarioRegistradoDTO){
+    public void iniciarSesion(UsuarioRegistradoDTO usuarioRegistradoDTO) {
         List<UsuarioRegistradoDTO> cuentasExistentes = this.usuariosDAO.ObtenerCuentasExistentes();
-        
-        for(int i = 0; i<cuentasExistentes.size(); i++){
-            if(cuentasExistentes.get(i).getUsuario().equals(usuarioRegistradoDTO.getUsuario())){
-                System.out.println("si");
-                this.mostrarMensajeInicioSesionExitoso();
-                
-                this.menuPrincipal = new FrmMenuPrincipal();
-                this.menuPrincipal.setVisible(true);
-                this.inicioSesion.dispose();
-                return;
-            }
-            else{
+
+        for (int i = 0; i < cuentasExistentes.size(); i++) {
+            if (cuentasExistentes.get(i).getUsuario().equals(usuarioRegistradoDTO.getUsuario())) {
+                if (BCrypt.checkpw(usuarioRegistradoDTO.getContrasenia(), cuentasExistentes.get(i).getContrasenia())) {
+
+                    System.out.println("si");
+                    this.mostrarMensajeInicioSesionExitoso();
+                    controlMenuPrincipal.mostrarMenuPrincipal();
+                    this.inicioSesion.dispose();
+                    return;
+                }
+
+            } else {
                 System.out.println("no");
                 this.mostrarMensajeUsuarioNoExiste();
             }
         }
     }
-    
+
     private void mostrarMensajeInicioSesionExitoso(){
         JOptionPane.showMessageDialog(inicioSesion, "Se inició sesión correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
     
     private void mostrarMensajeUsuarioNoExiste(){
-        JOptionPane.showMessageDialog(inicioSesion, "El usuario no existe. Intente nuevamente o cree una cuenta.", "Información", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(inicioSesion, "El usuario no existe. Intente nuevamente o cree una cuenta.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
 
