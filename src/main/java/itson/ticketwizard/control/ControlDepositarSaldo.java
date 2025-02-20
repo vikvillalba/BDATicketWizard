@@ -32,7 +32,7 @@ public class ControlDepositarSaldo {
     public void realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO){
        try{
         if(validarDeposito(nuevoDepositoDTO)){
-           Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO, usuarioSesion.getCodigoUsuario());
+           Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO);
            if (deposito != null){
                mostrarMensajeDepositoExitoso();
                depositarSaldo.dispose();
