@@ -1,21 +1,23 @@
 package itson.ticketwizard.presentacion;
 
 import itson.ticketwizard.control.ControlDepositarSaldo;
+import itson.ticketwizard.dtos.NuevoDepositoDTO;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author victoria
  */
 public class FrmDepositoSaldo extends javax.swing.JFrame {
-    private final ControlDepositarSaldo control;
+    private final ControlDepositarSaldo controlDepositarSaldo;
 
     /**
      * Creates new form FrmDepositoSaldo
      */
-    public FrmDepositoSaldo(ControlDepositarSaldo control) {
+    public FrmDepositoSaldo(ControlDepositarSaldo controlDepositarSaldo) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.control = control;
+        this.controlDepositarSaldo = controlDepositarSaldo;
     }
 
     /**
@@ -29,7 +31,7 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtSaldo = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnRealizarDeposito = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -44,10 +46,15 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Depósito de Saldo");
 
-        jButton1.setBackground(new java.awt.Color(95, 84, 163));
-        jButton1.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Realizar depósito");
+        btnRealizarDeposito.setBackground(new java.awt.Color(95, 84, 163));
+        btnRealizarDeposito.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
+        btnRealizarDeposito.setForeground(new java.awt.Color(255, 255, 255));
+        btnRealizarDeposito.setText("Realizar depósito");
+        btnRealizarDeposito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRealizarDepositoActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(119, 118, 126));
         jButton2.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
@@ -74,7 +81,7 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(236, 236, 236)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRealizarDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(274, 274, 274)
@@ -91,7 +98,7 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRealizarDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(66, Short.MAX_VALUE))
@@ -115,9 +122,20 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnRealizarDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarDepositoActionPerformed
+        String monto = txtSaldo.getText();
+        try{
+            Float montoFloat = Float.valueOf(monto);
+            NuevoDepositoDTO nuevoDepositoDTO = new NuevoDepositoDTO(montoFloat);
+            this.controlDepositarSaldo.realizarDeposito(nuevoDepositoDTO);
+        }catch(NumberFormatException e){
+             JOptionPane.showMessageDialog(this, "Por favor ingrese un monto válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRealizarDepositoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnRealizarDeposito;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
