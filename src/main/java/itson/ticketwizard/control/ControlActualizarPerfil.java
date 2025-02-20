@@ -6,6 +6,8 @@ import itson.ticketwizard.presentacion.FrmActualizarPerfil;
 import itson.ticketwizard.persistencia.UsuariosDAO;
 import itson.ticketwizard.persistencia.DireccionesDAO;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 /**
  * Caso de uso de actualizar la informacion de un usuario.
@@ -52,9 +54,83 @@ public class ControlActualizarPerfil {
         String ciudad,
         String estado,
         String codigoPostal
-    ){
+            
+    //validaciones
+    ){if (!validarCorreoElectronico(correo) ||
+            !validarTexto(apellidoPaterno, "Apellido Paterno") ||
+            !validarTexto(apellidoMaterno, "Apellido Materno") ||
+            !validarTexto(nombres, "Nombres") ||
+            !validarTexto(nombreUsuario, "Nombre de usuario") ||
+            !validarTexto(contrasena, "Contraseña") ||
+            !validarTexto(calle, "Calle") ||
+            !validarTexto(numero, "Numero de casa") ||
+            !validarTexto(colonia, "Colonia") ||
+            !validarTexto(ciudad, "Ciudad") ||
+            !validarTexto(estado, "Estado") ||
+            !validarCodigoPostal(codigoPostal)) {
+            return;
+        }
         
         System.out.println("Actualizando perfil de: " + nombreUsuario);
+    }
+    
+    //hace que el correo no este vacio
+    private boolean validarCorreoElectronico(String correo) {
+        if (correo == null || correo.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(actualizarPerfil, "El correo no puede estar vacio.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        /**
+         * [A-Za-z0-9+_.-]+ permite las letras de la a a la z, nums del 0-9 y caracteres especiales.
+         * [A-Za-z0-9.-]+ permite letras, nums, puntos y guiones en el dominio
+         */
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(correo);
+        
+        //el correo tiene q cumplir con el formato correcto si no no lo cuenta como valido
+        if (!matcher.matches()) {
+            JOptionPane.showMessageDialog(actualizarPerfil, "El correo ingresado no es valido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
+    //valida q no este vacio y que no se pase de caracteres
+    //el texto es el q se valida
+    private boolean validarTexto(String texto, String campo) {
+        if (texto == null || texto.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(actualizarPerfil, "El campo " + campo + " no puede estar vacio.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (texto.length() > 50) {
+            JOptionPane.showMessageDialog(actualizarPerfil, "El campo " + campo + " sobrepasa el limite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    //valida que el cp sea de 5 digitos nmericos
+     private boolean validarCodigoPostal(String codigoPostal) {
+        if (codigoPostal == null || codigoPostal.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(actualizarPerfil, "El codigo postal no puede estar vacio.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        //hace q sean exactamente 5 digitos
+        String regex = "^\\d{5}$";
+        return validarConExpresionRegular(codigoPostal, regex, "El codigo postal ingresado no es valido.");
+    }
+     
+     //crea patron de busqueda y se compila, luego se comprueba con el matcher para comparar el string valor
+     private boolean validarConExpresionRegular(String valor, String regex, String mensajeError) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(valor);
+        
+        if (!matcher.matches()) {
+            JOptionPane.showMessageDialog(actualizarPerfil, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
     
     private void mostrarMensajeExito(){
@@ -63,7 +139,7 @@ public class ControlActualizarPerfil {
     
     private void mostrarMensajeError(){
         JOptionPane.showMessageDialog(actualizarPerfil, "No se ha podido actualizar el perfil.", "Error", JOptionPane.ERROR_MESSAGE);
-    
+    }
 }
-    
-}
+
+       
