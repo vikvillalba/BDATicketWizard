@@ -2,6 +2,8 @@
 package itson.ticketwizard.presentacion;
 
 import itson.ticketwizard.control.ControlActualizarPerfil;
+import itson.ticketwizard.dtos.NuevoDomicilioUsuarioDTO;
+import itson.ticketwizard.dtos.NuevoUsuarioDTO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -406,11 +408,18 @@ public class FrmActualizarPerfil extends javax.swing.JFrame {
         Date fechaNacimiento = sdf.parse(fechaNacimientoStr);
         sdf.setLenient(false);
 
-        control.actualizarPerfil(
-            correo, apellidoPat, apellidoMat, nombres, fechaNacimiento,
-            nombreUsuario, contrasena, calle, numero, colonia, ciudad,
-            estado, codigoPostal
+        NuevoUsuarioDTO usuarioDTO = new NuevoUsuarioDTO(
+            nombres, apellidoPat, apellidoMat, fechaNacimiento,
+            nombreUsuario, contrasena, correo
         );
+
+        NuevoDomicilioUsuarioDTO domicilioDTO = new NuevoDomicilioUsuarioDTO(
+            calle, numero, colonia, ciudad, estado, Integer.parseInt(codigoPostal)
+            );
+
+        control.actualizarPerfil(usuarioDTO, domicilioDTO);
+
+        
         } catch (ParseException e) {
         JOptionPane.showMessageDialog(this, "Formato de fecha invalido (dd/MM/yy).", "Error", JOptionPane.ERROR_MESSAGE);
     } catch (Exception e) {
