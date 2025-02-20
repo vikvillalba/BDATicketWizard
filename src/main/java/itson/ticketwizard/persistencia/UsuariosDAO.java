@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -40,7 +41,9 @@ public class UsuariosDAO { // almacena usuarios en la bd
             comando.setString(3, nuevoUsuarioDTO.getApellidoMaterno());
             comando.setDate(4, new java.sql.Date(nuevoUsuarioDTO.getFechaNacimiento().getTime()));
             comando.setString(5, nuevoUsuarioDTO.getNombreUsuario());
-            comando.setString(6, nuevoUsuarioDTO.getContrasenia());
+            String contraseniaEncriptada = BCrypt.hashpw(nuevoUsuarioDTO.getContrasenia(), BCrypt.gensalt());
+            comando.setString(6, contraseniaEncriptada);
+
             comando.setString(7, nuevoUsuarioDTO.getCorreoElectronico());
 
             int filasAfectadas = comando.executeUpdate();
@@ -53,7 +56,7 @@ public class UsuariosDAO { // almacena usuarios en la bd
                         return new Usuario(idGenerado,
                                 nuevoUsuarioDTO.getNombres(), nuevoUsuarioDTO.getApellidoPaterno(), nuevoUsuarioDTO.getApellidoPaterno(),
                                 nuevoUsuarioDTO.getFechaNacimiento(), 0.0f, nuevoUsuarioDTO.getNombreUsuario(),
-                                nuevoUsuarioDTO.getContrasenia(), nuevoUsuarioDTO.getCorreoElectronico());
+                                contraseniaEncriptada, nuevoUsuarioDTO.getCorreoElectronico());
                     }
                 }
             }
@@ -114,6 +117,9 @@ public class UsuariosDAO { // almacena usuarios en la bd
             PreparedStatement comando = conexion.prepareStatement(codigoSQL);
             ResultSet resultadosConsulta = comando.executeQuery();
 
+            // aquí es donde hay que hacer eso de desencriptar la contraseña para agregarla al dto
+            
+            
             while (resultadosConsulta.next()) {
                 String nombreUsuario = resultadosConsulta.getString("NOMBREUSUARIO");
                 String contrasena = resultadosConsulta.getString("CONTRASENA");
