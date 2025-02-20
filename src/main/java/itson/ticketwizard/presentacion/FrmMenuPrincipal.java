@@ -1,6 +1,7 @@
 package itson.ticketwizard.presentacion;
 
 import itson.ticketwizard.control.ControlMenuPrincipal;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 
 /**
  *
@@ -8,13 +9,15 @@ import itson.ticketwizard.control.ControlMenuPrincipal;
  */
 public class FrmMenuPrincipal extends javax.swing.JFrame {
     private final ControlMenuPrincipal control;
+    private UsuarioRegistradoDTO usuarioRegistradoDTO;
 
     /**
      * Creates new form FrmMenuPrincipal
      */
-    public FrmMenuPrincipal(ControlMenuPrincipal control) {
+    public FrmMenuPrincipal(ControlMenuPrincipal control, UsuarioRegistradoDTO usuarioRegistradoDTO) {
         initComponents();
         this.control = control;
+        this.usuarioRegistradoDTO = usuarioRegistradoDTO;
         this.setLocationRelativeTo(null);
     }
 
@@ -245,7 +248,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBuscarBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBoletoActionPerformed
-        control.mostrarCatalogoBoletos();
+        control.mostrarResultadosBusqueda();
     }//GEN-LAST:event_btnBuscarBoletoActionPerformed
 
     private void btnVerHistorialComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerHistorialComprasActionPerformed

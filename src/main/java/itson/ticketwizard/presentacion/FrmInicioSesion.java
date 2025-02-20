@@ -135,7 +135,7 @@ public class FrmInicioSesion extends JFrame {
         String usuario = txtUsuario.getText();
         String contrasenia = txtContrasenia.getText();
         
-        UsuarioRegistradoDTO usuarioRegistradoDTO = new UsuarioRegistradoDTO(usuario, contrasenia);
+        UsuarioRegistradoDTO usuarioRegistradoDTO = new UsuarioRegistradoDTO(null,usuario, contrasenia);
         this.controlInicioSesion.iniciarSesion(usuarioRegistradoDTO);
     }//GEN-LAST:event_btnIngresarActionPerformed
 
