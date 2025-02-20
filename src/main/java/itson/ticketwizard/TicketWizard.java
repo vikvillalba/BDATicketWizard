@@ -34,11 +34,11 @@ public class TicketWizard {
         ControlActualizarPerfil controlActualizarPerfil = new ControlActualizarPerfil(usuariosDAO, direccionesDAO);
         ControlIniciarSesion control = new ControlIniciarSesion(usuariosDAO, direccionesDAO);
         ControlRegistrarReventa controlRegistrarReventa = new ControlRegistrarReventa(boletosDAO);
-        ControlDepositarSaldo controlDepositoSaldo = new ControlDepositarSaldo(depositosDAO);
+        //ControlDepositarSaldo controlDepositoSaldo = new ControlDepositarSaldo(depositosDAO);
         
 
-        ControlMenuPrincipal controlMenuPrincipal = new ControlMenuPrincipal(control, controlActualizarPerfil, controlRegistrarCompra, controlRegistrarReventa, controlDepositoSaldo);
-        control.setControlMenuPrincipal(controlMenuPrincipal);
+       // ControlMenuPrincipal controlMenuPrincipal = new ControlMenuPrincipal(control, controlActualizarPerfil, controlRegistrarCompra, controlRegistrarReventa, controlDepositoSaldo);
+        //control.setControlMenuPrincipal(controlMenuPrincipal);
   
         control.iniciar();
 
