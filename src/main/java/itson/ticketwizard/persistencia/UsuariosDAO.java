@@ -107,7 +107,7 @@ public class UsuariosDAO { // almacena usuarios en la bd
         List<UsuarioRegistradoDTO> cuentasExistentes = new LinkedList<>();
 
         String codigoSQL = """
-                           SELECT NOMBREUSUARIO, CONTRASENA
+                           SELECT CODIGOUSUARIO, NOMBREUSUARIO, CONTRASENA
                            FROM USUARIOS;
                            """;
 
@@ -121,10 +121,11 @@ public class UsuariosDAO { // almacena usuarios en la bd
             
             
             while (resultadosConsulta.next()) {
+                Integer codigoUsuario = resultadosConsulta.getInt("CODIGOUSUARIO");
                 String nombreUsuario = resultadosConsulta.getString("NOMBREUSUARIO");
                 String contrasena = resultadosConsulta.getString("CONTRASENA");
 
-                UsuarioRegistradoDTO usuarioRegistrado = new UsuarioRegistradoDTO(nombreUsuario, contrasena);
+                UsuarioRegistradoDTO usuarioRegistrado = new UsuarioRegistradoDTO(codigoUsuario, nombreUsuario, contrasena);
                 cuentasExistentes.add(usuarioRegistrado);
             }
 
