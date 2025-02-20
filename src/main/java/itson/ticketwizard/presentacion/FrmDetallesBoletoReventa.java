@@ -95,6 +95,11 @@ public class FrmDetallesBoletoReventa extends javax.swing.JFrame {
         btnVolverMenu1.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVolverMenu1.setForeground(new java.awt.Color(255, 255, 255));
         btnVolverMenu1.setText("Regresar al menú");
+        btnVolverMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverMenu1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(57, 57, 57));
@@ -158,6 +163,10 @@ public class FrmDetallesBoletoReventa extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVolverMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverMenu1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVolverMenu1ActionPerformed
 
  
 

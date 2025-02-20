@@ -380,7 +380,12 @@ public class FrmActualizarPerfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-         // Recolectar datos del formulario
+        this.dispose();
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+                 // Recolectar datos del formulario
         String correo = txtCorreo.getText();
         String calle = txtCalle.getText();
         String apellidoPat = txtApellidoPat.getText();
@@ -410,11 +415,6 @@ public class FrmActualizarPerfil extends javax.swing.JFrame {
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Error al actualizar el perfil: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
 

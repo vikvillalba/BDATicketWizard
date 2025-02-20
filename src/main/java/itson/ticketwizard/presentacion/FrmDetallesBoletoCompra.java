@@ -1,17 +1,20 @@
 package itson.ticketwizard.presentacion;
 
+import itson.ticketwizard.control.ControlRegistrarCompra;
+
 /**
  *
  * @author victoria
  */
 public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
-    
+    private final ControlRegistrarCompra control;
     /**
      * Creates new form FrmHistorialBoletos
      */
-    public FrmDetallesBoletoCompra() {
+    public FrmDetallesBoletoCompra(ControlRegistrarCompra control) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.control = control;
     }
 
     /**
@@ -91,6 +94,11 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
         btnVolverMenu1.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVolverMenu1.setForeground(new java.awt.Color(255, 255, 255));
         btnVolverMenu1.setText("Regresar al menú");
+        btnVolverMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverMenu1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -121,6 +129,10 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVolverMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverMenu1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVolverMenu1ActionPerformed
 
  
 

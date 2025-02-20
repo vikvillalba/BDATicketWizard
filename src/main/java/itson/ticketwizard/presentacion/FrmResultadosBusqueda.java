@@ -1,16 +1,20 @@
 package itson.ticketwizard.presentacion;
 
+import itson.ticketwizard.control.ControlRegistrarCompra;
+
 /**
  *
  * @author victoria
  */
 public class FrmResultadosBusqueda extends javax.swing.JFrame {
-
+    private final ControlRegistrarCompra control;
+    
     /**
      * Creates new form FrmResultadosBusqueda
      */
-    public FrmResultadosBusqueda() {
+    public FrmResultadosBusqueda(ControlRegistrarCompra control) {
         initComponents();
+        this.control = control;
         this.setLocationRelativeTo(null);
     }
 
@@ -196,7 +200,7 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarMenuActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnRegresarMenuActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

@@ -110,6 +110,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cerrar Sesi&#xf3;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarSesionActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnActualizar">
               <Properties>
@@ -127,6 +130,9 @@
                   <Color id="Default Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btmAgregarSaldo">
               <Properties>
@@ -141,6 +147,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Agregar Saldo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btmAgregarSaldoActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -240,6 +249,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Buscar Boletos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarBoletoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnVerBoletos">
               <Properties>
@@ -254,6 +266,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Ver Mis Boletos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerBoletosActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnVerHistorialCompras">
               <Properties>
@@ -268,6 +283,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Consultar Historial de Compras"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerHistorialComprasActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnVerHistorialVentas">
               <Properties>
@@ -282,6 +300,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Consultar Historial de Ventas"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerHistorialVentasActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnVerBoletosApartados">
               <Properties>
@@ -310,6 +331,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Consultar Historial de Dep&#xf3;sitos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerDepositosActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

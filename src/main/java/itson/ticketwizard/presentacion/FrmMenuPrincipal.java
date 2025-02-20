@@ -1,15 +1,20 @@
 package itson.ticketwizard.presentacion;
+
+import itson.ticketwizard.control.ControlMenuPrincipal;
+
 /**
  *
  * @author victoria
  */
 public class FrmMenuPrincipal extends javax.swing.JFrame {
+    private final ControlMenuPrincipal control;
 
     /**
      * Creates new form FrmMenuPrincipal
      */
-    public FrmMenuPrincipal() {
+    public FrmMenuPrincipal(ControlMenuPrincipal control) {
         initComponents();
+        this.control = control;
         this.setLocationRelativeTo(null);
     }
 
@@ -48,17 +53,32 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         btnCerrarSesion.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setBackground(new java.awt.Color(95, 84, 163));
         btnActualizar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar Perfil");
         btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btmAgregarSaldo.setBackground(new java.awt.Color(95, 84, 163));
         btmAgregarSaldo.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btmAgregarSaldo.setForeground(new java.awt.Color(255, 255, 255));
         btmAgregarSaldo.setText("Agregar Saldo");
+        btmAgregarSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmAgregarSaldoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,21 +121,41 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         btnBuscarBoleto.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnBuscarBoleto.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscarBoleto.setText("Buscar Boletos");
+        btnBuscarBoleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarBoletoActionPerformed(evt);
+            }
+        });
 
         btnVerBoletos.setBackground(new java.awt.Color(119, 118, 126));
         btnVerBoletos.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVerBoletos.setForeground(new java.awt.Color(255, 255, 255));
         btnVerBoletos.setText("Ver Mis Boletos");
+        btnVerBoletos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerBoletosActionPerformed(evt);
+            }
+        });
 
         btnVerHistorialCompras.setBackground(new java.awt.Color(119, 118, 126));
         btnVerHistorialCompras.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVerHistorialCompras.setForeground(new java.awt.Color(255, 255, 255));
         btnVerHistorialCompras.setText("Consultar Historial de Compras");
+        btnVerHistorialCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerHistorialComprasActionPerformed(evt);
+            }
+        });
 
         btnVerHistorialVentas.setBackground(new java.awt.Color(119, 118, 126));
         btnVerHistorialVentas.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVerHistorialVentas.setForeground(new java.awt.Color(255, 255, 255));
         btnVerHistorialVentas.setText("Consultar Historial de Ventas");
+        btnVerHistorialVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerHistorialVentasActionPerformed(evt);
+            }
+        });
 
         btnVerBoletosApartados.setBackground(new java.awt.Color(119, 118, 126));
         btnVerBoletosApartados.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
@@ -126,6 +166,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         btnVerDepositos.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVerDepositos.setForeground(new java.awt.Color(255, 255, 255));
         btnVerDepositos.setText("Consultar Historial de Depósitos");
+        btnVerDepositos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerDepositosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -190,6 +235,38 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        control.cerrarSesion();
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        control.mostrarActualizarUsuario();
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnBuscarBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBoletoActionPerformed
+        control.mostrarCatalogoBoletos();
+    }//GEN-LAST:event_btnBuscarBoletoActionPerformed
+
+    private void btnVerHistorialComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerHistorialComprasActionPerformed
+        control.mostrarHistorialCompras();
+    }//GEN-LAST:event_btnVerHistorialComprasActionPerformed
+
+    private void btnVerHistorialVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerHistorialVentasActionPerformed
+        control.mostrarHistorialReventas();
+    }//GEN-LAST:event_btnVerHistorialVentasActionPerformed
+
+    private void btnVerBoletosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerBoletosActionPerformed
+        control.mostrarMisBoletos();
+    }//GEN-LAST:event_btnVerBoletosActionPerformed
+
+    private void btmAgregarSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmAgregarSaldoActionPerformed
+        control.mostrarDepositoSaldo();
+    }//GEN-LAST:event_btmAgregarSaldoActionPerformed
+
+    private void btnVerDepositosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDepositosActionPerformed
+        control.mostrarHistorialDepositos();
+    }//GEN-LAST:event_btnVerDepositosActionPerformed
 
  
 

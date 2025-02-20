@@ -1,17 +1,21 @@
 package itson.ticketwizard.presentacion;
 
+import itson.ticketwizard.control.ControlDepositarSaldo;
+
 /**
  *
  * @author victoria
  */
 public class FrmHistorialDepositos extends javax.swing.JFrame {
-
+    private final ControlDepositarSaldo control;
+    
     /**
      * Creates new form FrmHistorialDepositos
      */
-    public FrmHistorialDepositos() {
+    public FrmHistorialDepositos(ControlDepositarSaldo control) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.control = control;
     }
 
     /**
@@ -96,6 +100,11 @@ public class FrmHistorialDepositos extends javax.swing.JFrame {
         btnRegresar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresar.setText("Regresar al menú");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -118,6 +127,10 @@ public class FrmHistorialDepositos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

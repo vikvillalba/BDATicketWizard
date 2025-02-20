@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 public class FrmInicioSesion extends JFrame {
      private final ControlIniciarSesion controlInicioSesion;
 
+     
+     
     /**
      * Creates new form FrmInicioSesion
      */
