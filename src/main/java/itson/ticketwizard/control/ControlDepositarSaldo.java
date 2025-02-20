@@ -1,8 +1,14 @@
 package itson.ticketwizard.control;
 
+import itson.ticketwizard.dtos.NuevoDepositoDTO;
+import itson.ticketwizard.entidades.Deposito;
+import itson.ticketwizard.entidades.Usuario;
 import itson.ticketwizard.persistencia.DepositosDAO;
+import itson.ticketwizard.persistencia.UsuariosDAO;
 import itson.ticketwizard.presentacion.FrmDepositoSaldo;
 import itson.ticketwizard.presentacion.FrmHistorialDepositos;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,8 +18,9 @@ public class ControlDepositarSaldo {
     private FrmDepositoSaldo depositarSaldo;
     private FrmHistorialDepositos historialDepositos;
     private DepositosDAO depositosDAO;
+    private UsuariosDAO usuariosDAO;
 
-    public ControlDepositarSaldo(DepositosDAO depositosDAO) {
+    public ControlDepositarSaldo(DepositosDAO depositosDAO, UsuariosDAO usuariosDAO) {
         this.depositosDAO = depositosDAO;
     }
     
@@ -22,6 +29,43 @@ public class ControlDepositarSaldo {
         this.depositarSaldo.setVisible(true);
     }
     
+    public void realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO){
+       try{
+        if(validarDeposito(nuevoDepositoDTO)){
+           Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO, usuarioSesion.getCodigoUsuario());
+           if (deposito != null){
+               mostrarMensajeDepositoExitoso();
+               depositarSaldo.dispose();
+           }else{
+               mostrarMensajeErrorDeposito();
+           }
+       }else{
+           mostrarMensajeErrorValidacion();
+       }}catch(SQLException e){
+           mostrarMensajeErrorDeposito();
+       }
+    }
+    
+    public boolean validarDeposito(NuevoDepositoDTO nuevoDepositoDTO){
+        if(nuevoDepositoDTO.getSaldo() <=0){
+        return false;
+        }
+        return true;
+    }
+    
+    private void mostrarMensajeDepositoExitoso() {
+        JOptionPane.showMessageDialog(depositarSaldo, "El depósito fue realizado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private void mostrarMensajeErrorDeposito() {
+        JOptionPane.showMessageDialog(depositarSaldo, "Hubo un problema al realizar el depósito. Intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    private void mostrarMensajeErrorValidacion() {
+        JOptionPane.showMessageDialog(depositarSaldo, "Monto no válido. El monto debe ser mayor que 0.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+
     public void mostrarHistorialDepositos(){
         this.historialDepositos = new FrmHistorialDepositos(this);
         this.historialDepositos.setVisible(true);
