@@ -13,15 +13,6 @@ import java.sql.SQLException;
  *
  * @author victoria
  */
-package itson.ticketwizard.persistencia;
-
-import itson.ticketwizard.dtos.NuevoDomicilioUsuarioDTO;
-import itson.ticketwizard.dtos.NuevoUsuarioDTO;
-import itson.ticketwizard.entidades.DomicilioUsuario;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 /**
  * DAO para gestionar la persistencia de direcciones de usuarios.
  * Registra nuevos domicilios en la base de datos.
