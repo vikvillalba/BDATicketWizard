@@ -54,29 +54,21 @@ public class ControlIniciarSesion {
         this.crearCuenta.setVisible(true);
     }
 
-    // hacer algo para validar q la fecha no sea null.
     public void registrarUsuario(NuevoUsuarioDTO nuevoUsuarioDTO, NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
-        Usuario usuario = null;
-        DomicilioUsuario domicilio = null;
-        
-        if (validarDatosUsuario(nuevoUsuarioDTO) && validarDatosDomicilio(nuevoDomicilioDTO)){
-        usuario = this.usuariosDAO.registrarUsuario(nuevoUsuarioDTO);
-         domicilio = this.direccionesDAO.registrarDireccion(nuevoDomicilioDTO, usuario);
+        if (!validarDatosUsuario(nuevoUsuarioDTO) && !validarDatosDomicilio(nuevoDomicilioDTO)) {
+            JOptionPane.showMessageDialog(crearCuenta, "Datos inválidos. Intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
-        if (usuario == null) {
+        Usuario usuarioRegistrado = this.usuariosDAO.registrarUsuario(nuevoUsuarioDTO, nuevoDomicilioDTO);
+
+        if (usuarioRegistrado == null) {
             JOptionPane.showMessageDialog(crearCuenta, "Error al registrar usuario.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-       
-        if (domicilio == null) {
-            JOptionPane.showMessageDialog(crearCuenta, "Error al registrar dirección.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         this.mostrarMensajeUsuarioRegistrado();
         this.crearCuenta.dispose();
-
     }
 
     private boolean validarDatosUsuario(NuevoUsuarioDTO nuevoUsuarioDTO) {
@@ -110,6 +102,7 @@ public class ControlIniciarSesion {
 
     public void iniciarSesion(UsuarioRegistradoDTO usuarioRegistradoDTO) {
         List<UsuarioRegistradoDTO> cuentasExistentes = this.usuariosDAO.ObtenerCuentasExistentes();
+        boolean usuarioEncontrado = false;
 
         for (int i = 0; i < cuentasExistentes.size(); i++) {
             if (cuentasExistentes.get(i).getUsuario().equals(usuarioRegistradoDTO.getUsuario()) && BCrypt.checkpw(usuarioRegistradoDTO.getContrasenia(), cuentasExistentes.get(i).getContrasenia())) {
@@ -120,9 +113,12 @@ public class ControlIniciarSesion {
                 // abre el menu principal y envia al usuario que está en la sesión activa.
                 controlMenuPrincipal.mostrarMenuPrincipal(usuarioRegistradoDTO);
                 this.inicioSesion.dispose();
+                usuarioEncontrado = true;
                 break;
 
-            } else {
+            }
+
+            if (!usuarioEncontrado) {
                 this.mostrarMensajeUsuarioNoExiste();
             }
         }

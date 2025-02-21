@@ -54,23 +54,23 @@ public class ControlActualizarPerfil {
             !validarTexto(domicilioDTO.getColonia(), "Colonia") ||
             !validarTexto(domicilioDTO.getCiudad(), "Ciudad") ||
             !validarTexto(domicilioDTO.getEstado(), "Estado") ||
-            !validarCodigoPostal(String.valueOf(domicilioDTO.getCodigoPostal()))) {
+            !validarCodigoPostal(String.valueOf(domicilioDTO.getCodigoPostal()))) 
             return;
         }
-        
-        //se actualiza la informacion del usuario en la base de datos.
-        //se usan las dao para verificar si las operaciones son exitosas.
-        //si ambos son exitosos muestra mensaje de exito, si falla muestra mensaje de error.
-        
-        boolean usuarioActualizado = usuariosDAO.registrarUsuario(usuarioDTO) != null; // cambiar metodo
-////        boolean domicilioRegistrado = direccionesDAO.registrarDireccion(domicilioDTO, usuarioDTO) != null;
+//        
+//        se actualiza la informacion del usuario en la base de datos.
+//        se usan las dao para verificar si las operaciones son exitosas.
+//        si ambos son exitosos muestra mensaje de exito, si falla muestra mensaje de error.
+//        
+//        boolean usuarioActualizado = usuariosDAO.registrarUsuario(usuarioDTO) != null; // cambiar metodo
+//        boolean domicilioRegistrado = direccionesDAO.registrarDireccion(domicilioDTO, usuarioDTO) != null;
 //        
 //        if (usuarioActualizado && domicilioRegistrado) {
 //            mostrarMensajeExito();
 //        } else {
 //            mostrarMensajeError();
 //        }
-    }
+//    }
 //    
     /**
      * Valida que el correo electrónico tenga el formato correcto.
