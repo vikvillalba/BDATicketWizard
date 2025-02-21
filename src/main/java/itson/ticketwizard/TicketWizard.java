@@ -8,6 +8,7 @@ import itson.ticketwizard.control.ControlRegistrarCompra;
 import itson.ticketwizard.control.ControlRegistrarReventa;
 import itson.ticketwizard.control.ControlResultadosBusqueda;
 import itson.ticketwizard.persistencia.BoletosDAO;
+import itson.ticketwizard.persistencia.ComprasDAO;
 import itson.ticketwizard.persistencia.DepositosDAO;
 import itson.ticketwizard.persistencia.DireccionesDAO;
 import itson.ticketwizard.persistencia.ManejadorConexiones;
@@ -25,17 +26,20 @@ public class TicketWizard {
      */
     public static void main(String[] args) {
         ManejadorConexiones manejadorConexiones = new ManejadorConexiones();
+        
+        // clases DAO
         UsuariosDAO usuariosDAO = new UsuariosDAO(manejadorConexiones);
         DireccionesDAO direccionesDAO = new DireccionesDAO(manejadorConexiones);
         BoletosDAO boletosDAO = new BoletosDAO(manejadorConexiones);
         DepositosDAO depositosDAO = new DepositosDAO(manejadorConexiones);
+        ComprasDAO comprasDAO = new ComprasDAO(manejadorConexiones);
 
         // clases de control
-        ControlRegistrarCompra controlRegistrarCompra = new ControlRegistrarCompra(boletosDAO);
+        ControlRegistrarCompra controlRegistrarCompra = new ControlRegistrarCompra(boletosDAO, comprasDAO);
         ControlActualizarPerfil controlActualizarPerfil = new ControlActualizarPerfil(usuariosDAO, direccionesDAO);
         ControlIniciarSesion control = new ControlIniciarSesion(usuariosDAO, direccionesDAO);
         ControlRegistrarReventa controlRegistrarReventa = new ControlRegistrarReventa(boletosDAO);
-        ControlResultadosBusqueda controlResultadosBusqueda = new ControlResultadosBusqueda(boletosDAO);
+        ControlResultadosBusqueda controlResultadosBusqueda = new ControlResultadosBusqueda(boletosDAO, controlRegistrarCompra);
         //ControlDepositarSaldo controlDepositoSaldo = new ControlDepositarSaldo(depositosDAO);
         
 
