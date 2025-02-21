@@ -15,6 +15,8 @@ public class BusquedaBoletoFechasDTO {
         this.fechaFin = fechaFin;
     }
 
+
+
     public LocalDateTime getFechaInicio() {
         return fechaInicio;
     }
