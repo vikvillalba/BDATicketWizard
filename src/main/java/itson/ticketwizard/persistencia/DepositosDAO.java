@@ -3,6 +3,7 @@ package itson.ticketwizard.persistencia;
 import itson.ticketwizard.dtos.NuevoDepositoDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.entidades.Deposito;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,38 +22,26 @@ public class DepositosDAO {
         this.manejadorConexiones = manejadorConexiones;
     }
      
-    public Deposito realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) throws SQLException{
+    public Deposito realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) throws SQLException, PersistenciaException{
         String codigoSQL="""
-                         INSET INTO DEPOSITOS(CODIGOUSUARIO, MONTO, FECHAHORA)
-                         VALUES(?,?,?);
+                         CALL GESTIONAR_TRANSACCION(?,?,?,?,?,?) 
                          """;
         try{
             Connection conexion = manejadorConexiones.crearConexion();
             PreparedStatement comando = conexion.prepareStatement(codigoSQL);
             
-            comando.setInt(1, usuarioRegistradoDTO.getCodigoUsuario());
-            
-            comando.setBigDecimal(2,nuevoDepositoDTO.getSaldo());
-            
-            Timestamp fechaHora = new Timestamp(System.currentTimeMillis());
-            comando.setTimestamp(3, fechaHora);
-           
-         int filasAfectadas = comando.executeUpdate();
-            
-            if (filasAfectadas > 0) {
-                try (ResultSet generatedKeys = comando.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        int codigoDeposito = generatedKeys.getInt(1);
-                        
-                        return new Deposito(codigoDeposito, usuarioRegistradoDTO.getCodigoUsuario(), nuevoDepositoDTO.getSaldo(), fechaHora.toLocalDateTime());
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al realizar el depósito: " + e.getMessage());
-            throw e;
+            comando.setString(1, "DEPOSITO");
+            comando.setInt(2, usuarioRegistradoDTO.getCodigoUsuario());
+            comando.setString(3, null);
+            comando.setBigDecimal(4, nuevoDepositoDTO.getSaldo());
+            comando.setString(5, null);
+            comando.setString(6, null);
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            throw new PersistenciaException("ERROR: ERROR AL REALIZAR LA TRANSACCION");
         }
         return null;
-    }
      
+}
 }
