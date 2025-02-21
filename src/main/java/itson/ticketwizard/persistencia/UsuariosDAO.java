@@ -1,5 +1,6 @@
 package itson.ticketwizard.persistencia;
 
+import itson.ticketwizard.dtos.NuevoDomicilioUsuarioDTO;
 import itson.ticketwizard.dtos.NuevoUsuarioDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.entidades.Usuario;
@@ -100,6 +101,39 @@ public class UsuariosDAO { // almacena usuarios en la bd
             System.err.println("Error al actualizar usuario: " + ex.getMessage());
         }
         return false;
+    }
+    
+    /**
+     * actualiza la direccion de un usuario en la bd
+     * @param nuevoDomicilioDTO datos de la nueva direccion
+     * @param usuarioDTO usuario asociado con la direccion
+     * @return true si la actualizacion fue exitosa, false si no
+     */
+    
+    public boolean actualizarDireccionUsuario(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO, NuevoUsuarioDTO usuarioDTO) {
+        String comandoSQL = """
+            UPDATE DOMICILIOSUSUARIOS
+            SET CALLE = ?, NUMERO = ?, COLONIA = ?, CIUDAD = ?, ESTADO = ?, CODIGOPOSTAL = ?
+            WHERE CODIGOUSUARIO = (SELECT CODIGOUSUARIO FROM USUARIOS WHERE CORREOELECTRONICO = ?);
+        """;
+
+        try (
+            Connection conexion = manejadorConexiones.crearConexion();
+            PreparedStatement comando = conexion.prepareStatement(comandoSQL)
+        ) {
+            comando.setString(1, nuevoDomicilioDTO.getCalle());
+            comando.setString(2, nuevoDomicilioDTO.getNumero());
+            comando.setString(3, nuevoDomicilioDTO.getColonia());
+            comando.setString(4, nuevoDomicilioDTO.getCiudad());
+            comando.setString(5, nuevoDomicilioDTO.getEstado());
+            comando.setInt(6, nuevoDomicilioDTO.getCodigoPostal());
+            comando.setString(7, usuarioDTO.getCorreoElectronico());
+
+            return comando.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar dirección: " + e.getMessage());
+            return false;
+        }
     }
 
     // obtener usuarios existentes en la bd
