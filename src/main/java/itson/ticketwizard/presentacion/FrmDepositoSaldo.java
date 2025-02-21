@@ -3,7 +3,10 @@ package itson.ticketwizard.presentacion;
 import itson.ticketwizard.control.ControlDepositarSaldo;
 import itson.ticketwizard.dtos.NuevoDepositoDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
+import itson.ticketwizard.persistencia.PersistenciaException;
 import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -134,6 +137,8 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
             this.controlDepositarSaldo.realizarDeposito(nuevoDepositoDTO, this.usuarioRegistradoDTO);
         }catch(NumberFormatException e){
              JOptionPane.showMessageDialog(this, "Por favor ingrese un monto válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(FrmDepositoSaldo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRealizarDepositoActionPerformed
 
