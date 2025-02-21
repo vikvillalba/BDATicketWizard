@@ -41,7 +41,7 @@ public class TicketWizard {
         ControlRegistrarReventa controlRegistrarReventa = new ControlRegistrarReventa(boletosDAO);
         ControlResultadosBusqueda controlResultadosBusqueda = new ControlResultadosBusqueda(boletosDAO, controlRegistrarCompra);
         ControlDepositarSaldo controlDepositoSaldo = new ControlDepositarSaldo(depositosDAO, usuariosDAO);
-        
+        // DEPOSITO TODAVÍA NO JALA, PARECE Q SI PERO APENAS ME LEVANTE CHECO PORQUE NO LLAMA AL PROCESO ALMACENADO
 
         ControlMenuPrincipal controlMenuPrincipal = new ControlMenuPrincipal(control, controlActualizarPerfil, controlRegistrarCompra, controlRegistrarReventa, controlDepositoSaldo,controlResultadosBusqueda);
         control.setControlMenuPrincipal(controlMenuPrincipal);
