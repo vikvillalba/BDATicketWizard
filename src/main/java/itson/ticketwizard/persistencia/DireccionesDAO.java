@@ -35,26 +35,46 @@ public class DireccionesDAO {
      * @return true si se registro correctamente, false si no
      * @throws SQLException Si hay error en la base de datos
      */
-    public boolean registrarDireccion(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO, Usuario usuario) throws SQLException {
+    public DomicilioUsuario registrarDireccion(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO, Usuario usuario){
         String comandoSQL = """
-            INSERT INTO DOMICILIOSUSUARIOS (CODIGOUSUARIO, CALLE, NUMERO, COLONIA, CIUDAD, ESTADO, CODIGOPOSTAL)
-            VALUES(?, ?, ?, ?, ?, ?, ?);
-        """;
-
-        try (
+                            INSERT INTO DOMICILIOSUSUARIOS (CODIGOUSUARIO, CALLE, NUMERO, COLONIA, CIUDAD, ESTADO, CODIGOPOSTAL)
+                            VALUES(?, ?, ?, ?, ?, ?, ?);
+                            """;
+        
+        try {
             Connection conexion = manejadorConexiones.crearConexion();
-            PreparedStatement comando = conexion.prepareStatement(comandoSQL)
-        ) {
-            comando.setString(1, usuario.getCorreoElectronico());
+            PreparedStatement comando = conexion.prepareStatement(comandoSQL);
+            
+            comando.setInt(1, usuario.getCodigoUsuario());
             comando.setString(2, nuevoDomicilioDTO.getCalle());
             comando.setString(3, nuevoDomicilioDTO.getNumero());
             comando.setString(4, nuevoDomicilioDTO.getColonia());
             comando.setString(5, nuevoDomicilioDTO.getCiudad());
             comando.setString(6, nuevoDomicilioDTO.getEstado());
             comando.setInt(7, nuevoDomicilioDTO.getCodigoPostal());
-
-            return comando.executeUpdate() > 0; // devuelve true si la insercion si se pudo hacer
+            
+            int filasAfectadas = comando.executeUpdate();
+        
+        if (filasAfectadas > 0) {
+            System.out.println("Se registró el domicilio correctamente.");
+            
+            // Retornar el objeto con los datos insertados
+            return new DomicilioUsuario(
+                usuario.getCodigoUsuario(),
+                nuevoDomicilioDTO.getCalle(),
+                nuevoDomicilioDTO.getNumero(),
+                nuevoDomicilioDTO.getColonia(),
+                nuevoDomicilioDTO.getCiudad(),
+                nuevoDomicilioDTO.getEstado(),
+                nuevoDomicilioDTO.getCodigoPostal()
+            );
         }
+            
+        }catch(SQLException ex){
+            
+            System.err.println(ex.getMessage()); 
+        }
+        return null;
     }
 }
 
