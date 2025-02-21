@@ -61,7 +61,7 @@ public class UsuariosDAO { // almacena usuarios en la bd
                     }
                 }
             }
-            System.out.println("se registró el usuario");
+            System.out.println("Se registró el usuario");
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -101,4 +101,35 @@ public class UsuariosDAO { // almacena usuarios en la bd
         }
         return cuentasExistentes;
     }
+    
+    //actualiza los datos del usuario
+    public boolean actualizarUsuario(NuevoUsuarioDTO usuarioActualizado) {
+    String sql = """
+                 UPDATE USUARIOS
+                 SET NOMBRES = ?, APELLIDOPATERNO = ?, APELLIDOMATERNO = ?,
+                 FECHANACIMIENTO = ?, CONTRASENA = ?, CORREOELECTRONICO = ?
+                 WHERE NOMBREUSUARIO = ?;
+                 """;
+
+    try (Connection conexion = manejadorConexiones.crearConexion();
+         PreparedStatement comando = conexion.prepareStatement(sql)) {
+
+        comando.setString(1, usuarioActualizado.getNombres());
+        comando.setString(2, usuarioActualizado.getApellidoPaterno());
+        comando.setString(3, usuarioActualizado.getApellidoMaterno());
+        comando.setDate(4, new Date(usuarioActualizado.getFechaNacimiento().getTime()));
+        //encripta la nueva contrasena
+        String contraseniaEncriptada = BCrypt.hashpw(usuarioActualizado.getContrasenia(), BCrypt.gensalt());
+        comando.setString(5, contraseniaEncriptada);
+        comando.setString(6, usuarioActualizado.getCorreoElectronico());
+        comando.setString(7, usuarioActualizado.getNombreUsuario());
+        //devuelve true si al menos 1 fila fue actualizada
+        return comando.executeUpdate() > 0;
+
+    } catch (SQLException ex) {
+        System.err.println("Error al actualizar usuario: " + ex.getMessage());
+        return false;
+    }
+}
+
 }
