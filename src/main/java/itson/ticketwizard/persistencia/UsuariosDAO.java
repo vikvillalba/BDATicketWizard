@@ -1,10 +1,12 @@
 package itson.ticketwizard.persistencia;
 
 import itson.ticketwizard.dtos.NuevaCompraDTO;
+import itson.ticketwizard.dtos.NuevoDomicilioUsuarioDTO;
 import itson.ticketwizard.dtos.NuevoUsuarioDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.entidades.Usuario;
 import java.math.BigDecimal;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -27,48 +29,48 @@ public class UsuariosDAO { // almacena usuarios en la bd
         this.manejadorConexiones = manejadorConexiones;
     }
 
-    public Usuario registrarUsuario(NuevoUsuarioDTO nuevoUsuarioDTO) {
-        String codigoSQL = """
-                           INSERT INTO USUARIOS (NOMBRES, APELLIDOPATERNO, APELLIDOMATERNO, FECHANACIMIENTO, 
-                           NOMBREUSUARIO, CONTRASENA, CORREOELECTRONICO)
-                           VALUES (?, ?, ?, ?, ?, ?, ?);
-                           """;
+public Usuario registrarUsuario(NuevoUsuarioDTO nuevoUsuarioDTO, NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
+    String codigoSQL = "{CALL SP_crearCuenta(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}"; // Agregamos el parámetro OUT
 
-        try {
-            Connection conexion = manejadorConexiones.crearConexion();
-            PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);
+    try {
+        Connection conexion = manejadorConexiones.crearConexion();
+        CallableStatement comando = conexion.prepareCall(codigoSQL);
 
-            comando.setString(1, nuevoUsuarioDTO.getNombres());
-            comando.setString(2, nuevoUsuarioDTO.getApellidoPaterno());
-            comando.setString(3, nuevoUsuarioDTO.getApellidoMaterno());
-            comando.setDate(4, new java.sql.Date(nuevoUsuarioDTO.getFechaNacimiento().getTime()));
-            comando.setString(5, nuevoUsuarioDTO.getNombreUsuario());
-            String contraseniaEncriptada = BCrypt.hashpw(nuevoUsuarioDTO.getContrasenia(), BCrypt.gensalt());
-            comando.setString(6, contraseniaEncriptada);
+        comando.setString(1, nuevoUsuarioDTO.getNombres());
+        comando.setString(2, nuevoUsuarioDTO.getApellidoPaterno());
+        comando.setString(3, nuevoUsuarioDTO.getApellidoMaterno());
+        comando.setDate(4, new java.sql.Date(nuevoUsuarioDTO.getFechaNacimiento().getTime()));
+        comando.setString(5, nuevoUsuarioDTO.getNombreUsuario());
+        String contraseniaEncriptada = BCrypt.hashpw(nuevoUsuarioDTO.getContrasenia(), BCrypt.gensalt());
+        comando.setString(6, contraseniaEncriptada);
 
-            comando.setString(7, nuevoUsuarioDTO.getCorreoElectronico());
+        comando.setString(7, nuevoUsuarioDTO.getCorreoElectronico());
+        comando.setString(8, nuevoDomicilioDTO.getCalle());
+        comando.setString(9, nuevoDomicilioDTO.getNumero());
+        comando.setString(10, nuevoDomicilioDTO.getColonia());
+        comando.setString(11, nuevoDomicilioDTO.getCiudad());
+        comando.setString(12, nuevoDomicilioDTO.getEstado());
+        comando.setInt(13, nuevoDomicilioDTO.getCodigoPostal());
 
-            int filasAfectadas = comando.executeUpdate();
-            if (filasAfectadas > 0) {
-                try (ResultSet generatedKeys = comando.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        int idGenerado = generatedKeys.getInt(1); // Obtener el ID generado por el sgbd
+        comando.registerOutParameter(14, java.sql.Types.INTEGER);
+        comando.execute();
 
-                        // Retornar el objeto Usuario con el ID asignado
-                        return new Usuario(idGenerado,
-                                nuevoUsuarioDTO.getNombres(), nuevoUsuarioDTO.getApellidoPaterno(), nuevoUsuarioDTO.getApellidoPaterno(),
-                                nuevoUsuarioDTO.getFechaNacimiento(), 0.0f, nuevoUsuarioDTO.getNombreUsuario(),
-                                contraseniaEncriptada, nuevoUsuarioDTO.getCorreoElectronico());
-                    }
-                }
-            }
-            System.out.println("Se registró el usuario");
+        // Obtener el ID generado
+        int idGenerado = comando.getInt(14);
 
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+        if (idGenerado > 0) {
+
+            return new Usuario(idGenerado,
+                    nuevoUsuarioDTO.getNombres(), nuevoUsuarioDTO.getApellidoPaterno(), nuevoUsuarioDTO.getApellidoMaterno(),
+                    nuevoUsuarioDTO.getFechaNacimiento(), 0.0f, nuevoUsuarioDTO.getNombreUsuario(),
+                    contraseniaEncriptada, nuevoUsuarioDTO.getCorreoElectronico());
         }
-        return null;
+
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
     }
+    return null;
+}
 
     // obtener usuarios existentes en la bd
     public List<UsuarioRegistradoDTO> ObtenerCuentasExistentes() {
