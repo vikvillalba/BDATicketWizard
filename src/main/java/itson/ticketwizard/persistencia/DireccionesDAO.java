@@ -35,17 +35,17 @@ public class DireccionesDAO {
      * @return true si se registro correctamente, false si no
      * @throws SQLException Si hay error en la base de datos
      */
-    public boolean registrarDireccion(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO, NuevoUsuarioDTO usuarioDTO) throws SQLException {
+    public boolean registrarDireccion(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO, Usuario usuario) throws SQLException {
         String comandoSQL = """
             INSERT INTO DOMICILIOSUSUARIOS (CODIGOUSUARIO, CALLE, NUMERO, COLONIA, CIUDAD, ESTADO, CODIGOPOSTAL)
-            VALUES((SELECT CODIGOUSUARIO FROM USUARIOS WHERE CORREOELECTRONICO = ?), ?, ?, ?, ?, ?, ?);
+            VALUES(?, ?, ?, ?, ?, ?, ?);
         """;
 
         try (
             Connection conexion = manejadorConexiones.crearConexion();
             PreparedStatement comando = conexion.prepareStatement(comandoSQL)
         ) {
-            comando.setString(1, usuarioDTO.getCorreoElectronico());
+            comando.setString(1, usuario.getCorreoElectronico());
             comando.setString(2, nuevoDomicilioDTO.getCalle());
             comando.setString(3, nuevoDomicilioDTO.getNumero());
             comando.setString(4, nuevoDomicilioDTO.getColonia());

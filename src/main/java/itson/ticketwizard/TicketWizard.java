@@ -35,7 +35,7 @@ public class TicketWizard {
         ComprasDAO comprasDAO = new ComprasDAO(manejadorConexiones);
 
         // clases de control
-        ControlRegistrarCompra controlRegistrarCompra = new ControlRegistrarCompra(boletosDAO, comprasDAO);
+        ControlRegistrarCompra controlRegistrarCompra = new ControlRegistrarCompra(boletosDAO, comprasDAO, usuariosDAO);
         ControlActualizarPerfil controlActualizarPerfil = new ControlActualizarPerfil(usuariosDAO, direccionesDAO);
         ControlIniciarSesion control = new ControlIniciarSesion(usuariosDAO, direccionesDAO);
         ControlRegistrarReventa controlRegistrarReventa = new ControlRegistrarReventa(boletosDAO);

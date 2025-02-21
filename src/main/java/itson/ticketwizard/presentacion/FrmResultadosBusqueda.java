@@ -444,6 +444,7 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         this.txtFechaFin.setText("");
         this.txtFechaInicio.setText("");
         this.txtNombreEvento.setText("");
+        this.txtCodigoBoleto.setText("");
         this.rbNombre.setSelected(false);
         this.rbFechas.setSelected(false);
         this.cargarBoletosEnTabla();

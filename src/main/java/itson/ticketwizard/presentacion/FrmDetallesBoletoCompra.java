@@ -1,10 +1,12 @@
 package itson.ticketwizard.presentacion;
 
+import itson.ticketwizard.control.ControlException;
 import itson.ticketwizard.control.ControlRegistrarCompra;
 import itson.ticketwizard.dtos.BoletoCompraDTO;
+import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
-import itson.ticketwizard.persistencia.BoletosDAO;
-import itson.ticketwizard.persistencia.ComprasDAO;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,8 +16,6 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
     private final ControlRegistrarCompra control;
     private BoletoCompraDTO boletoCompraDTO;
     private UsuarioRegistradoDTO usuarioRegistradoDTO;
-    private BoletosDAO boletosDAO;
-    private ComprasDAO comprasDAO;
     /**
      * Creates new form FrmHistorialBoletos
      */
@@ -25,6 +25,33 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
         this.control = control;
         this.boletoCompraDTO = boletoCompraDTO;
         this.usuarioRegistradoDTO = usuarioRegistradoDTO;
+        this.cargarBoletoTabla();
+    }
+
+    private void mostrarInfoBoleto(BoletoDTO boletoDTO) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblBoletos.getModel();
+
+        Object[] filaTabla = {
+            boletoDTO.getNombreEvento(),
+            boletoDTO.getFechaEvento(),
+            boletoDTO.getRecinto(),
+            boletoDTO.getFila(),
+            boletoDTO.getAsiento(),
+            boletoDTO.getCiudad(),
+            boletoDTO.getEstado(),
+            boletoDTO.getPrecio()};
+                      
+        modeloTabla.addRow(filaTabla);
+
+    }
+    
+    private void cargarBoletoTabla(){
+        try {
+            BoletoDTO boleto = this.control.obtenerBoletoCompra(boletoCompraDTO);
+            this.mostrarInfoBoleto(boleto);
+        } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -71,18 +98,11 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
 
         pnlResultadosBoletos.setBackground(new java.awt.Color(223, 218, 255));
         pnlResultadosBoletos.setMaximumSize(new java.awt.Dimension(22767, 22767));
-        pnlResultadosBoletos.setPreferredSize(new java.awt.Dimension(400, 400));
+        pnlResultadosBoletos.setPreferredSize(new java.awt.Dimension(400, 100));
 
-        tblBoletos.setFont(new java.awt.Font("Galvji", 0, 24)); // NOI18N
+        tblBoletos.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         tblBoletos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -99,6 +119,11 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
         btnComprar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnComprar.setForeground(new java.awt.Color(255, 255, 255));
         btnComprar.setText("Comprar");
+        btnComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComprarActionPerformed(evt);
+            }
+        });
 
         btnVolverMenu1.setBackground(new java.awt.Color(119, 118, 126));
         btnVolverMenu1.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
@@ -115,22 +140,22 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVolverMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(492, 492, 492))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(401, 401, 401)
-                .addComponent(btnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(436, Short.MAX_VALUE))
+                .addGap(451, 451, 451)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnVolverMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)))
+                .addContainerGap(386, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(btnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addComponent(btnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVolverMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
@@ -144,7 +169,16 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolverMenu1ActionPerformed
 
- 
+    private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
+        try {
+            BoletoDTO boleto = this.control.obtenerBoletoCompra(boletoCompraDTO);
+            control.comprarBoleto(usuarioRegistradoDTO, boleto);
+        } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnComprarActionPerformed
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComprar;

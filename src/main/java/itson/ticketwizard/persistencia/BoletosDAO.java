@@ -1,34 +1,37 @@
 package itson.ticketwizard.persistencia;
 
+import itson.ticketwizard.dtos.BoletoCompraDTO;
 import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.BusquedaBoletoFechasDTO;
 import itson.ticketwizard.dtos.BusquedaBoletoNombreDTO;
+import itson.ticketwizard.dtos.NuevaCompraDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
+import itson.ticketwizard.entidades.TransaccionCompra;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
  * @author victoria
  */
 public class BoletosDAO {
-    
+
     private final ManejadorConexiones manejadorConexiones;
 
     public BoletosDAO(ManejadorConexiones manejadorConexiones) {
         this.manejadorConexiones = manejadorConexiones;
     }
-    
-        public List<BoletoDTO> buscarPaginadoBoletosTabla(int limit, int offset, UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
+
+    public List<BoletoDTO> buscarPaginadoBoletosTabla(int limit, int offset, UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
         try {
             List<BoletoDTO> listaBoletos = null;
 
@@ -42,13 +45,13 @@ public class BoletosDAO {
                                """;
 
             PreparedStatement comando = conexion.prepareStatement(codigoSQL);
-            
+
             comando.setInt(1, usuarioRegistradoDTO.getCodigoUsuario());
             comando.setInt(2, limit);
             comando.setInt(3, offset);
-            
+
             ResultSet resultado = comando.executeQuery();
-            
+
             while (resultado.next()) {
                 if (listaBoletos == null) {
                     listaBoletos = new ArrayList<>();
@@ -59,12 +62,12 @@ public class BoletosDAO {
             conexion.close();
             return listaBoletos;
         } catch (SQLException ex) {
-            
+
             System.out.println(ex.getMessage());
             throw new PersistenciaException("Error al recuperar los boletos.");
         }
     }
-        
+  
         public List<BoletoDTO> buscarPaginadoBoletosTablaNombreEvento(int limit, int offset, UsuarioRegistradoDTO usuarioRegistradoDTO, BusquedaBoletoNombreDTO busquedaBoletoNombreDTO) throws PersistenciaException {
         try {
             List<BoletoDTO> listaBoletos = null;
@@ -144,8 +147,9 @@ public class BoletosDAO {
             throw new PersistenciaException("Error al recuperar los boletos.");
         }
     }
-        private BoletoDTO boletoTablaDTO(ResultSet resultado) throws SQLException {
-        
+
+    private BoletoDTO boletoTablaDTO(ResultSet resultado) throws SQLException {
+
         String nombre = resultado.getString("nombre");
         Timestamp fecha = resultado.getTimestamp("fecha");
         LocalDateTime fechaHora = fecha.toLocalDateTime();
@@ -157,8 +161,80 @@ public class BoletosDAO {
         BigDecimal precio = resultado.getBigDecimal("precio");
         String numeroSerie = resultado.getString("numeroSerie");
         Integer codigoBoleto = resultado.getInt("codigoBoleto");
-        
+
         return new BoletoDTO(nombre, fechaHora, recinto, fila, asiento, ciudad, estado, precio, numeroSerie, codigoBoleto);
     }
-    
+        
+    public BoletoDTO obtenerBoletoCompra(BoletoCompraDTO boletoCompraDTO) throws PersistenciaException {
+        String codigoSQL = """
+                           SELECT e.NOMBRE, e.FECHA, e.RECINTO, b.FILA, b.ASIENTO, e.CIUDAD, e.ESTADO, b.PRECIO, b.NUMEROSERIE, b.CODIGOBOLETO
+                           FROM BOLETOS b 
+                           INNER JOIN EVENTOS e ON b.CODIGOEVENTO = e.CODIGOEVENTO
+                           WHERE b.NUMEROSERIE = ?;
+                           """;
+
+        try {
+            Connection conexion = this.manejadorConexiones.crearConexion();
+            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+            comando.setString(1, boletoCompraDTO.getNumeroSerie());
+
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()) {
+                return new BoletoDTO(resultado.getString("NOMBRE"), resultado.getTimestamp("FECHA").toLocalDateTime(),
+                        resultado.getString("RECINTO"), resultado.getString("FILA"), resultado.getString("ASIENTO"),
+                        resultado.getString("CIUDAD"), resultado.getString("ESTADO"), resultado.getBigDecimal("PRECIO"),
+                        resultado.getString("NUMEROSERIE"), resultado.getInt("CODIGOBOLETO"));
+
+            }
+
+        } catch (SQLException ex) {
+
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Error al recuperar los datos.");
+        }
+
+        return null;
+    }
+
+    public boolean actualizarDuenioBoleto(NuevaCompraDTO compraDTO, BoletoDTO boletoDTO) throws PersistenciaException{
+        String codigoSQL = """
+                           UPDATE BOLETOS
+                           SET NUMEROSERIE = ?, CODIGOUSUARIO = ?
+                           WHERE CODIGOBOLETO = ?;
+                           """;
+        
+        try{
+            Connection conexion = this.manejadorConexiones.crearConexion();
+            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+            
+            comando.setString(1, this.generarNumeroSerie());
+            comando.setInt(2, compraDTO.getCodigoUsuario());
+            comando.setInt(3, boletoDTO.getCodigoBoleto());
+            
+            return comando.executeUpdate() > 0;
+        
+        }catch(SQLException ex) {
+
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Error al recuperar los datos.");
+        }
+    }
+
+    private String generarNumeroSerie() {
+        String LETRAS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random random = new Random();
+        StringBuilder codigo = new StringBuilder();
+
+        //genera 4 letras aleatorias
+        for (int i = 0; i < 4; i++) {
+            codigo.append(LETRAS.charAt(random.nextInt(LETRAS.length())));
+        }
+
+        // genera 4 numeros aleatorios
+        int numero = random.nextInt(10000); // Número entre 0000 y 9999
+        codigo.append(String.format("%04d", numero));
+
+        return codigo.toString();
+
+    }
 }

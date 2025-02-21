@@ -1,11 +1,11 @@
 package itson.ticketwizard.persistencia;
 
-import itson.ticketwizard.dtos.NuevoDomicilioUsuarioDTO;
+import itson.ticketwizard.dtos.NuevaCompraDTO;
 import itson.ticketwizard.dtos.NuevoUsuarioDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.entidades.Usuario;
+import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -83,8 +83,6 @@ public class UsuariosDAO { // almacena usuarios en la bd
             Connection conexion = manejadorConexiones.crearConexion();
             PreparedStatement comando = conexion.prepareStatement(codigoSQL);
             ResultSet resultadosConsulta = comando.executeQuery();
-
-            // aquí es donde hay que hacer eso de desencriptar la contraseña para agregarla al dto
             
             
             while (resultadosConsulta.next()) {
@@ -101,4 +99,32 @@ public class UsuariosDAO { // almacena usuarios en la bd
         }
         return cuentasExistentes;
     }
+    
+    public UsuarioRegistradoDTO obtenerUsuario(UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
+        String codigoSQL = """
+                            SELECT CODIGOUSUARIO, NOMBREUSUARIO, SALDODISPONIBLE
+                            FROM USUARIOS
+                            WHERE CODIGOUSUARIO = ?
+                            """;
+
+        try {
+
+            Connection conexion = manejadorConexiones.crearConexion();
+            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+            comando.setInt(1, usuarioRegistradoDTO.getCodigoUsuario());
+
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()) {
+                return new UsuarioRegistradoDTO(resultado.getInt("CODIGOUSUARIO"), resultado.getString("NOMBREUSUARIO"), resultado.getBigDecimal("SALDODISPONIBLE"));
+            }
+
+        } catch (SQLException ex) {
+
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Error al recuperar los datos.");
+        }
+
+        return null;
+    }
+
 }
