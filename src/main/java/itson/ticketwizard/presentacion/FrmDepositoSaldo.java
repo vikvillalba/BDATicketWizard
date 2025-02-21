@@ -2,6 +2,8 @@ package itson.ticketwizard.presentacion;
 
 import itson.ticketwizard.control.ControlDepositarSaldo;
 import itson.ticketwizard.dtos.NuevoDepositoDTO;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
+import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 
 /**
@@ -10,13 +12,15 @@ import javax.swing.JOptionPane;
  */
 public class FrmDepositoSaldo extends javax.swing.JFrame {
     private final ControlDepositarSaldo controlDepositarSaldo;
+    UsuarioRegistradoDTO usuarioRegistradoDTO;
 
     /**
      * Creates new form FrmDepositoSaldo
      */
-    public FrmDepositoSaldo(ControlDepositarSaldo controlDepositarSaldo) {
+    public FrmDepositoSaldo(ControlDepositarSaldo controlDepositarSaldo, UsuarioRegistradoDTO usuarioRegistradoDTO) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.usuarioRegistradoDTO = usuarioRegistradoDTO;
         this.controlDepositarSaldo = controlDepositarSaldo;
     }
 
@@ -125,9 +129,9 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
     private void btnRealizarDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarDepositoActionPerformed
         String monto = txtSaldo.getText();
         try{
-            Float montoFloat = Float.valueOf(monto);
-            NuevoDepositoDTO nuevoDepositoDTO = new NuevoDepositoDTO(montoFloat);
-            this.controlDepositarSaldo.realizarDeposito(nuevoDepositoDTO);
+            BigDecimal montoDecimal = new BigDecimal(monto);
+            NuevoDepositoDTO nuevoDepositoDTO = new NuevoDepositoDTO(montoDecimal);
+            this.controlDepositarSaldo.realizarDeposito(nuevoDepositoDTO, this.usuarioRegistradoDTO);
         }catch(NumberFormatException e){
              JOptionPane.showMessageDialog(this, "Por favor ingrese un monto válido.", "Error", JOptionPane.ERROR_MESSAGE);
         }

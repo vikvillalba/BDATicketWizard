@@ -1,6 +1,7 @@
 package itson.ticketwizard.presentacion;
 
 import itson.ticketwizard.control.ControlRegistrarReventa;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 
 /**
  *
@@ -8,13 +9,15 @@ import itson.ticketwizard.control.ControlRegistrarReventa;
  */
 public class FrmCatalogoBoletos extends javax.swing.JFrame {
      private final ControlRegistrarReventa control;
+     private UsuarioRegistradoDTO usuarioRegistradoDTO;
     
     /**
      * Creates new form FrmHistorialBoletos
      */
-    public FrmCatalogoBoletos(ControlRegistrarReventa control) {
+    public FrmCatalogoBoletos(ControlRegistrarReventa control, UsuarioRegistradoDTO usuarioRegistradoDTO) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.usuarioRegistradoDTO = usuarioRegistradoDTO;
         this.control = control;
     }
 

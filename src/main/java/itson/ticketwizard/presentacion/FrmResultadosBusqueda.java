@@ -3,8 +3,11 @@ package itson.ticketwizard.presentacion;
 import itson.ticketwizard.control.ControlException;
 import itson.ticketwizard.control.ControlResultadosBusqueda;
 import itson.ticketwizard.dtos.BoletoDTO;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,25 +18,31 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
     private int pagina=1;
     private final int LIMITE = 7;
     private final ControlResultadosBusqueda control;
+    private UsuarioRegistradoDTO usuarioRegistradoDTO;
 
     /**
      * Creates new form FrmResultadosBusqueda
      */
-    public FrmResultadosBusqueda(ControlResultadosBusqueda control) {
+    public FrmResultadosBusqueda(ControlResultadosBusqueda control, UsuarioRegistradoDTO usuarioRegistradoDTO) {
         initComponents();
         this.control = control;
+        this.usuarioRegistradoDTO = usuarioRegistradoDTO;
         this.setLocationRelativeTo(null);
         this.cargarMetodosIniciales();
     }
     
       public void cargarMetodosIniciales() {
-        //this.cargarConfiguracionInicialPantalla();
-        this.cargarAlumnosEnTabla();
+        this.cargarBoletosEnTabla();
         this.estadoPagina();
     }
       
- private void llenarTablaAlumnos(List<BoletoDTO> listaBoletos) {
+    private void llenarTablaBoletos(List<BoletoDTO> listaBoletos) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblBoletos.getModel();
+
+        if (modeloTabla.getColumnCount() < 9) {
+            modeloTabla.addColumn("BoletoDTO");  // Columna oculta que almacenará los objetos BoletoDTO
+        }
+
 
         if (modeloTabla.getRowCount() > 0) {
             for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
@@ -55,15 +64,38 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
                 fila[7] = row.getPrecio();
 
                 modeloTabla.addRow(fila);
+
+                // Para hacer esto, necesitamos usar un TableRow que almacene la referencia al BoletoDTO
+                modeloTabla.setValueAt(row, modeloTabla.getRowCount() - 1, 8); // Establecemos el objeto BoletoDTO en la columna oculta
+
             });
         }
+        this.tblBoletos.getColumnModel().getColumn(8).setMaxWidth(0);
+        this.tblBoletos.getColumnModel().getColumn(8).setMinWidth(0);
+        this.tblBoletos.getColumnModel().getColumn(8).setPreferredWidth(0);
+        this.mostrarCodigoBoleto(modeloTabla);
+
     }
 
+    private void mostrarCodigoBoleto(DefaultTableModel modeloTabla) {
+        this.tblBoletos.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            int filaSeleccionada = tblBoletos.getSelectedRow();
+            if (filaSeleccionada != -1) {
+                // Obtener el objeto BoletoDTO asociado con la fila seleccionada
+                BoletoDTO boletoSeleccionado = (BoletoDTO) modeloTabla.getValueAt(filaSeleccionada, 8);  // Columna 8 donde almacenamos el objeto BoletoDTO
 
-        public void cargarAlumnosEnTabla() {
+                // Mostrar el número de serie (que no está en la tabla) en el JTextField
+                if (boletoSeleccionado != null) {
+                    txtCodigoBoleto.setText(String.valueOf(boletoSeleccionado.getNumeroSerie()));
+                }
+            }
+        });
+    }
+        public void cargarBoletosEnTabla() {
+            // pone los boletos en la tabla
         try {
-            List<BoletoDTO> listaBoletos = this.control.obtenerBoletosPaginados(LIMITE, pagina);
-            this.llenarTablaAlumnos(listaBoletos);
+            List<BoletoDTO> listaBoletos = this.control.obtenerBoletosPaginados(LIMITE, pagina, usuarioRegistradoDTO);
+            this.llenarTablaBoletos(listaBoletos);
         } catch (ControlException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
             pagina--;
@@ -132,28 +164,32 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(329, 329, 329)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(337, 337, 337)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombreEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rbNombre))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(337, 337, 337)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombreEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rbNombre))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(74, 74, 74)
+                                .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(112, 112, 112)
+                                .addComponent(rbFechas))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(rbFechas)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(185, 185, 185))
+                        .addGap(329, 329, 329)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(185, 185, 185))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(174, 174, 174))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -307,7 +343,7 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
 
         try {
             BtnSiguiente.setEnabled(true);
-            if (this.control.obtenerBoletosPaginados(this.LIMITE, this.pagina + 1) == null) {
+            if (this.control.obtenerBoletosPaginados(this.LIMITE, this.pagina + 1, usuarioRegistradoDTO) == null) {
                 BtnSiguiente.setEnabled(false);
             }
         } catch (ControlException ex) {
@@ -320,18 +356,20 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarMenuActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        if(this.rbNombre.isSelected()){
+            
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void BtnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAtrasActionPerformed
         this.pagina = this.pagina - 1;
-        this.cargarAlumnosEnTabla();
+        this.cargarBoletosEnTabla();
         this.estadoPagina();
     }//GEN-LAST:event_BtnAtrasActionPerformed
 
     private void BtnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSiguienteActionPerformed
        this.pagina = this.pagina + 1;
-        this.cargarAlumnosEnTabla();
+        this.cargarBoletosEnTabla();
         this.estadoPagina();
     }//GEN-LAST:event_BtnSiguienteActionPerformed
 

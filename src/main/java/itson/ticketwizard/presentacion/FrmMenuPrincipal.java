@@ -244,31 +244,31 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        control.mostrarActualizarUsuario();
+        control.mostrarActualizarUsuario(this.usuarioRegistradoDTO);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBuscarBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBoletoActionPerformed
-        control.mostrarResultadosBusqueda();
+        control.mostrarResultadosBusqueda(this.usuarioRegistradoDTO);
     }//GEN-LAST:event_btnBuscarBoletoActionPerformed
 
     private void btnVerHistorialComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerHistorialComprasActionPerformed
-        control.mostrarHistorialCompras();
+        control.mostrarHistorialCompras(this.usuarioRegistradoDTO);
     }//GEN-LAST:event_btnVerHistorialComprasActionPerformed
 
     private void btnVerHistorialVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerHistorialVentasActionPerformed
-        control.mostrarHistorialReventas();
+        control.mostrarHistorialReventas(this.usuarioRegistradoDTO);
     }//GEN-LAST:event_btnVerHistorialVentasActionPerformed
 
     private void btnVerBoletosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerBoletosActionPerformed
-        control.mostrarMisBoletos();
+        control.mostrarMisBoletos(this.usuarioRegistradoDTO);
     }//GEN-LAST:event_btnVerBoletosActionPerformed
 
     private void btmAgregarSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmAgregarSaldoActionPerformed
-        control.mostrarDepositoSaldo();
+        control.mostrarDepositoSaldo(this.usuarioRegistradoDTO);
     }//GEN-LAST:event_btmAgregarSaldoActionPerformed
 
     private void btnVerDepositosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDepositosActionPerformed
-        control.mostrarHistorialDepositos();
+        control.mostrarHistorialDepositos(this.usuarioRegistradoDTO);
     }//GEN-LAST:event_btnVerDepositosActionPerformed
 
  
