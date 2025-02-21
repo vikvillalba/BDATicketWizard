@@ -95,18 +95,17 @@ public class ControlIniciarSesion {
         List<UsuarioRegistradoDTO> cuentasExistentes = this.usuariosDAO.ObtenerCuentasExistentes();
 
         for (int i = 0; i < cuentasExistentes.size(); i++) {
-            if (cuentasExistentes.get(i).getUsuario().equals(usuarioRegistradoDTO.getUsuario())) {
-                if (BCrypt.checkpw(usuarioRegistradoDTO.getContrasenia(), cuentasExistentes.get(i).getContrasenia())) {
-                    
-                    usuarioRegistradoDTO.setCodigoUsuario(cuentasExistentes.get(i).getCodigoUsuario());
-                    this.mostrarMensajeInicioSesionExitoso();
-                    controlMenuPrincipal.mostrarMenuPrincipal(usuarioRegistradoDTO);
-                    this.inicioSesion.dispose();
-                    return;
-                }
+            if (cuentasExistentes.get(i).getUsuario().equals(usuarioRegistradoDTO.getUsuario()) && BCrypt.checkpw(usuarioRegistradoDTO.getContrasenia(), cuentasExistentes.get(i).getContrasenia())) {
+
+                // le asigna el codigo al usuario ya que verifica que existe
+                usuarioRegistradoDTO.setCodigoUsuario(cuentasExistentes.get(i).getCodigoUsuario());
+                this.mostrarMensajeInicioSesionExitoso();
+                // abre el menu principal y envia al usuario que está en la sesión activa.
+                controlMenuPrincipal.mostrarMenuPrincipal(usuarioRegistradoDTO);
+                this.inicioSesion.dispose();
+                return;
 
             } else {
-                System.out.println("no");
                 this.mostrarMensajeUsuarioNoExiste();
             }
         }

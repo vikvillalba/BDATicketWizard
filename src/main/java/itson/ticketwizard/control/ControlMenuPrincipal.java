@@ -47,36 +47,32 @@ public class ControlMenuPrincipal {
         controlInicioSesion.iniciar();
     }
     
-    public void mostrarActualizarUsuario(){
-        controlActualizarPerfil.mostrarPantallaActualizarPerfil();
+    public void mostrarActualizarUsuario(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        controlActualizarPerfil.mostrarPantallaActualizarPerfil(usuarioRegistradoDTO);
         
     }
     
-    public void mostrarCatalogoBoletos(){
-//        controlComprarBoletos.mostrarCatalogoBoletos();
+    public void mostrarHistorialCompras(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        controlComprarBoletos.mostrarHistorialCompras(usuarioRegistradoDTO);
     }
     
-    public void mostrarHistorialCompras(){
-        controlComprarBoletos.mostrarHistorialCompras();
+    public void mostrarMisBoletos(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        controlRevenderBoletos.mostrarMisBoletos(usuarioRegistradoDTO);
     }
     
-    public void mostrarMisBoletos(){
-        controlRevenderBoletos.mostrarMisBoletos();
+    public void mostrarHistorialReventas(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        controlRevenderBoletos.mostrarHistorialReventas(usuarioRegistradoDTO);
     }
     
-    public void mostrarHistorialReventas(){
-        controlRevenderBoletos.mostrarHistorialReventas();
+    public void mostrarHistorialDepositos(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        controlDepositarSaldo.mostrarHistorialDepositos(usuarioRegistradoDTO);
     }
     
-    public void mostrarHistorialDepositos(){
-        controlDepositarSaldo.mostrarHistorialDepositos();
+    public void mostrarDepositoSaldo(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        controlDepositarSaldo.mostrarDepositoSaldo(usuarioRegistradoDTO);
     }
     
-    public void mostrarDepositoSaldo(){
-        controlDepositarSaldo.mostrarDepositoSaldo();
-    }
-    
-    public void mostrarResultadosBusqueda(){
-        controlResultadosBusqueda.mostrarResultadosBusqueda();
+    public void mostrarResultadosBusqueda(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        controlResultadosBusqueda.mostrarResultadosBusqueda(usuarioRegistradoDTO);
     }
 }

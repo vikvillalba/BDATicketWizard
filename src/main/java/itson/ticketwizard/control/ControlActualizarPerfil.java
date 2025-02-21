@@ -2,6 +2,7 @@ package itson.ticketwizard.control;
 
 import itson.ticketwizard.dtos.NuevoDomicilioUsuarioDTO;
 import itson.ticketwizard.dtos.NuevoUsuarioDTO;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.presentacion.FrmActualizarPerfil;
 import itson.ticketwizard.persistencia.UsuariosDAO;
 import itson.ticketwizard.persistencia.DireccionesDAO;
@@ -25,13 +26,14 @@ public class ControlActualizarPerfil {
     private UsuariosDAO usuariosDAO;
     private DireccionesDAO direccionesDAO;
     
+    
     public ControlActualizarPerfil(UsuariosDAO usuariosDAO, DireccionesDAO direccionesDAO){
         this.usuariosDAO = usuariosDAO;
         this.direccionesDAO = direccionesDAO;
     }
     
-    public void mostrarPantallaActualizarPerfil(){
-        this.actualizarPerfil = new FrmActualizarPerfil(this);
+    public void mostrarPantallaActualizarPerfil(UsuarioRegistradoDTO usuarioRegistradoDTO){      
+        this.actualizarPerfil = new FrmActualizarPerfil(this, usuarioRegistradoDTO);
         this.actualizarPerfil.setVisible(true);
     }
     
@@ -60,7 +62,7 @@ public class ControlActualizarPerfil {
         //se usan las dao para verificar si las operaciones son exitosas.
         //si ambos son exitosos muestra mensaje de exito, si falla muestra mensaje de error.
         
-        boolean usuarioActualizado = usuariosDAO.registrarUsuario(usuarioDTO) != null;
+        boolean usuarioActualizado = usuariosDAO.registrarUsuario(usuarioDTO) != null; // cambiar metodo
 ////        boolean domicilioRegistrado = direccionesDAO.registrarDireccion(domicilioDTO, usuarioDTO) != null;
 //        
 //        if (usuarioActualizado && domicilioRegistrado) {

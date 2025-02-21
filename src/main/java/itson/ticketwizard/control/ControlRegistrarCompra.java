@@ -1,5 +1,6 @@
 package itson.ticketwizard.control;
 
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.persistencia.BoletosDAO;
 import itson.ticketwizard.presentacion.FrmCatalogoBoletos;
 import itson.ticketwizard.presentacion.FrmHistorialCompras;
@@ -20,7 +21,7 @@ public class ControlRegistrarCompra {
     }
     
     
-    public void mostrarHistorialCompras(){
+    public void mostrarHistorialCompras(UsuarioRegistradoDTO usuarioRegistradoDTO){
         this.historialCompras = new FrmHistorialCompras(this);
         this.historialCompras.setVisible(true);
     }

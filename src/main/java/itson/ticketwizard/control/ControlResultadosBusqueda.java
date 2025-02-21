@@ -1,6 +1,7 @@
 package itson.ticketwizard.control;
 
 import itson.ticketwizard.dtos.BoletoDTO;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.persistencia.BoletosDAO;
 import itson.ticketwizard.persistencia.PersistenciaException;
 import itson.ticketwizard.presentacion.FrmResultadosBusqueda;
@@ -23,22 +24,33 @@ public class ControlResultadosBusqueda {
         this.boletosDAO = boletosDAO;
     }
 
-    public List<BoletoDTO> obtenerBoletosPaginados(int limit, int pagina) throws ControlException {
+    public List<BoletoDTO> obtenerBoletosPaginados(int limit, int pagina, UsuarioRegistradoDTO usuarioRegistradoDTO) throws ControlException {
         int offset = Utilidades.RegresarOFFSETMySQL(limit, pagina);
-        List<BoletoDTO> listaBoletos = new ArrayList<>();
+        
         try {
-            listaBoletos = this.boletosDAO.buscarPaginadoAlumnosTabla(limit, offset);
+            return this.boletosDAO.buscarPaginadoAlumnosTabla(limit, offset, usuarioRegistradoDTO);
 
         } catch (PersistenciaException ex) {
-            throw new ControlException("petó");
+            throw new ControlException("error");
         }
-        return listaBoletos;
 
     }
-    
+
+    public List<BoletoDTO> obtenerBoletosPaginadosNombreEvento(int limit, int pagina, UsuarioRegistradoDTO usuarioRegistradoDTO) throws ControlException {
+        int offset = Utilidades.RegresarOFFSETMySQL(limit, pagina);
+
+        try {
+            return this.boletosDAO.buscarPaginadoAlumnosTabla(limit, offset, usuarioRegistradoDTO);
+
+        } catch (PersistenciaException ex) {
+            throw new ControlException("error");
+        }
+
+    }
+
         
-    public void mostrarResultadosBusqueda(){
-        this.resultadosBusqueda = new FrmResultadosBusqueda(this);
+    public void mostrarResultadosBusqueda(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        this.resultadosBusqueda = new FrmResultadosBusqueda(this, usuarioRegistradoDTO);
         this.resultadosBusqueda.setVisible(true);
     }
 }

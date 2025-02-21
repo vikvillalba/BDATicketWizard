@@ -1,6 +1,7 @@
 package itson.ticketwizard.control;
 
 import itson.ticketwizard.dtos.NuevoDepositoDTO;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.entidades.Deposito;
 import itson.ticketwizard.entidades.Usuario;
 import itson.ticketwizard.persistencia.DepositosDAO;
@@ -24,26 +25,26 @@ public class ControlDepositarSaldo {
         this.depositosDAO = depositosDAO;
     }
     
-    public void mostrarDepositoSaldo(){
-        this.depositarSaldo = new FrmDepositoSaldo(this);
+    public void mostrarDepositoSaldo(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        this.depositarSaldo = new FrmDepositoSaldo(this, usuarioRegistradoDTO);
         this.depositarSaldo.setVisible(true);
     }
     
-    public void realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO){
-//       try{
-//        if(validarDeposito(nuevoDepositoDTO)){
-//           Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO);
-//           if (deposito != null){
-//               mostrarMensajeDepositoExitoso();
-//               depositarSaldo.dispose();
-//           }else{
-//               mostrarMensajeErrorDeposito();
-//           }
-//       }else{
-//           mostrarMensajeErrorValidacion();
-//       }}catch(SQLException e){
-//           mostrarMensajeErrorDeposito();
-//       }
+    public void realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO){
+       try{
+        if(validarDeposito(nuevoDepositoDTO)){
+           Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO, usuarioRegistradoDTO);
+           if (deposito != null){
+               mostrarMensajeDepositoExitoso();
+               depositarSaldo.dispose();
+           }else{
+               mostrarMensajeErrorDeposito();
+           }
+       }else{
+           mostrarMensajeErrorValidacion();
+       }}catch(SQLException e){
+           mostrarMensajeErrorDeposito();
+       }
     }
     
     public boolean validarDeposito(NuevoDepositoDTO nuevoDepositoDTO){
@@ -66,7 +67,7 @@ public class ControlDepositarSaldo {
     }
     
 
-    public void mostrarHistorialDepositos(){
+    public void mostrarHistorialDepositos(UsuarioRegistradoDTO usuarioRegistradoDTO){
         this.historialDepositos = new FrmHistorialDepositos(this);
         this.historialDepositos.setVisible(true);
     }

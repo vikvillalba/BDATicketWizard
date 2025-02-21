@@ -1,5 +1,6 @@
 package itson.ticketwizard.control;
 
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.persistencia.BoletosDAO;
 import itson.ticketwizard.presentacion.FrmCatalogoBoletos;
 import itson.ticketwizard.presentacion.FrmHistorialReventas;
@@ -18,12 +19,12 @@ public class ControlRegistrarReventa {
     }
     
     
-    public void mostrarMisBoletos(){ // para reventa
-        this.misBoletos = new FrmCatalogoBoletos(this);
+    public void mostrarMisBoletos(UsuarioRegistradoDTO usuarioRegistradoDTO){ // para reventa
+        this.misBoletos = new FrmCatalogoBoletos(this, usuarioRegistradoDTO);
         this.misBoletos.setVisible(true);
     }
     
-    public void mostrarHistorialReventas(){
+    public void mostrarHistorialReventas(UsuarioRegistradoDTO usuarioRegistradoDTO){
         this.historialReventas = new FrmHistorialReventas(this);
         this.historialReventas.setVisible(true);
     }
