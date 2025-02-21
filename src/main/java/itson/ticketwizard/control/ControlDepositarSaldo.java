@@ -48,10 +48,7 @@ public class ControlDepositarSaldo {
     }
     
     public boolean validarDeposito(NuevoDepositoDTO nuevoDepositoDTO){
-        if(nuevoDepositoDTO.getSaldo() <=0){
-        return false;
-        }
-        return true;
+        return nuevoDepositoDTO.getSaldo().intValue() < 0;
     }
     
     private void mostrarMensajeDepositoExitoso() {

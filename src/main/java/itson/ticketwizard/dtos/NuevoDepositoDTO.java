@@ -2,14 +2,17 @@ package itson.ticketwizard.dtos;
 
 //@author SAUL ISAAC APODACA BALDENEGRO 00000252020
 
+import java.math.BigDecimal;
+
+
 public class NuevoDepositoDTO {
-    private final float saldo;
+    private final BigDecimal saldo;
     
-    public NuevoDepositoDTO(float saldo){
+    public NuevoDepositoDTO(BigDecimal saldo){
         this.saldo = saldo;
     }
 
-    public float getSaldo() {
+    public BigDecimal getSaldo() {
         return saldo;
     }
 }
