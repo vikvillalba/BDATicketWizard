@@ -61,7 +61,7 @@ public class UsuariosDAO { // almacena usuarios en la bd
                     }
                 }
             }
-            System.out.println("se registró el usuario");
+            System.out.println("Se registró el usuario");
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -126,5 +126,7 @@ public class UsuariosDAO { // almacena usuarios en la bd
 
         return null;
     }
+    
+    
 
 }
