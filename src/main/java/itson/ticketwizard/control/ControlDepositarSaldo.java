@@ -20,11 +20,9 @@ public class ControlDepositarSaldo {
     private FrmDepositoSaldo depositarSaldo;
     private FrmHistorialDepositos historialDepositos;
     private DepositosDAO depositosDAO;
-    private UsuariosDAO usuariosDAO;
 
-    public ControlDepositarSaldo(DepositosDAO depositosDAO, UsuariosDAO usuariosDAO) {
+    public ControlDepositarSaldo(DepositosDAO depositosDAO) {
         this.depositosDAO = depositosDAO;
-        this.usuariosDAO = usuariosDAO;
     }
     
     public void mostrarDepositoSaldo(UsuarioRegistradoDTO usuarioRegistradoDTO){
@@ -39,7 +37,6 @@ public class ControlDepositarSaldo {
            if (deposito != null){
                mostrarMensajeDepositoExitoso();
                depositarSaldo.dispose();
-               deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO, usuarioRegistradoDTO);
                
            }else{
                mostrarMensajeErrorDeposito();
