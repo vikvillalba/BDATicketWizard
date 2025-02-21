@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -24,7 +25,7 @@ public class DepositosDAO {
      
     public Deposito realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) throws SQLException, PersistenciaException{
         String codigoSQL="""
-                         CALL GESTIONAR_TRANSACCION(?,?,?,?,?,?) 
+                         CALL GESTIONAR_TRANSACCION(?,?,?,?,?,?);
                          """;
         try{
             Connection conexion = manejadorConexiones.crearConexion();
@@ -34,14 +35,15 @@ public class DepositosDAO {
             comando.setInt(2, usuarioRegistradoDTO.getCodigoUsuario());
             comando.setString(3, null);
             comando.setBigDecimal(4, nuevoDepositoDTO.getSaldo());
-            comando.setString(5, null);
-            comando.setString(6, null);
+            comando.setInt(5, 0);
+            comando.setDate(6, null);
+            System.out.println(comando.executeUpdate() > 0);
+            return new Deposito(usuarioRegistradoDTO.getCodigoUsuario(), nuevoDepositoDTO.getSaldo(), LocalDateTime.now());
 
         }catch(SQLException e){
             System.err.println(e.getMessage());
             throw new PersistenciaException("ERROR: ERROR AL REALIZAR LA TRANSACCION");
         }
-        return null;
      
 }
 }
