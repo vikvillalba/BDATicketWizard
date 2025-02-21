@@ -2,12 +2,20 @@ package itson.ticketwizard.presentacion;
 
 import itson.ticketwizard.control.ControlException;
 import itson.ticketwizard.control.ControlResultadosBusqueda;
+import itson.ticketwizard.dtos.BoletoCompraDTO;
 import itson.ticketwizard.dtos.BoletoDTO;
+import itson.ticketwizard.dtos.BusquedaBoletoFechasDTO;
+import itson.ticketwizard.dtos.BusquedaBoletoNombreDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.List;
+import javax.naming.ldap.Rdn;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -81,10 +89,10 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         this.tblBoletos.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
             int filaSeleccionada = tblBoletos.getSelectedRow();
             if (filaSeleccionada != -1) {
-                // Obtener el objeto BoletoDTO asociado con la fila seleccionada
+                
                 BoletoDTO boletoSeleccionado = (BoletoDTO) modeloTabla.getValueAt(filaSeleccionada, 8);  // Columna 8 donde almacenamos el objeto BoletoDTO
 
-                // Mostrar el número de serie (que no está en la tabla) en el JTextField
+                
                 if (boletoSeleccionado != null) {
                     txtCodigoBoleto.setText(String.valueOf(boletoSeleccionado.getNumeroSerie()));
                 }
@@ -92,7 +100,7 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         });
     }
         public void cargarBoletosEnTabla() {
-            // pone los boletos en la tabla
+           
         try {
             List<BoletoDTO> listaBoletos = this.control.obtenerBoletosPaginados(LIMITE, pagina, usuarioRegistradoDTO);
             this.llenarTablaBoletos(listaBoletos);
@@ -116,7 +124,7 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         txtFechaInicio = new javax.swing.JFormattedTextField();
         txtFechaFin = new javax.swing.JFormattedTextField();
         btnBuscar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnReiniciar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -143,9 +151,9 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         rbNombre.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         rbNombre.setText("Nombre del evento");
 
-        txtFechaInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yy"))));
+        txtFechaInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
 
-        txtFechaFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yy"))));
+        txtFechaFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
 
         btnBuscar.setBackground(new java.awt.Color(95, 84, 163));
         btnBuscar.setFont(new java.awt.Font("Galvji", 1, 16)); // NOI18N
@@ -157,7 +165,12 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Reiniciar Búsqueda");
+        btnReiniciar.setText("Reiniciar Búsqueda");
+        btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReiniciarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,26 +179,27 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(337, 337, 337)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombreEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rbNombre))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(377, 377, 377)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(74, 74, 74)
+                                .addComponent(rbNombre)
+                                .addGap(91, 91, 91)
+                                .addComponent(rbFechas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtNombreEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(70, 70, 70)
                                 .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(112, 112, 112)
-                                .addComponent(rbFechas))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(329, 329, 329)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                                .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(107, 107, 107))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnReiniciar)
                         .addGap(185, 185, 185))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,7 +223,7 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(btnBuscar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnReiniciar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -227,6 +241,11 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         btnSeleccionar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
 
         btnRegresarMenu.setBackground(new java.awt.Color(119, 118, 126));
         btnRegresarMenu.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
@@ -259,44 +278,47 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(286, 286, 286)
-                        .addComponent(txtCodigoBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(428, 428, 428)
-                        .addComponent(btnRegresarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(504, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(343, 343, 343)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(401, 401, 401)
                 .addComponent(BtnAtras)
                 .addGap(12, 12, 12)
                 .addComponent(lblPagina)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(BtnSiguiente)
                 .addGap(15, 15, 15))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(440, 440, 440)
+                        .addComponent(txtCodigoBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(527, 527, 527)
+                        .addComponent(btnRegresarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(382, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BtnAtras)
                             .addComponent(BtnSiguiente)
-                            .addComponent(lblPagina))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lblPagina))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCodigoBoleto)
-                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtCodigoBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRegresarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
@@ -357,7 +379,52 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if(this.rbNombre.isSelected()){
+
+            String nombreEvento = txtNombreEvento.getText();
+
+            if (nombreEvento.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "ingrese un nombre de evento para buscar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return; 
+            }
+            BusquedaBoletoNombreDTO busquedaBoletoNombreDTO = new BusquedaBoletoNombreDTO(nombreEvento);
             
+            try {
+                List<BoletoDTO> listaBoletosNombre = this.control.obtenerBoletosPaginadosNombreEvento(LIMITE, pagina, usuarioRegistradoDTO, busquedaBoletoNombreDTO);
+                this.llenarTablaBoletos(listaBoletosNombre);
+                
+            } catch (ControlException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+            pagina--;
+            }
+        }
+        
+        if(this.rbFechas.isSelected()){
+            String fechaInicio = txtFechaInicio.getText();
+            String fechaFin = txtFechaFin.getText();
+            
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss");
+            
+
+            try {
+                LocalDateTime fechaInicioRango = LocalDateTime.parse(fechaInicio + "T00:00:00", formatter);
+                LocalDateTime fechaFinRango = LocalDateTime.parse(fechaFin + "T23:59:59", formatter);
+                BusquedaBoletoFechasDTO busquedaBoletoFechasDTO = new BusquedaBoletoFechasDTO(fechaInicioRango, fechaFinRango);
+
+
+                try {
+                List<BoletoDTO> listaBoletosFechas = this.control.obtenerBoletosPaginadosRangoFechas(LIMITE, pagina, usuarioRegistradoDTO, busquedaBoletoFechasDTO);
+                this.llenarTablaBoletos(listaBoletosFechas);
+                
+            } catch (ControlException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+            pagina--;
+            }
+                
+
+            } catch (DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(null, "Formato de fecha inválido. Use dd/MM/yyyy.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -373,14 +440,28 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         this.estadoPagina();
     }//GEN-LAST:event_BtnSiguienteActionPerformed
 
+    private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
+        this.txtFechaFin.setText("");
+        this.txtFechaInicio.setText("");
+        this.txtNombreEvento.setText("");
+        this.rbNombre.setSelected(false);
+        this.rbFechas.setSelected(false);
+        this.cargarBoletosEnTabla();
+    }//GEN-LAST:event_btnReiniciarActionPerformed
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        BoletoCompraDTO boletoCompraDTO = new BoletoCompraDTO(txtCodigoBoleto.getText());
+        control.mostrarDetallesCompra(usuarioRegistradoDTO, boletoCompraDTO);
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAtras;
     private javax.swing.JButton BtnSiguiente;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnRegresarMenu;
+    private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnSeleccionar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

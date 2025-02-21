@@ -1,6 +1,10 @@
 package itson.ticketwizard.presentacion;
 
 import itson.ticketwizard.control.ControlRegistrarCompra;
+import itson.ticketwizard.dtos.BoletoCompraDTO;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
+import itson.ticketwizard.persistencia.BoletosDAO;
+import itson.ticketwizard.persistencia.ComprasDAO;
 
 /**
  *
@@ -8,13 +12,19 @@ import itson.ticketwizard.control.ControlRegistrarCompra;
  */
 public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
     private final ControlRegistrarCompra control;
+    private BoletoCompraDTO boletoCompraDTO;
+    private UsuarioRegistradoDTO usuarioRegistradoDTO;
+    private BoletosDAO boletosDAO;
+    private ComprasDAO comprasDAO;
     /**
      * Creates new form FrmHistorialBoletos
      */
-    public FrmDetallesBoletoCompra(ControlRegistrarCompra control) {
+    public FrmDetallesBoletoCompra(ControlRegistrarCompra control, UsuarioRegistradoDTO usuarioRegistradoDTO, BoletoCompraDTO boletoCompraDTO) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.control = control;
+        this.boletoCompraDTO = boletoCompraDTO;
+        this.usuarioRegistradoDTO = usuarioRegistradoDTO;
     }
 
     /**
@@ -93,7 +103,7 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
         btnVolverMenu1.setBackground(new java.awt.Color(119, 118, 126));
         btnVolverMenu1.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVolverMenu1.setForeground(new java.awt.Color(255, 255, 255));
-        btnVolverMenu1.setText("Regresar al menú");
+        btnVolverMenu1.setText("Cancelar");
         btnVolverMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverMenu1ActionPerformed(evt);
