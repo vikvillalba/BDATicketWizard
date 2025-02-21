@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
@@ -133,4 +134,63 @@ public class UsuariosDAO { // almacena usuarios en la bd
         }
         return cuentasExistentes;
     }
+    
+    public UsuarioRegistradoDTO obtenerUsuario(UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
+        String codigoSQL = """
+                            SELECT CODIGOUSUARIO, NOMBREUSUARIO, SALDODISPONIBLE
+                            FROM USUARIOS
+                            WHERE CODIGOUSUARIO = ?
+                            """;
+
+        try {
+
+            Connection conexion = manejadorConexiones.crearConexion();
+            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+            comando.setInt(1, usuarioRegistradoDTO.getCodigoUsuario());
+
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()) {
+                return new UsuarioRegistradoDTO(resultado.getInt("CODIGOUSUARIO"), resultado.getString("NOMBREUSUARIO"), resultado.getBigDecimal("SALDODISPONIBLE"));
+            }
+
+        } catch (SQLException ex) {
+
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Error al recuperar los datos.");
+        }
+
+        return null;
+    }
+    
+    
+    //actualiza los datos del usuario
+    public boolean actualizarUsuario(NuevoUsuarioDTO usuarioActualizado) {
+    String sql = """
+                 UPDATE USUARIOS
+                 SET NOMBRES = ?, APELLIDOPATERNO = ?, APELLIDOMATERNO = ?,
+                 FECHANACIMIENTO = ?, CONTRASENA = ?, CORREOELECTRONICO = ?
+                 WHERE NOMBREUSUARIO = ?;
+                 """;
+
+    try (Connection conexion = manejadorConexiones.crearConexion();
+         PreparedStatement comando = conexion.prepareStatement(sql)) {
+
+        comando.setString(1, usuarioActualizado.getNombres());
+        comando.setString(2, usuarioActualizado.getApellidoPaterno());
+        comando.setString(3, usuarioActualizado.getApellidoMaterno());
+        comando.setDate(4, (java.sql.Date) new Date(usuarioActualizado.getFechaNacimiento().getTime()));
+        //encripta la nueva contrasena
+        String contraseniaEncriptada = BCrypt.hashpw(usuarioActualizado.getContrasenia(), BCrypt.gensalt());
+        comando.setString(5, contraseniaEncriptada);
+        comando.setString(6, usuarioActualizado.getCorreoElectronico());
+        comando.setString(7, usuarioActualizado.getNombreUsuario());
+        //devuelve true si al menos 1 fila fue actualizada
+        return comando.executeUpdate() > 0;
+
+    } catch (SQLException ex) {
+        System.err.println("Error al actualizar usuario: " + ex.getMessage());
+        return false;
+    }
+}
+
 }
