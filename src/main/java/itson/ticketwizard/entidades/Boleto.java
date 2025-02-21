@@ -13,30 +13,27 @@ public class Boleto {
     private String asiento;
     private Integer codigoEvento;
     private Integer codigoUsuario;
-    private Integer estadoReventa;
     private double precio;
 
     public Boleto() {
     }
 
-    public Boleto(Integer codigoBoleto, String numeroSerie, String fila, String asiento, Integer codigoEvento, Integer codigoUsuario, Integer estadoReventa, double precio) {
+    public Boleto(Integer codigoBoleto, String numeroSerie, String fila, String asiento, Integer codigoEvento, Integer codigoUsuario, double precio) {
         this.codigoBoleto = codigoBoleto;
         this.numeroSerie = numeroSerie;
         this.fila = fila;
         this.asiento = asiento;
         this.codigoEvento = codigoEvento;
         this.codigoUsuario = codigoUsuario;
-        this.estadoReventa = estadoReventa;
         this.precio = precio;
     }
 
-    public Boleto(String numeroSerie, String fila, String asiento, Integer codigoEvento, Integer codigoUsuario, Integer estadoReventa, double precio) {
+    public Boleto(String numeroSerie, String fila, String asiento, Integer codigoEvento, Integer codigoUsuario, double precio) {
         this.numeroSerie = numeroSerie;
         this.fila = fila;
         this.asiento = asiento;
         this.codigoEvento = codigoEvento;
         this.codigoUsuario = codigoUsuario;
-        this.estadoReventa = estadoReventa;
         this.precio = precio;
     }
 
@@ -92,14 +89,6 @@ public class Boleto {
         this.codigoUsuario = codigoUsuario;
     }
 
-    public Integer getEstadoReventa() {
-        return estadoReventa;
-    }
-
-    public void setEstadoReventa(Integer estadoReventa) {
-        this.estadoReventa = estadoReventa;
-    }
-
     public double getPrecio() {
         return precio;
     }
@@ -132,7 +121,7 @@ public class Boleto {
 
     @Override
     public String toString() {
-        return "Boleto{" + "codigoBoleto=" + codigoBoleto + ", numeroSerie=" + numeroSerie + ", fila=" + fila + ", asiento=" + asiento + ", codigoEvento=" + codigoEvento + ", codigoUsuario=" + codigoUsuario + ", estadoReventa=" + estadoReventa + ", precio=" + precio + '}';
+        return "Boleto{" + "codigoBoleto=" + codigoBoleto + ", numeroSerie=" + numeroSerie + ", fila=" + fila + ", asiento=" + asiento + ", codigoEvento=" + codigoEvento + ", codigoUsuario=" + codigoUsuario + ", precio=" + precio + '}';
     }
     
 

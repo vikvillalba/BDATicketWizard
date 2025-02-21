@@ -1,5 +1,6 @@
 package itson.ticketwizard.entidades;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -11,13 +12,13 @@ public class Transaccion {
     private Integer codigoTransaccion;
     private Integer codigoUsuario;
     private LocalDateTime fechaHoraTransaccion;
-    private double monto;
+    private BigDecimal monto;
     private String numeroSerieBoleto;
 
     public Transaccion() {
     }
 
-    public Transaccion(Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, double monto, String numeroSerieBoleto) {
+    public Transaccion(Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto) {
         this.codigoTransaccion = codigoTransaccion;
         this.codigoUsuario = codigoUsuario;
         this.fechaHoraTransaccion = fechaHoraTransaccion;
@@ -25,7 +26,7 @@ public class Transaccion {
         this.numeroSerieBoleto = numeroSerieBoleto;
     }
 
-    public Transaccion(Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, double monto, String numeroSerieBoleto) {
+    public Transaccion(Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto) {
         this.codigoUsuario = codigoUsuario;
         this.fechaHoraTransaccion = fechaHoraTransaccion;
         this.monto = monto;
@@ -56,11 +57,11 @@ public class Transaccion {
         this.fechaHoraTransaccion = fechaHoraTransaccion;
     }
 
-    public double getMonto() {
+    public BigDecimal getMonto() {
         return monto;
     }
 
-    public void setMonto(float monto) {
+    public void setMonto(BigDecimal monto) {
         this.monto = monto;
     }
 

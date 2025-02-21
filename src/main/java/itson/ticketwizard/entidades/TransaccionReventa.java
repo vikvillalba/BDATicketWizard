@@ -1,5 +1,6 @@
 package itson.ticketwizard.entidades;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
@@ -11,20 +12,20 @@ import java.util.Objects;
 public class TransaccionReventa extends Transaccion{
     private Integer codigoTransaccion;
     private Date fechaLimite;
-    private double precioVenta;
+    private BigDecimal precioVenta;
     private Integer codigoComprador;
 
     public TransaccionReventa() {
     }
 
-    public TransaccionReventa(Date fechaLimite, float precioVenta, Integer codigoComprador, Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, double monto, String numeroSerieBoleto) {
+    public TransaccionReventa(Date fechaLimite, BigDecimal precioVenta, Integer codigoComprador, Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto) {
         super(codigoTransaccion, codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
         this.fechaLimite = fechaLimite;
         this.precioVenta = precioVenta;
         this.codigoComprador = codigoComprador;
     }
 
-    public TransaccionReventa(Date fechaLimite, float precioVenta, Integer codigoComprador, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, double monto, String numeroSerieBoleto) {
+    public TransaccionReventa(Date fechaLimite, BigDecimal precioVenta, Integer codigoComprador, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto) {
         super(codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
         this.fechaLimite = fechaLimite;
         this.precioVenta = precioVenta;
@@ -49,11 +50,11 @@ public class TransaccionReventa extends Transaccion{
         this.fechaLimite = fechaLimite;
     }
 
-    public double getPrecioVenta() {
+    public BigDecimal getPrecioVenta() {
         return precioVenta;
     }
 
-    public void setPrecioVenta(double precioVenta) {
+    public void setPrecioVenta(BigDecimal precioVenta) {
         this.precioVenta = precioVenta;
     }
 
