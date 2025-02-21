@@ -56,28 +56,20 @@ public class ControlIniciarSesion {
 
     // hacer algo para validar q la fecha no sea null.
     public void registrarUsuario(NuevoUsuarioDTO nuevoUsuarioDTO, NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
-        if (!validarTexto(nuevoUsuarioDTO.getNombres(), "nombres")
-                || !validarTexto(nuevoUsuarioDTO.getApellidoPaterno(), "apellido paterno")
-                || !validarTexto(nuevoUsuarioDTO.getApellidoMaterno(), "apellido materno")
-                || !validarNombreUsuario(nuevoUsuarioDTO)
-                || !validarContrasenia(nuevoUsuarioDTO)
-                || !validarCorreoElectronico(nuevoUsuarioDTO)) {
-            return;
+        Usuario usuario = null;
+        DomicilioUsuario domicilio = null;
+        
+        if (validarDatosUsuario(nuevoUsuarioDTO) && validarDatosDomicilio(nuevoDomicilioDTO)){
+        usuario = this.usuariosDAO.registrarUsuario(nuevoUsuarioDTO);
+         domicilio = this.direccionesDAO.registrarDireccion(nuevoDomicilioDTO, usuario);
         }
-        Usuario usuario = this.usuariosDAO.registrarUsuario(nuevoUsuarioDTO);
+
         if (usuario == null) {
             JOptionPane.showMessageDialog(crearCuenta, "Error al registrar usuario.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (!validarTexto(nuevoDomicilioDTO.getCalle(), "calle")
-                || !validarTexto(nuevoDomicilioDTO.getCiudad(), "ciudad")
-                || !validarTexto(nuevoDomicilioDTO.getColonia(),"colonia")
-                || !validarNumeroCasa(nuevoDomicilioDTO)
-                || !validarCodigoPostal(nuevoDomicilioDTO.getCodigoPostal())) {
-            return;
-        }
-        DomicilioUsuario domicilio = this.direccionesDAO.registrarDireccion(nuevoDomicilioDTO, usuario);
+       
         if (domicilio == null) {
             JOptionPane.showMessageDialog(crearCuenta, "Error al registrar dirección.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -85,6 +77,31 @@ public class ControlIniciarSesion {
         this.mostrarMensajeUsuarioRegistrado();
         this.crearCuenta.dispose();
 
+    }
+
+    private boolean validarDatosUsuario(NuevoUsuarioDTO nuevoUsuarioDTO) {
+        // Validaciones para los datos del usuario
+        if (!validarTexto(nuevoUsuarioDTO.getNombres(), "nombres")
+                || !validarTexto(nuevoUsuarioDTO.getApellidoPaterno(), "apellido paterno")
+                || !validarTexto(nuevoUsuarioDTO.getApellidoMaterno(), "apellido materno")
+                || !validarNombreUsuario(nuevoUsuarioDTO)
+                || !validarContrasenia(nuevoUsuarioDTO)
+                || !validarCorreoElectronico(nuevoUsuarioDTO)) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarDatosDomicilio(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
+        // Validaciones para los datos del domicilio
+        if (!validarTexto(nuevoDomicilioDTO.getCalle(), "calle")
+                || !validarTexto(nuevoDomicilioDTO.getCiudad(), "ciudad")
+                || !validarTexto(nuevoDomicilioDTO.getColonia(), "colonia")
+                || !validarNumeroCasa(nuevoDomicilioDTO)
+                || !validarCodigoPostal(nuevoDomicilioDTO.getCodigoPostal())) {
+            return false;
+        }
+        return true;
     }
 
     private void mostrarMensajeUsuarioRegistrado() {
@@ -103,7 +120,7 @@ public class ControlIniciarSesion {
                 // abre el menu principal y envia al usuario que está en la sesión activa.
                 controlMenuPrincipal.mostrarMenuPrincipal(usuarioRegistradoDTO);
                 this.inicioSesion.dispose();
-                return;
+                break;
 
             } else {
                 this.mostrarMensajeUsuarioNoExiste();

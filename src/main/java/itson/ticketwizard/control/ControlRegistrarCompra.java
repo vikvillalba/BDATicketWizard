@@ -10,10 +10,6 @@ import itson.ticketwizard.persistencia.PersistenciaException;
 import itson.ticketwizard.persistencia.UsuariosDAO;
 import itson.ticketwizard.presentacion.FrmDetallesBoletoCompra;
 import itson.ticketwizard.presentacion.FrmHistorialCompras;
-import java.math.BigDecimal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.crypto.AEADBadTagException;
 
 /** Control que maneja el flujo para el caso de uso de registrar la compra de boletos, así como mostrar los boletos adquiridos.
  *
@@ -57,7 +53,7 @@ public class ControlRegistrarCompra {
         try {
             UsuarioRegistradoDTO usuarioConSaldo = this.usuariosDAO.obtenerUsuario(usuarioRegistradoDTO);
             if (usuarioConSaldo.getSaldo().compareTo(boletoDTO.getPrecio()) < 0) {
-                // agregar boletoDTO a alguna lista de boletos apartados 
+                System.out.println("no hay dinero"); 
             }
 
         } catch (PersistenciaException ex) {
