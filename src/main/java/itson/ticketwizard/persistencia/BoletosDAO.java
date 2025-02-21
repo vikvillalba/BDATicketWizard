@@ -1,8 +1,10 @@
 package itson.ticketwizard.persistencia;
 
 import itson.ticketwizard.dtos.BoletoDTO;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,29 +25,40 @@ public class BoletosDAO {
         this.manejadorConexiones = manejadorConexiones;
     }
     
-        public List<BoletoDTO> buscarPaginadoAlumnosTabla(int limit, int offset) throws PersistenciaException {
+        public List<BoletoDTO> buscarPaginadoAlumnosTabla(int limit, int offset, UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
         try {
             List<BoletoDTO> listaBoletos = null;
 
             Connection conexion = this.manejadorConexiones.crearConexion();
-            String codigoSQL = "SELECT e.nombre, e.fecha, e.recinto, b.fila, b.asiento, e.ciudad, e.estado, b.precio "
-                    + "FROM boletos b INNER JOIN eventos e ON b.codigoEvento = e.codigoEvento"
-                    + "LIMIT " + limit + " OFFSET " + offset + ";";
-            Statement comandoSQL = conexion.createStatement();
-            ResultSet resultado = comandoSQL.executeQuery(codigoSQL);
+            String codigoSQL = """
+                               SELECT e.NOMBRE, e.FECHA, e.RECINTO, b.FILA, b.ASIENTO, e.CIUDAD, e.ESTADO, b.PRECIO, b.NUMEROSERIE, b.CODIGOBOLETO
+                               FROM BOLETOS b 
+                               INNER JOIN EVENTOS e ON b.CODIGOEVENTO = e.CODIGOEVENTO
+                               WHERE (b.codigoUsuario IS NULL OR b.codigoUsuario != ?)
+                               LIMIT ? OFFSET ?;
+                               """;
+
+            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+            
+            comando.setInt(1, usuarioRegistradoDTO.getCodigoUsuario());
+            comando.setInt(2, limit);
+            comando.setInt(3, offset);
+            
+            ResultSet resultado = comando.executeQuery();
+            
             while (resultado.next()) {
                 if (listaBoletos == null) {
                     listaBoletos = new ArrayList<>();
                 }
-                BoletoDTO alumno = this.boletoTablaDTO(resultado);
-                listaBoletos.add(alumno);
+                BoletoDTO boleto = this.boletoTablaDTO(resultado);
+                listaBoletos.add(boleto);
             }
             conexion.close();
             return listaBoletos;
         } catch (SQLException ex) {
-            // hacer uso de Logger
+            
             System.out.println(ex.getMessage());
-            throw new PersistenciaException("Ocurrió un error al leer la base de datos, inténtelo de nuevo y si el error persiste comuníquese con el encargado del sistema.");
+            throw new PersistenciaException("Error al recuperar los boletos.");
         }
     }
         private BoletoDTO boletoTablaDTO(ResultSet resultado) throws SQLException {
@@ -59,8 +72,10 @@ public class BoletosDAO {
         String ciudad = resultado.getString("ciudad");
         String estado = resultado.getString("estado");
         BigDecimal precio = resultado.getBigDecimal("precio");
+        String numeroSerie = resultado.getString("numeroSerie");
+        Integer codigoBoleto = resultado.getInt("codigoBoleto");
         
-        return new BoletoDTO(nombre, fechaHora, recinto, fila, asiento, ciudad, estado, precio);
+        return new BoletoDTO(nombre, fechaHora, recinto, fila, asiento, ciudad, estado, precio, numeroSerie, codigoBoleto);
     }
     
 }

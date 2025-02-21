@@ -1,6 +1,7 @@
 package itson.ticketwizard.persistencia;
 
 import itson.ticketwizard.dtos.NuevoDepositoDTO;
+import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.entidades.Deposito;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class DepositosDAO {
         this.manejadorConexiones = manejadorConexiones;
     }
      
-    public Deposito realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, int codigoUsuario) throws SQLException{
+    public Deposito realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) throws SQLException{
         String codigoSQL="""
                          INSET INTO DEPOSITOS(CODIGOUSUARIO, MONTO, FECHAHORA)
                          VALUES(?,?,?);
@@ -29,9 +30,9 @@ public class DepositosDAO {
             Connection conexion = manejadorConexiones.crearConexion();
             PreparedStatement comando = conexion.prepareStatement(codigoSQL);
             
-            comando.setInt(1, codigoUsuario);
+            comando.setInt(1, usuarioRegistradoDTO.getCodigoUsuario());
             
-            comando.setFloat(2,nuevoDepositoDTO.getSaldo());
+            comando.setBigDecimal(2,nuevoDepositoDTO.getSaldo());
             
             Timestamp fechaHora = new Timestamp(System.currentTimeMillis());
             comando.setTimestamp(3, fechaHora);
@@ -43,7 +44,7 @@ public class DepositosDAO {
                     if (generatedKeys.next()) {
                         int codigoDeposito = generatedKeys.getInt(1);
                         
-                        return new Deposito(codigoDeposito, codigoUsuario, nuevoDepositoDTO.getSaldo(), fechaHora.toLocalDateTime());
+                        return new Deposito(codigoDeposito, usuarioRegistradoDTO.getCodigoUsuario(), nuevoDepositoDTO.getSaldo(), fechaHora.toLocalDateTime());
                     }
                 }
             }
