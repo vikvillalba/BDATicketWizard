@@ -5,6 +5,7 @@ import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.entidades.Deposito;
 import itson.ticketwizard.entidades.Usuario;
 import itson.ticketwizard.persistencia.DepositosDAO;
+import itson.ticketwizard.persistencia.PersistenciaException;
 import itson.ticketwizard.persistencia.UsuariosDAO;
 import itson.ticketwizard.presentacion.FrmDepositoSaldo;
 import itson.ticketwizard.presentacion.FrmHistorialDepositos;
@@ -23,6 +24,7 @@ public class ControlDepositarSaldo {
 
     public ControlDepositarSaldo(DepositosDAO depositosDAO, UsuariosDAO usuariosDAO) {
         this.depositosDAO = depositosDAO;
+        this.usuariosDAO = usuariosDAO;
     }
     
     public void mostrarDepositoSaldo(UsuarioRegistradoDTO usuarioRegistradoDTO){
@@ -30,13 +32,15 @@ public class ControlDepositarSaldo {
         this.depositarSaldo.setVisible(true);
     }
     
-    public void realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO){
+    public void realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException{
        try{
         if(validarDeposito(nuevoDepositoDTO)){
            Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO, usuarioRegistradoDTO);
            if (deposito != null){
                mostrarMensajeDepositoExitoso();
                depositarSaldo.dispose();
+               deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO, usuarioRegistradoDTO);
+               
            }else{
                mostrarMensajeErrorDeposito();
            }
@@ -48,7 +52,7 @@ public class ControlDepositarSaldo {
     }
     
     public boolean validarDeposito(NuevoDepositoDTO nuevoDepositoDTO){
-        return nuevoDepositoDTO.getSaldo().intValue() < 0;
+        return nuevoDepositoDTO.getSaldo().intValue() > 0;
     }
     
     private void mostrarMensajeDepositoExitoso() {
