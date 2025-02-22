@@ -78,7 +78,7 @@ public Usuario registrarUsuario(NuevoUsuarioDTO nuevoUsuarioDTO, NuevoDomicilioU
         List<UsuarioRegistradoDTO> cuentasExistentes = new LinkedList<>();
 
         String codigoSQL = """
-                           SELECT CODIGOUSUARIO, NOMBREUSUARIO, CONTRASENA
+                           SELECT CODIGOUSUARIO, NOMBREUSUARIO, CONTRASENA, SALDODISPONIBLE
                            FROM USUARIOS;
                            """;
 
@@ -93,8 +93,9 @@ public Usuario registrarUsuario(NuevoUsuarioDTO nuevoUsuarioDTO, NuevoDomicilioU
                 Integer codigoUsuario = resultadosConsulta.getInt("CODIGOUSUARIO");
                 String nombreUsuario = resultadosConsulta.getString("NOMBREUSUARIO");
                 String contrasena = resultadosConsulta.getString("CONTRASENA");
+                BigDecimal saldo = resultadosConsulta.getBigDecimal("SALDODISPONIBLE");
 
-                UsuarioRegistradoDTO usuarioRegistrado = new UsuarioRegistradoDTO(codigoUsuario, nombreUsuario, contrasena);
+                UsuarioRegistradoDTO usuarioRegistrado = new UsuarioRegistradoDTO(codigoUsuario, nombreUsuario, contrasena, saldo);
                 cuentasExistentes.add(usuarioRegistrado);
             }
 

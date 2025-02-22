@@ -40,7 +40,7 @@ public class ComprasDAO {
                 comandoCompra.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
                 comandoCompra.setBigDecimal(3, compraDTO.getPrecioBoleto());
                 comandoCompra.setInt(4, boletoDTO.getCodigoBoleto());
-                comandoCompra.setBigDecimal(5, compraDTO.getPrecioBoleto());
+                comandoCompra.setString(5, TipoCompra.REVENTA.name());
 
                 comandoCompra.executeUpdate();
             }
