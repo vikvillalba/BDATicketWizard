@@ -109,6 +109,7 @@ public class ControlIniciarSesion {
 
                 // le asigna el codigo al usuario ya que verifica que existe
                 usuarioRegistradoDTO.setCodigoUsuario(cuentasExistentes.get(i).getCodigoUsuario());
+                usuarioRegistradoDTO.setSaldo(cuentasExistentes.get(i).getSaldo());
                 this.mostrarMensajeInicioSesionExitoso();
                 // abre el menu principal y envia al usuario que está en la sesión activa.
                 controlMenuPrincipal.mostrarMenuPrincipal(usuarioRegistradoDTO);
@@ -117,10 +118,10 @@ public class ControlIniciarSesion {
                 break;
 
             }
+        }
 
-            if (!usuarioEncontrado) {
-                this.mostrarMensajeUsuarioNoExiste();
-            }
+        if (!usuarioEncontrado) {
+            this.mostrarMensajeUsuarioNoExiste();
         }
     }
 
