@@ -29,25 +29,26 @@ public class ControlDepositarSaldo {
         this.depositarSaldo = new FrmDepositoSaldo(this, usuarioRegistradoDTO);
         this.depositarSaldo.setVisible(true);
     }
-    
-    public void realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException{
-       try{
-        if(validarDeposito(nuevoDepositoDTO)){
-           Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO, usuarioRegistradoDTO);
-           if (deposito != null){
-               mostrarMensajeDepositoExitoso();
-               depositarSaldo.dispose();
-               
-           }else{
-               mostrarMensajeErrorDeposito();
-           }
-       }else{
-           mostrarMensajeErrorValidacion();
-       }}catch(SQLException e){
-           mostrarMensajeErrorDeposito();
-       }
+
+    public void realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
+        try {
+            if (validarDeposito(nuevoDepositoDTO)) {
+                Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO, usuarioRegistradoDTO);
+                if (deposito != null) {
+                    mostrarMensajeDepositoExitoso();
+                    depositarSaldo.dispose();
+
+                } else {
+                    mostrarMensajeErrorDeposito();
+                }
+            } else {
+                mostrarMensajeErrorValidacion();
+            }
+        } catch (SQLException e) {
+            mostrarMensajeErrorDeposito();
+        }
     }
-    
+
     public boolean validarDeposito(NuevoDepositoDTO nuevoDepositoDTO){
         return nuevoDepositoDTO.getSaldo().intValue() > 0;
     }

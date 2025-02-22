@@ -130,16 +130,16 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnRealizarDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarDepositoActionPerformed
-//        String monto = txtSaldo.getText();
-//        try{
-//            BigDecimal montoDecimal = new BigDecimal(monto);
-//            NuevoDepositoDTO nuevoDepositoDTO = new NuevoDepositoDTO(montoDecimal);
-//            this.controlDepositarSaldo.realizarDeposito(nuevoDepositoDTO, this.usuarioRegistradoDTO);
-//        }catch(NumberFormatException e){
-//             JOptionPane.showMessageDialog(this, "Por favor ingrese un monto válido.", "Error", JOptionPane.ERROR_MESSAGE);
-//        } catch (PersistenciaException ex) {
-//            Logger.getLogger(FrmDepositoSaldo.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        String monto = txtSaldo.getText();
+        try{
+            BigDecimal montoDecimal = new BigDecimal(monto);
+            NuevoDepositoDTO nuevoDepositoDTO = new NuevoDepositoDTO(montoDecimal);
+            this.controlDepositarSaldo.realizarDeposito(nuevoDepositoDTO, this.usuarioRegistradoDTO);
+        }catch(NumberFormatException e){
+             JOptionPane.showMessageDialog(this, "Por favor ingrese un monto válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(FrmDepositoSaldo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnRealizarDepositoActionPerformed
 
 
