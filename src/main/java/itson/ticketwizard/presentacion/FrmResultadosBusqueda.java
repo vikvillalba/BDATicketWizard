@@ -453,6 +453,7 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         BoletoCompraDTO boletoCompraDTO = new BoletoCompraDTO(txtCodigoBoleto.getText());
         control.mostrarDetallesCompra(usuarioRegistradoDTO, boletoCompraDTO);
+        this.dispose();
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
 

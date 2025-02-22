@@ -27,6 +27,7 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
         this.usuarioRegistradoDTO = usuarioRegistradoDTO;
         this.cargarBoletoTabla();
     }
+    
 
     private void mostrarInfoBoleto(BoletoDTO boletoDTO) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblBoletos.getModel();
