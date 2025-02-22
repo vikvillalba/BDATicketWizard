@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 public class ManejadorConexiones {
     
-    private final String cadenaConexion = "jdbc:mysql://localhost/ticketWizard_10am";
+    private final String cadenaConexion = "jdbc:mysql://localhost/ticketWizard";
     private final String usuario = "root";
     private final String contrasena = "luna3008";
     

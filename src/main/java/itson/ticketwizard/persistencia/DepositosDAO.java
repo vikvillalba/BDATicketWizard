@@ -25,27 +25,27 @@ public class DepositosDAO {
         this.manejadorConexiones = manejadorConexiones;
     }
      
-    public Deposito realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) throws SQLException, PersistenciaException{
-        try(Connection conexion = manejadorConexiones.crearConexion();
-            CallableStatement comando = conexion.prepareCall("{CALL GESTIONAR_TRANSACCION(?,?,?,?,?,?)}")){
-            //se usa CallableStatement para procedimientos almacenados
-            comando.setString(1, "DEPOSITO");
-            comando.setInt(2, usuarioRegistradoDTO.getCodigoUsuario());
-            comando.setNull(3, Types.VARCHAR);
-            comando.setBigDecimal(4, nuevoDepositoDTO.getSaldo());
-            comando.setNull(5, Types.INTEGER);
-            comando.setNull(6, Types.TIMESTAMP);
-            // para mandar los valores null se utiliza el setNull, se le manda el lugar y el tipo de dato que es
-            
-            int filasAfectadas = comando.executeUpdate();
-            System.out.println("Filas afectadas: " + filasAfectadas);
-
-            return new Deposito(usuarioRegistradoDTO.getCodigoUsuario(), nuevoDepositoDTO.getSaldo(), LocalDateTime.now());
-
-        }catch(SQLException e){
-            System.err.println("ERROR SQL:" + e.getMessage());
-            throw new PersistenciaException("ERROR: ERROR AL REALIZAR LA TRANSACCION");
-        }
+//    public Deposito realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) throws SQLException, PersistenciaException{
+//        try(Connection conexion = manejadorConexiones.crearConexion();
+//            CallableStatement comando = conexion.prepareCall("{CALL GESTIONAR_TRANSACCION(?,?,?,?,?,?)}")){
+//            //se usa CallableStatement para procedimientos almacenados
+//            comando.setString(1, "DEPOSITO");
+//            comando.setInt(2, usuarioRegistradoDTO.getCodigoUsuario());
+//            comando.setNull(3, Types.VARCHAR);
+//            comando.setBigDecimal(4, nuevoDepositoDTO.getSaldo());
+//            comando.setNull(5, Types.INTEGER);
+//            comando.setNull(6, Types.TIMESTAMP);
+//            // para mandar los valores null se utiliza el setNull, se le manda el lugar y el tipo de dato que es
+//            
+//            int filasAfectadas = comando.executeUpdate();
+//            System.out.println("Filas afectadas: " + filasAfectadas);
+//
+//            return new Deposito(usuarioRegistradoDTO.getCodigoUsuario(), nuevoDepositoDTO.getSaldo(), LocalDateTime.now());
+//
+//        }catch(SQLException e){
+//            System.err.println("ERROR SQL:" + e.getMessage());
+//            throw new PersistenciaException("ERROR: ERROR AL REALIZAR LA TRANSACCION");
+//        }
      
-}
+//}
 }

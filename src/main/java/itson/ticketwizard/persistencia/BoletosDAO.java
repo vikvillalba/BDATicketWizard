@@ -167,7 +167,7 @@ public class BoletosDAO {
         
     public BoletoDTO obtenerBoletoCompra(BoletoCompraDTO boletoCompraDTO) throws PersistenciaException {
         String codigoSQL = """
-                           SELECT e.NOMBRE, e.FECHA, e.RECINTO, b.FILA, b.ASIENTO, e.CIUDAD, e.ESTADO, b.PRECIO, b.NUMEROSERIE, b.CODIGOBOLETO
+                           SELECT e.NOMBRE, e.FECHA, e.RECINTO, b.FILA, b.ASIENTO, e.CIUDAD, e.ESTADO, b.PRECIO, b.NUMEROSERIE, b.CODIGOBOLETO, b.CODIGOUSUARIO
                            FROM BOLETOS b 
                            INNER JOIN EVENTOS e ON b.CODIGOEVENTO = e.CODIGOEVENTO
                            WHERE b.NUMEROSERIE = ?;
@@ -183,7 +183,7 @@ public class BoletosDAO {
                 return new BoletoDTO(resultado.getString("NOMBRE"), resultado.getTimestamp("FECHA").toLocalDateTime(),
                         resultado.getString("RECINTO"), resultado.getString("FILA"), resultado.getString("ASIENTO"),
                         resultado.getString("CIUDAD"), resultado.getString("ESTADO"), resultado.getBigDecimal("PRECIO"),
-                        resultado.getString("NUMEROSERIE"), resultado.getInt("CODIGOBOLETO"));
+                        resultado.getString("NUMEROSERIE"), resultado.getInt("CODIGOBOLETO"), resultado.getInt("CODIGOUSUARIO"));
 
             }
 
@@ -196,45 +196,4 @@ public class BoletosDAO {
         return null;
     }
 
-    public boolean actualizarDuenioBoleto(NuevaCompraDTO compraDTO, BoletoDTO boletoDTO) throws PersistenciaException{
-        String codigoSQL = """
-                           UPDATE BOLETOS
-                           SET NUMEROSERIE = ?, CODIGOUSUARIO = ?
-                           WHERE CODIGOBOLETO = ?;
-                           """;
-        
-        try{
-            Connection conexion = this.manejadorConexiones.crearConexion();
-            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
-            
-            comando.setString(1, this.generarNumeroSerie());
-            comando.setInt(2, compraDTO.getCodigoUsuario());
-            comando.setInt(3, boletoDTO.getCodigoBoleto());
-            
-            return comando.executeUpdate() > 0;
-        
-        }catch(SQLException ex) {
-
-            System.out.println(ex.getMessage());
-            throw new PersistenciaException("Error al recuperar los datos.");
-        }
-    }
-
-    private String generarNumeroSerie() {
-        String LETRAS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        Random random = new Random();
-        StringBuilder codigo = new StringBuilder();
-
-        //genera 4 letras aleatorias
-        for (int i = 0; i < 4; i++) {
-            codigo.append(LETRAS.charAt(random.nextInt(LETRAS.length())));
-        }
-
-        // genera 4 numeros aleatorios
-        int numero = random.nextInt(10000); // Número entre 0000 y 9999
-        codigo.append(String.format("%04d", numero));
-
-        return codigo.toString();
-
-    }
 }

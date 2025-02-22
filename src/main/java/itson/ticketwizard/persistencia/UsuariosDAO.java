@@ -30,7 +30,8 @@ public class UsuariosDAO { // almacena usuarios en la bd
     }
 
 public Usuario registrarUsuario(NuevoUsuarioDTO nuevoUsuarioDTO, NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
-    String codigoSQL = "{CALL SP_crearCuenta(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}"; // Agregamos el parámetro OUT
+    String codigoSQL = "{CALL SP_crearCuenta(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}"; 
+
 
     try {
         Connection conexion = manejadorConexiones.crearConexion();
