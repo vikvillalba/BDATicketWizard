@@ -2,6 +2,7 @@ package itson.ticketwizard.persistencia;
 
 import itson.ticketwizard.dtos.BoletoCompraDTO;
 import itson.ticketwizard.dtos.BoletoDTO;
+import itson.ticketwizard.dtos.BoletoUsuarioDTO;
 import itson.ticketwizard.dtos.BusquedaBoletoFechasDTO;
 import itson.ticketwizard.dtos.BusquedaBoletoNombreDTO;
 import itson.ticketwizard.dtos.NuevaCompraDTO;
@@ -195,5 +196,71 @@ public class BoletosDAO {
 
         return null;
     }
+    
+    // para el historial de compras y llos boletos que el usuario puede revender
+    public List<BoletoUsuarioDTO> buscarPaginadoBoletosTablaUsuario(int limit, int offset, UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
+        try {
+            List<BoletoUsuarioDTO> listaBoletos = null;
+
+            Connection conexion = this.manejadorConexiones.crearConexion();
+            String codigoSQL = """
+                               SELECT b.CODIGOBOLETO, e.NOMBRE, e.FECHA, e.RECINTO, b.FILA, b.ASIENTO, e.CIUDAD, e.ESTADO,
+                               tra.CODIGOTRANSACCION, tra.TIPOCOMPRA, b.PRECIO, b.NUMEROSERIE, TRANSACCIONES.FECHAHORA
+                               FROM BOLETOS b 
+                               INNER JOIN EVENTOS e ON b.CODIGOEVENTO = e.CODIGOEVENTO
+                               INNER JOIN TRANSACCIONES ON TRANSACCIONES.CODIGOBOLETO = b.CODIGOBOLETO
+                               INNER JOIN TRANSACCIONESCOMPRAS tra ON tra.CODIGOTRANSACCION = TRANSACCIONES.CODIGOTRANSACCION
+                               WHERE b.codigoUsuario = ?
+                               LIMIT ? OFFSET ?;
+                               """;
+
+            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+
+            comando.setInt(1, usuarioRegistradoDTO.getCodigoUsuario());
+            comando.setInt(2, limit);
+            comando.setInt(3, offset);
+
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                if (listaBoletos == null) {
+                    listaBoletos = new ArrayList<>();
+                }
+                BoletoUsuarioDTO boleto = this.boletoTablaUsuarioDTO(resultado);
+                boleto.setCodigoUsuario(usuarioRegistradoDTO.getCodigoUsuario());
+                listaBoletos.add(boleto);
+            }
+            conexion.close();
+            return listaBoletos;
+        } catch (SQLException ex) {
+
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Error al recuperar los boletos.");
+        }
+    }
+    
+        private BoletoUsuarioDTO boletoTablaUsuarioDTO(ResultSet resultado) throws SQLException {
+
+        Integer codigoBoleto = resultado.getInt("codigoBoleto");
+        String nombre = resultado.getString("nombre");
+        Timestamp fecha = resultado.getTimestamp("fecha");
+        LocalDateTime fechaHora = fecha.toLocalDateTime();
+        String recinto = resultado.getString("recinto");
+        String fila = resultado.getString("fila");
+        String asiento = resultado.getString("asiento");
+        String ciudad = resultado.getString("ciudad");
+        String estado = resultado.getString("estado");
+        Integer numeroTransaccion = resultado.getInt("codigoTransaccion");
+        String tipoCompra = resultado.getString("tipoCompra");
+        BigDecimal precio = resultado.getBigDecimal("precio");
+        String numeroSerie = resultado.getString("numeroSerie");
+        Timestamp fechaCompra = resultado.getTimestamp("fechaHora");
+        LocalDateTime fechaHoraCompra = fechaCompra.toLocalDateTime();
+
+        return new BoletoUsuarioDTO(nombre, fechaHora, recinto, fila, asiento, ciudad, estado, precio, numeroSerie, codigoBoleto, numeroTransaccion, tipoCompra, fechaHoraCompra);
+    }
+    
+
+
 
 }
