@@ -2,11 +2,13 @@ package itson.ticketwizard.control;
 
 import itson.ticketwizard.dtos.BoletoCompraDTO;
 import itson.ticketwizard.dtos.BoletoDTO;
+import itson.ticketwizard.dtos.BoletoUsuarioDTO;
 import itson.ticketwizard.dtos.BusquedaBoletoFechasDTO;
 import itson.ticketwizard.dtos.BusquedaBoletoNombreDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.persistencia.BoletosDAO;
 import itson.ticketwizard.persistencia.PersistenciaException;
+import itson.ticketwizard.presentacion.FrmHistorialCompras;
 import itson.ticketwizard.presentacion.FrmResultadosBusqueda;
 import itson.ticketwizard.utilidades.Utilidades;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
 public class ControlResultadosBusqueda {
 
     private FrmResultadosBusqueda resultadosBusqueda;
+    private FrmHistorialCompras historialCompras;
     private BoletosDAO boletosDAO;
     private ControlRegistrarCompra controlRegistrarCompra;
 
@@ -61,13 +64,31 @@ public class ControlResultadosBusqueda {
         }
 
     }
-        
-    public void mostrarResultadosBusqueda(UsuarioRegistradoDTO usuarioRegistradoDTO){
+    
+    public List<BoletoUsuarioDTO> obtenerBoletosPaginadosUsuario(int limit, int pagina, UsuarioRegistradoDTO usuarioRegistradoDTO) throws ControlException {
+        int offset = Utilidades.RegresarOFFSETMySQL(limit, pagina);
+
+        try {
+            return this.boletosDAO.buscarPaginadoBoletosTablaUsuario(limit, offset, usuarioRegistradoDTO);
+
+        } catch (PersistenciaException ex) {
+            throw new ControlException("error");
+        }
+
+    }
+
+
+    public void mostrarResultadosBusqueda(UsuarioRegistradoDTO usuarioRegistradoDTO) {
         this.resultadosBusqueda = new FrmResultadosBusqueda(this, usuarioRegistradoDTO);
         this.resultadosBusqueda.setVisible(true);
     }
-    
-    public void mostrarDetallesCompra(UsuarioRegistradoDTO usuarioRegistradoDTO, BoletoCompraDTO boletoCompraDTO){
+
+    public void mostrarDetallesCompra(UsuarioRegistradoDTO usuarioRegistradoDTO, BoletoCompraDTO boletoCompraDTO) {
         controlRegistrarCompra.mostrarDetallesBoletoCompra(usuarioRegistradoDTO, boletoCompraDTO);
+    }
+
+    public void mostrarHistorialCompras(UsuarioRegistradoDTO usuarioRegistradoDTO) {
+        this.historialCompras = new FrmHistorialCompras(this, usuarioRegistradoDTO);
+        this.historialCompras.setVisible(true);
     }
 }

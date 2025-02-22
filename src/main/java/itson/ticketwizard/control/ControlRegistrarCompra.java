@@ -4,14 +4,11 @@ import itson.ticketwizard.dtos.BoletoCompraDTO;
 import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.NuevaCompraDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
-import itson.ticketwizard.entidades.TransaccionCompra;
 import itson.ticketwizard.persistencia.BoletosDAO;
 import itson.ticketwizard.persistencia.ComprasDAO;
 import itson.ticketwizard.persistencia.PersistenciaException;
 import itson.ticketwizard.persistencia.UsuariosDAO;
 import itson.ticketwizard.presentacion.FrmDetallesBoletoCompra;
-import itson.ticketwizard.presentacion.FrmHistorialCompras;
-import itson.ticketwizard.presentacion.FrmMenuPrincipal;
 import javax.swing.JOptionPane;
 
 /** Control que maneja el flujo para el caso de uso de registrar la compra de boletos, así como mostrar los boletos adquiridos.
@@ -21,7 +18,6 @@ import javax.swing.JOptionPane;
 public class ControlRegistrarCompra {
     
     private FrmDetallesBoletoCompra detallesBoletoCompra;
-    private FrmHistorialCompras historialCompras;
     private final BoletosDAO boletosDAO;
     private final ComprasDAO comprasDAO;
     private UsuariosDAO usuariosDAO;
@@ -30,11 +26,6 @@ public class ControlRegistrarCompra {
         this.boletosDAO = boletosDAO;
         this.comprasDAO = comprasDAO;
         this.usuariosDAO = usuariosDAO;
-    }
-
-    public void mostrarHistorialCompras(UsuarioRegistradoDTO usuarioRegistradoDTO){
-        this.historialCompras = new FrmHistorialCompras(this);
-        this.historialCompras.setVisible(true);
     }
     
     public void mostrarDetallesBoletoCompra(UsuarioRegistradoDTO usuarioRegistradoDTO, BoletoCompraDTO boletoCompraDTO){
@@ -70,6 +61,7 @@ public class ControlRegistrarCompra {
                 this.comprasDAO.actualizarDuenioBoleto(nuevaCompraDTO, boletoDTO);
                 this.mostrarMensajeCompraRealizada();  
                 this.detallesBoletoCompra.dispose();
+
                 
                 
             } else {
