@@ -13,6 +13,8 @@ import itson.ticketwizard.persistencia.DepositosDAO;
 import itson.ticketwizard.persistencia.DireccionesDAO;
 import itson.ticketwizard.persistencia.ManejadorConexiones;
 import itson.ticketwizard.persistencia.UsuariosDAO;
+import java.util.Scanner;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * Representa el flujo de la aplicación.
@@ -46,6 +48,6 @@ public class TicketWizard {
         control.setControlMenuPrincipal(controlMenuPrincipal);
   
         control.iniciar();
-
+    
     }
 }

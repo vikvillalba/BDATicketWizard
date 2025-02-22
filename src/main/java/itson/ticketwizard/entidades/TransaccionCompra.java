@@ -10,17 +10,20 @@ import java.util.Objects;
  */
 public class TransaccionCompra extends Transaccion {
     private Integer codigoTransaccion;
+    private String tipoCompra;
 
     public TransaccionCompra() {
     }
 
-    public TransaccionCompra(Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto) {
+    public TransaccionCompra(Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto, String tipoCompra) {
         super(codigoTransaccion, codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
         this.codigoTransaccion = codigoTransaccion;
+        this.tipoCompra = tipoCompra;
     }
 
-    public TransaccionCompra(Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto) {
+    public TransaccionCompra(Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto, String tipoCompra) {
         super(codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
+        this.tipoCompra = tipoCompra;
     }
 
     @Override
