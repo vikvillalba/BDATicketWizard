@@ -18,6 +18,7 @@ public class BoletoDTO {
     private BigDecimal precio;
     private String numeroSerie;
     private Integer codigoBoleto;
+    private Integer codigoUsuarioDuenio;
 
     public BoletoDTO() {
     }
@@ -35,9 +36,20 @@ public class BoletoDTO {
         this.codigoBoleto = codigoBoleto;
     }
 
- 
-
-
+    public BoletoDTO(String nombreEvento, LocalDateTime fechaEvento, String recinto, String fila, String asiento, String ciudad, String estado, BigDecimal precio, String numeroSerie, Integer codigoBoleto, Integer codigoUsuarioDuenio) {
+        this.nombreEvento = nombreEvento;
+        this.fechaEvento = fechaEvento;
+        this.recinto = recinto;
+        this.fila = fila;
+        this.asiento = asiento;
+        this.ciudad = ciudad;
+        this.estado = estado;
+        this.precio = precio;
+        this.numeroSerie = numeroSerie;
+        this.codigoBoleto = codigoBoleto;
+        this.codigoUsuarioDuenio = codigoUsuarioDuenio;
+    }
+    
 
     public String getNombreEvento() {
         return nombreEvento;
@@ -117,6 +129,14 @@ public class BoletoDTO {
 
     public void setCodigoBoleto(Integer codigoBoleto) {
         this.codigoBoleto = codigoBoleto;
+    }
+
+    public Integer getCodigoUsuarioDuenio() {
+        return codigoUsuarioDuenio;
+    }
+
+    public void setCodigoUsuarioDuenio(Integer codigoUsuarioDuenio) {
+        this.codigoUsuarioDuenio = codigoUsuarioDuenio;
     }
     
     
