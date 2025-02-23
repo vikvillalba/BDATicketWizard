@@ -14,28 +14,25 @@ public class ControlMenuPrincipal {
     private final ControlIniciarSesion controlInicioSesion;
     private final ControlActualizarPerfil controlActualizarPerfil;
     private final ControlRegistrarCompra controlComprarBoletos;
-    private final ControlBoletosUsuario controlBoletosUsuario;
     private final ControlRegistrarReventa controlRevenderBoletos;
     private ControlDepositarSaldo controlDepositarSaldo;
     private final ControlResultadosBusqueda controlResultadosBusqueda;
 
-    public ControlMenuPrincipal(ControlIniciarSesion controlInicioSesion, ControlActualizarPerfil controlActualizarPerfil, ControlRegistrarCompra controlComprarBoletos, ControlRegistrarReventa controlRevenderBoletos, ControlDepositarSaldo controlDepositarSaldo, ControlResultadosBusqueda controlResultadosBusqueda, ControlBoletosUsuario controlBoletosUsuario) {
+    public ControlMenuPrincipal(ControlIniciarSesion controlInicioSesion, ControlActualizarPerfil controlActualizarPerfil, ControlRegistrarCompra controlComprarBoletos, ControlRegistrarReventa controlRevenderBoletos, ControlDepositarSaldo controlDepositarSaldo, ControlResultadosBusqueda controlResultadosBusqueda) {
         this.controlInicioSesion = controlInicioSesion;
         this.controlActualizarPerfil = controlActualizarPerfil;
         this.controlComprarBoletos = controlComprarBoletos;
         this.controlRevenderBoletos = controlRevenderBoletos;
         this.controlDepositarSaldo = controlDepositarSaldo;
         this.controlResultadosBusqueda = controlResultadosBusqueda;
-        this.controlBoletosUsuario = controlBoletosUsuario;
     }
 
-    public ControlMenuPrincipal(ControlIniciarSesion controlInicioSesion, ControlActualizarPerfil controlActualizarPerfil, ControlRegistrarCompra controlComprarBoletos, ControlRegistrarReventa controlRevenderBoletos, ControlResultadosBusqueda controlResultadosBusqueda, ControlBoletosUsuario controlBoletosUsuario) {
+    public ControlMenuPrincipal(ControlIniciarSesion controlInicioSesion, ControlActualizarPerfil controlActualizarPerfil, ControlRegistrarCompra controlComprarBoletos, ControlRegistrarReventa controlRevenderBoletos, ControlResultadosBusqueda controlResultadosBusqueda) {
         this.controlInicioSesion = controlInicioSesion;
         this.controlActualizarPerfil = controlActualizarPerfil;
         this.controlComprarBoletos = controlComprarBoletos;
         this.controlRevenderBoletos = controlRevenderBoletos;
         this.controlResultadosBusqueda = controlResultadosBusqueda;
-        this.controlBoletosUsuario = controlBoletosUsuario;
     }
 
 
@@ -60,7 +57,7 @@ public class ControlMenuPrincipal {
     }
     
     public void mostrarMisBoletos(UsuarioRegistradoDTO usuarioRegistradoDTO){
-        controlBoletosUsuario.mostrarBoletosUsuario(usuarioRegistradoDTO);
+        controlRevenderBoletos.mostrarBoletosUsuario(usuarioRegistradoDTO);
     }
     
     public void mostrarHistorialReventas(UsuarioRegistradoDTO usuarioRegistradoDTO){
