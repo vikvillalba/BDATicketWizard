@@ -1,6 +1,5 @@
 package itson.ticketwizard.presentacion;
 
-import itson.ticketwizard.control.ControlBoletosUsuario;
 import itson.ticketwizard.control.ControlException;
 import itson.ticketwizard.control.ControlRegistrarReventa;
 import itson.ticketwizard.dtos.BoletoDTO;
@@ -21,13 +20,13 @@ public final class FrmBoletosUsuario extends javax.swing.JFrame {
 
     private int pagina = 1;
     private final int LIMITE = 5;
-    private final ControlBoletosUsuario control;
+    private final ControlRegistrarReventa control;
     private final UsuarioRegistradoDTO usuarioRegistradoDTO;
     
     /**
      * Creates new form FrmHistorialBoletos
      */
-    public FrmBoletosUsuario(ControlBoletosUsuario control, UsuarioRegistradoDTO usuarioRegistradoDTO) {
+    public FrmBoletosUsuario(ControlRegistrarReventa control, UsuarioRegistradoDTO usuarioRegistradoDTO) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.usuarioRegistradoDTO = usuarioRegistradoDTO;
@@ -75,6 +74,9 @@ public final class FrmBoletosUsuario extends javax.swing.JFrame {
            
         try {
             List<BoletoUsuarioDTO> listaBoletos = this.control.obtenerBoletosPaginados(LIMITE, pagina, usuarioRegistradoDTO);
+            // que no muestre los boletos que ya tienen una reventa
+            
+            
             this.llenarTablaBoletos(listaBoletos);
         } catch (ControlException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
@@ -298,6 +300,7 @@ public final class FrmBoletosUsuario extends javax.swing.JFrame {
         }
         
         this.control.mostrarBoletosParaReventa(usuarioRegistradoDTO, boletosReventa);
+        
     }//GEN-LAST:event_btnSeleccionarBoletosActionPerformed
 
  

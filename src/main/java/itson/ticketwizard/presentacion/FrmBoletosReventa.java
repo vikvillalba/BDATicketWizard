@@ -1,9 +1,8 @@
 package itson.ticketwizard.presentacion;
 
-import itson.ticketwizard.control.ControlBoletosUsuario;
+//import itson.ticketwizard.control.ControlBoletosUsuario;
 import itson.ticketwizard.control.ControlException;
 import itson.ticketwizard.control.ControlRegistrarReventa;
-import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.BoletoUsuarioDTO;
 import itson.ticketwizard.dtos.NuevaReventaDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
@@ -12,8 +11,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -26,22 +23,21 @@ public class FrmBoletosReventa extends javax.swing.JFrame {
 
     private int pagina = 1;
     private final int LIMITE = 5;
-    private final ControlBoletosUsuario control;
     private final UsuarioRegistradoDTO usuarioRegistradoDTO;
     private List<BoletoUsuarioDTO> listaBoletos;
-    private final ControlRegistrarReventa controlRegistrarReventa;
+    private final ControlRegistrarReventa control;
 
     /**
      * Creates new form FrmBoletosReventa
      */
-    public FrmBoletosReventa(ControlBoletosUsuario control, UsuarioRegistradoDTO usuarioRegistradoDTO, List<BoletoUsuarioDTO> listaBoletos, ControlRegistrarReventa controlRegistrarReventa) {
+    public FrmBoletosReventa(ControlRegistrarReventa control, UsuarioRegistradoDTO usuarioRegistradoDTO, List<BoletoUsuarioDTO> listaBoletos) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.usuarioRegistradoDTO = usuarioRegistradoDTO;
         this.control = control;
+        this.usuarioRegistradoDTO = usuarioRegistradoDTO;
         this.listaBoletos = listaBoletos;
         this.cargarMetodosIniciales();
-        this.controlRegistrarReventa = controlRegistrarReventa;
+        
     }
      public void cargarMetodosIniciales() {
         this.llenarTablaBoletos(listaBoletos);
@@ -300,7 +296,7 @@ public class FrmBoletosReventa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRevenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevenderActionPerformed
-       controlRegistrarReventa.setBoletosReventa(this);
+       control.setBoletosReventa(this);
         // Obtener los datos del formulario
         String numeroSerie = txtNumeroSerie.getText();
         String fecha = txtFechaLimite.getText();
@@ -316,7 +312,7 @@ public class FrmBoletosReventa extends javax.swing.JFrame {
 
         try {
             // Llamar al método para registrar la reventa
-            this.controlRegistrarReventa.revenderBoleto(usuarioRegistradoDTO, nuevaReventaDTO);
+            this.control.revenderBoleto(usuarioRegistradoDTO, nuevaReventaDTO);
         } catch (ControlException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
         }
