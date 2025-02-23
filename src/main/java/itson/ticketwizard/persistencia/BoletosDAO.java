@@ -5,9 +5,7 @@ import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.BoletoUsuarioDTO;
 import itson.ticketwizard.dtos.BusquedaBoletoFechasDTO;
 import itson.ticketwizard.dtos.BusquedaBoletoNombreDTO;
-import itson.ticketwizard.dtos.NuevaCompraDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
-import itson.ticketwizard.entidades.TransaccionCompra;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
@@ -18,7 +16,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  *
@@ -42,6 +39,7 @@ public class BoletosDAO {
                                FROM BOLETOS b 
                                INNER JOIN EVENTOS e ON b.CODIGOEVENTO = e.CODIGOEVENTO
                                WHERE (b.codigoUsuario IS NULL OR b.codigoUsuario != ?)
+                               AND b.ESTADO = 1
                                LIMIT ? OFFSET ?;
                                """;
 
@@ -178,6 +176,37 @@ public class BoletosDAO {
             Connection conexion = this.manejadorConexiones.crearConexion();
             PreparedStatement comando = conexion.prepareStatement(codigoSQL);
             comando.setString(1, boletoCompraDTO.getNumeroSerie());
+
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()) {
+                return new BoletoDTO(resultado.getString("NOMBRE"), resultado.getTimestamp("FECHA").toLocalDateTime(),
+                        resultado.getString("RECINTO"), resultado.getString("FILA"), resultado.getString("ASIENTO"),
+                        resultado.getString("CIUDAD"), resultado.getString("ESTADO"), resultado.getBigDecimal("PRECIO"),
+                        resultado.getString("NUMEROSERIE"), resultado.getInt("CODIGOBOLETO"), resultado.getInt("CODIGOUSUARIO"));
+
+            }
+
+        } catch (SQLException ex) {
+
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Error al recuperar los datos.");
+        }
+
+        return null;
+    }
+    
+        public BoletoDTO obtenerBoletoReventa(BoletoUsuarioDTO boletoUsuarioDTO) throws PersistenciaException {
+        String codigoSQL = """
+                           SELECT e.NOMBRE, e.FECHA, e.RECINTO, b.FILA, b.ASIENTO, e.CIUDAD, e.ESTADO, b.PRECIO, b.NUMEROSERIE, b.CODIGOBOLETO, b.CODIGOUSUARIO
+                           FROM BOLETOS b 
+                           INNER JOIN EVENTOS e ON b.CODIGOEVENTO = e.CODIGOEVENTO
+                           WHERE b.NUMEROSERIE = ?;
+                           """;
+
+        try {
+            Connection conexion = this.manejadorConexiones.crearConexion();
+            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+            comando.setString(1, boletoUsuarioDTO.getNumeroSerie());
 
             ResultSet resultado = comando.executeQuery();
             if (resultado.next()) {

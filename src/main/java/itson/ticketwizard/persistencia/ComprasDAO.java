@@ -66,14 +66,12 @@ public class ComprasDAO {
 
     public boolean actualizarDuenioBoleto(NuevaCompraDTO compraDTO, BoletoDTO boletoDTO) throws PersistenciaException {
         String codigoSQL = """
-                           UPDATE BOLETOS
-                           SET NUMEROSERIE = ?, CODIGOUSUARIO = ?
-                           WHERE CODIGOBOLETO = ?;
-                           """;
+                       UPDATE BOLETOS
+                       SET NUMEROSERIE = ?, CODIGOUSUARIO = ?, ESTADO = 0
+                       WHERE CODIGOBOLETO = ?;
+                       """;
 
-        try {
-            Connection conexion = this.manejadorConexiones.crearConexion();
-            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+        try (Connection conexion = this.manejadorConexiones.crearConexion(); PreparedStatement comando = conexion.prepareStatement(codigoSQL)) {
 
             comando.setString(1, this.generarNumeroSerie());
             comando.setInt(2, compraDTO.getCodigoUsuario());
@@ -82,11 +80,11 @@ public class ComprasDAO {
             return comando.executeUpdate() > 0;
 
         } catch (SQLException ex) {
-
             System.out.println(ex.getMessage());
-            throw new PersistenciaException("Error al recuperar los datos.");
+            throw new PersistenciaException("Error al actualizar el dueño del boleto.");
         }
     }
+
 
     private String generarNumeroSerie() {
         String LETRAS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

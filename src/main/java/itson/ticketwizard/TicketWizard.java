@@ -13,6 +13,7 @@ import itson.ticketwizard.persistencia.ComprasDAO;
 import itson.ticketwizard.persistencia.DepositosDAO;
 import itson.ticketwizard.persistencia.DireccionesDAO;
 import itson.ticketwizard.persistencia.ManejadorConexiones;
+import itson.ticketwizard.persistencia.ReventasDAO;
 import itson.ticketwizard.persistencia.UsuariosDAO;
 import java.util.Scanner;
 import org.mindrot.jbcrypt.BCrypt;
@@ -36,12 +37,13 @@ public class TicketWizard {
         BoletosDAO boletosDAO = new BoletosDAO(manejadorConexiones);
         DepositosDAO depositosDAO = new DepositosDAO(manejadorConexiones);
         ComprasDAO comprasDAO = new ComprasDAO(manejadorConexiones);
+        ReventasDAO reventasDAO = new ReventasDAO(manejadorConexiones);
 
         // clases de control
         ControlRegistrarCompra controlRegistrarCompra = new ControlRegistrarCompra(boletosDAO, comprasDAO, usuariosDAO);
         ControlActualizarPerfil controlActualizarPerfil = new ControlActualizarPerfil(usuariosDAO, direccionesDAO);
         ControlIniciarSesion control = new ControlIniciarSesion(usuariosDAO, direccionesDAO);
-        ControlRegistrarReventa controlRegistrarReventa = new ControlRegistrarReventa(boletosDAO);
+        ControlRegistrarReventa controlRegistrarReventa = new ControlRegistrarReventa(boletosDAO, reventasDAO);
         ControlResultadosBusqueda controlResultadosBusqueda = new ControlResultadosBusqueda(boletosDAO, controlRegistrarCompra);
         ControlDepositarSaldo controlDepositoSaldo = new ControlDepositarSaldo(depositosDAO);
         ControlBoletosUsuario controlBoletosUsuario = new ControlBoletosUsuario(boletosDAO, controlRegistrarReventa);

@@ -14,14 +14,15 @@ public class NuevaReventaDTO {
     private LocalDateTime fechaLimite;
     private BigDecimal precioVenta;
 
-    public NuevaReventaDTO(Integer codigoUsuario, BigDecimal precioBoleto, String numeroSerie, LocalDateTime fechaLimite, BigDecimal precioVenta) {
+    public NuevaReventaDTO(Integer codigoUsuario, String numeroSerie, LocalDateTime fechaLimite, BigDecimal precioVenta) {
         this.codigoUsuario = codigoUsuario;
-        this.precioBoleto = precioBoleto;
         this.numeroSerie = numeroSerie;
         this.fechaLimite = fechaLimite;
         this.precioVenta = precioVenta;
     }
 
+    
+    
     public Integer getCodigoUsuario() {
         return codigoUsuario;
     }

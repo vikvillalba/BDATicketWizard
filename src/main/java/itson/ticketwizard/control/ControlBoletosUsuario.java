@@ -47,7 +47,7 @@ public class ControlBoletosUsuario {
     }
     
     public void mostrarBoletosParaReventa(UsuarioRegistradoDTO usuarioRegistradoDTO, List<BoletoUsuarioDTO> listaBoletos){
-        this.boletosReventa = new FrmBoletosReventa(this, usuarioRegistradoDTO, listaBoletos);
+        this.boletosReventa = new FrmBoletosReventa(this, usuarioRegistradoDTO, listaBoletos, controlRegistrarReventa);
         this.boletosReventa.setVisible(true);
     }
 

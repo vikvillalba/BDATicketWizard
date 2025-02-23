@@ -2,10 +2,18 @@ package itson.ticketwizard.presentacion;
 
 import itson.ticketwizard.control.ControlBoletosUsuario;
 import itson.ticketwizard.control.ControlException;
+import itson.ticketwizard.control.ControlRegistrarReventa;
 import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.BoletoUsuarioDTO;
+import itson.ticketwizard.dtos.NuevaReventaDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -21,17 +29,19 @@ public class FrmBoletosReventa extends javax.swing.JFrame {
     private final ControlBoletosUsuario control;
     private final UsuarioRegistradoDTO usuarioRegistradoDTO;
     private List<BoletoUsuarioDTO> listaBoletos;
+    private final ControlRegistrarReventa controlRegistrarReventa;
 
     /**
      * Creates new form FrmBoletosReventa
      */
-    public FrmBoletosReventa(ControlBoletosUsuario control, UsuarioRegistradoDTO usuarioRegistradoDTO, List<BoletoUsuarioDTO> listaBoletos) {
+    public FrmBoletosReventa(ControlBoletosUsuario control, UsuarioRegistradoDTO usuarioRegistradoDTO, List<BoletoUsuarioDTO> listaBoletos, ControlRegistrarReventa controlRegistrarReventa) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.usuarioRegistradoDTO = usuarioRegistradoDTO;
         this.control = control;
         this.listaBoletos = listaBoletos;
         this.cargarMetodosIniciales();
+        this.controlRegistrarReventa = controlRegistrarReventa;
     }
      public void cargarMetodosIniciales() {
         this.llenarTablaBoletos(listaBoletos);
@@ -183,7 +193,7 @@ public class FrmBoletosReventa extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(95, 84, 163));
         jLabel6.setText("Precio de reventa");
 
-        txtFechaLimite.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yy"))));
+        txtFechaLimite.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
 
         txtNumeroSerie.setEditable(false);
         txtNumeroSerie.setEnabled(false);
@@ -290,7 +300,28 @@ public class FrmBoletosReventa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRevenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevenderActionPerformed
-        
+       controlRegistrarReventa.setBoletosReventa(this);
+        // Obtener los datos del formulario
+        String numeroSerie = txtNumeroSerie.getText();
+        String fecha = txtFechaLimite.getText();
+        String precio = txtPrecioReventa.getText();
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss");
+        LocalDateTime fechaFin = LocalDateTime.parse(fecha + "T23:59:59", formatter.withZone(ZoneId.systemDefault()));
+        BigDecimal precioReventa = new BigDecimal(precio);
+
+        //DTO para la reventa
+        NuevaReventaDTO nuevaReventaDTO = new NuevaReventaDTO(this.usuarioRegistradoDTO.getCodigoUsuario(), numeroSerie, fechaFin, precioReventa);
+
+        try {
+            // Llamar al método para registrar la reventa
+            this.controlRegistrarReventa.revenderBoleto(usuarioRegistradoDTO, nuevaReventaDTO);
+        } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+        }
+
+          
     }//GEN-LAST:event_btnRevenderActionPerformed
 
           private void estadoPagina() {

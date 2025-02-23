@@ -71,6 +71,11 @@ public class BoletoUsuarioDTO {
         this.formaCompra = formaCompra;
         this.fechaHoraCompra = fechaHoraCompra;
     }
+
+    public BoletoUsuarioDTO(String numeroSerie) {
+        this.numeroSerie = numeroSerie;
+    }
+    
     
     
 

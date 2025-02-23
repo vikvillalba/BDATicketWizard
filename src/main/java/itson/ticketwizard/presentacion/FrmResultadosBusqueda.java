@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmResultadosBusqueda extends javax.swing.JFrame {
     private int pagina=1;
-    private final int LIMITE = 5;
+    private final int LIMITE = 10;
     private final ControlResultadosBusqueda control;
     private UsuarioRegistradoDTO usuarioRegistradoDTO;
 
@@ -385,10 +385,6 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if(this.rbNombre.isSelected()){
-
-            this.rbFechas.setEnabled(false);
-            this.txtFechaInicio.setEnabled(false);
-            this.txtFechaFin.setEnabled(false);
             String nombreEvento = txtNombreEvento.getText();
 
             if (nombreEvento.trim().isEmpty()) {
@@ -408,8 +404,7 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         }
         
         if(this.rbFechas.isSelected()){
-            this.rbNombre.setEnabled(false);
-            this.txtNombreEvento.setEnabled(false);
+         
             String fechaInicio = txtFechaInicio.getText();
             String fechaFin = txtFechaFin.getText();
             
@@ -458,10 +453,6 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         this.txtCodigoBoleto.setText("");
         this.rbNombre.setSelected(false);
         this.rbFechas.setSelected(false);
-        this.txtFechaFin.setEnabled(true);
-        this.txtFechaInicio.setEnabled(true);
-        this.rbFechas.setEnabled(true);
-        this.rbNombre.setEnabled(true);
         this.cargarBoletosEnTabla();
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
