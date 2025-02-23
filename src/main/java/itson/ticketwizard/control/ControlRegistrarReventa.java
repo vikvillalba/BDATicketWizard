@@ -1,6 +1,7 @@
 package itson.ticketwizard.control;
 
 import itson.ticketwizard.dtos.BoletoDTO;
+import itson.ticketwizard.dtos.BoletoReventaDTO;
 import itson.ticketwizard.dtos.BoletoUsuarioDTO;
 import itson.ticketwizard.dtos.NuevaReventaDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
@@ -37,7 +38,7 @@ public class ControlRegistrarReventa {
     }
 
     public void mostrarHistorialReventas(UsuarioRegistradoDTO usuarioRegistradoDTO) {
-        this.historialReventas = new FrmHistorialReventas(this);
+        this.historialReventas = new FrmHistorialReventas(this, usuarioRegistradoDTO);
         this.historialReventas.setVisible(true);
     }
 
@@ -123,4 +124,15 @@ public class ControlRegistrarReventa {
         this.boletosUsuario.setVisible(true);
     }
 
+        public List<BoletoReventaDTO> obtenerBoletosReventa(int limit, int pagina, UsuarioRegistradoDTO usuarioRegistradoDTO) throws ControlException {
+        int offset = Utilidades.RegresarOFFSETMySQL(limit, pagina);
+
+        try {
+            return this.boletosDAO.buscarBoletosRevendidos(limit, offset, usuarioRegistradoDTO);
+
+        } catch (PersistenciaException ex) {
+            throw new ControlException("error");
+        }
+
+    }
 }
