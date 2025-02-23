@@ -6,6 +6,9 @@ import itson.ticketwizard.control.ControlRegistrarReventa;
 import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.BoletoUsuarioDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,12 +17,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author victoria
  */
-public class FrmBoletosUsuario extends javax.swing.JFrame {
+public final class FrmBoletosUsuario extends javax.swing.JFrame {
 
     private int pagina = 1;
     private final int LIMITE = 5;
     private final ControlBoletosUsuario control;
-    private UsuarioRegistradoDTO usuarioRegistradoDTO;
+    private final UsuarioRegistradoDTO usuarioRegistradoDTO;
     
     /**
      * Creates new form FrmHistorialBoletos
@@ -31,15 +34,13 @@ public class FrmBoletosUsuario extends javax.swing.JFrame {
         this.control = control;
         this.cargarMetodosIniciales();
     }
-public void cargarMetodosIniciales() {
+    public void cargarMetodosIniciales() {
         this.cargarBoletosEnTabla();
         this.estadoPagina();
     }
     
     private void llenarTablaBoletos(List<BoletoUsuarioDTO> listaBoletos) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblBoletos.getModel();
-
-       
 
         if (modeloTabla.getRowCount() > 0) {
             for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
@@ -94,7 +95,7 @@ public void cargarMetodosIniciales() {
         tblBoletos = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         btnVolverMenu = new javax.swing.JButton();
-        btnVolverMenu1 = new javax.swing.JButton();
+        btnSeleccionarBoletos = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
         btnSiguiente = new javax.swing.JButton();
         lblPagina = new javax.swing.JLabel();
@@ -179,11 +180,16 @@ public void cargarMetodosIniciales() {
             }
         });
 
-        btnVolverMenu1.setBackground(new java.awt.Color(95, 84, 163));
-        btnVolverMenu1.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnVolverMenu1.setForeground(new java.awt.Color(255, 255, 255));
-        btnVolverMenu1.setText("Revender Boletos");
-        btnVolverMenu1.setToolTipText("");
+        btnSeleccionarBoletos.setBackground(new java.awt.Color(95, 84, 163));
+        btnSeleccionarBoletos.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
+        btnSeleccionarBoletos.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeleccionarBoletos.setText("Seleccionar Boletos");
+        btnSeleccionarBoletos.setToolTipText("");
+        btnSeleccionarBoletos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarBoletosActionPerformed(evt);
+            }
+        });
 
         btnAtras.setText("Anterior");
 
@@ -196,20 +202,19 @@ public void cargarMetodosIniciales() {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(607, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnVolverMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(251, 251, 251)
-                        .addComponent(btnAtras)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblPagina)
-                        .addGap(21, 21, 21)
-                        .addComponent(btnSiguiente)
-                        .addGap(37, 37, 37))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(590, 590, 590))))
+                .addContainerGap(583, Short.MAX_VALUE)
+                .addComponent(btnSeleccionarBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(275, 275, 275)
+                .addComponent(btnAtras)
+                .addGap(18, 18, 18)
+                .addComponent(lblPagina)
+                .addGap(21, 21, 21)
+                .addComponent(btnSiguiente)
+                .addGap(37, 37, 37))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(618, 618, 618)
+                .addComponent(btnVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,16 +222,16 @@ public void cargarMetodosIniciales() {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(btnVolverMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSeleccionarBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAtras)
                             .addComponent(btnSiguiente)
                             .addComponent(lblPagina))))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
@@ -267,13 +272,41 @@ public void cargarMetodosIniciales() {
         this.dispose();
     }//GEN-LAST:event_btnVolverMenuActionPerformed
 
+    private void btnSeleccionarBoletosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarBoletosActionPerformed
+       List<BoletoUsuarioDTO> boletosReventa = new ArrayList<>();
+       
+        for (int i = 0; i < this.tblBoletos.getRowCount(); i++) {
+            // obtiene si se marcó o no el checkbox
+            Boolean seleccionado = (Boolean) tblBoletos.getValueAt(i, 11);
+            
+            if(seleccionado != null && seleccionado){
+                String numeroSerie = (String) tblBoletos.getValueAt(i, 0);
+                String nombreEvento = (String) tblBoletos.getValueAt(i, 1);
+                LocalDateTime fechaEvento = (LocalDateTime) tblBoletos.getValueAt(i, 2);
+                String recinto = (String) tblBoletos.getValueAt(i, 3);
+                String fila = (String) tblBoletos.getValueAt(i, 4);
+                String asiento = (String) tblBoletos.getValueAt(i, 5);
+                String ciudad = (String) tblBoletos.getValueAt(i, 6);
+                String Estado = (String) tblBoletos.getValueAt(i, 7);
+                LocalDateTime fechaCompra = (LocalDateTime) tblBoletos.getValueAt(i, 8);
+                BigDecimal precio = (BigDecimal) tblBoletos.getValueAt(i, 9);
+                String formaCompra = (String) tblBoletos.getValueAt(i, 10);
+                
+                BoletoUsuarioDTO boletoReventa = new BoletoUsuarioDTO(nombreEvento, fechaEvento, recinto, fila, asiento, ciudad, Estado, precio, numeroSerie, usuarioRegistradoDTO.getCodigoUsuario(),formaCompra, fechaCompra);
+                boletosReventa.add(boletoReventa);
+            }           
+        }
+        
+        this.control.mostrarBoletosParaReventa(usuarioRegistradoDTO, boletosReventa);
+    }//GEN-LAST:event_btnSeleccionarBoletosActionPerformed
+
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
+    private javax.swing.JButton btnSeleccionarBoletos;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnVolverMenu;
-    private javax.swing.JButton btnVolverMenu1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
