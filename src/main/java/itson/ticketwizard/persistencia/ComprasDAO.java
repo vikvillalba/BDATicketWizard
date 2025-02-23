@@ -2,15 +2,11 @@ package itson.ticketwizard.persistencia;
 
 import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.NuevaCompraDTO;
-import itson.ticketwizard.entidades.TransaccionCompra;
 import itson.ticketwizard.enums.TipoCompra;
-import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -103,4 +99,5 @@ public class ComprasDAO {
         return codigo.toString();
 
     }
+    
 }

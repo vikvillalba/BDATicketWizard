@@ -39,7 +39,7 @@ public class BoletosDAO {
                                FROM BOLETOS b 
                                INNER JOIN EVENTOS e ON b.CODIGOEVENTO = e.CODIGOEVENTO
                                WHERE (b.codigoUsuario IS NULL OR b.codigoUsuario != ?)
-                               AND b.ESTADO = 1
+                               AND b.ESTADO = 1 AND b.REVENTA = 0 AND APARTADO = 0
                                LIMIT ? OFFSET ?;
                                """;
 
@@ -77,6 +77,7 @@ public class BoletosDAO {
                                FROM BOLETOS b 
                                INNER JOIN EVENTOS e ON b.CODIGOEVENTO = e.CODIGOEVENTO
                                WHERE (b.codigoUsuario IS NULL OR b.codigoUsuario != ?)
+                               AND b.ESTADO = 1 AND b.REVENTA = 0 AND APARTADO = 0
                                AND e.NOMBRE LIKE ?
                                LIMIT ? OFFSET ?;
                                """;
@@ -117,6 +118,7 @@ public class BoletosDAO {
                                FROM BOLETOS b 
                                INNER JOIN EVENTOS e ON b.CODIGOEVENTO = e.CODIGOEVENTO
                                WHERE (b.codigoUsuario IS NULL OR b.codigoUsuario != ?)
+                               AND b.ESTADO = 1 AND b.REVENTA = 0 AND APARTADO = 0
                                AND e.FECHA BETWEEN ? AND ?
                                LIMIT ? OFFSET ?;
                                """;
@@ -226,7 +228,7 @@ public class BoletosDAO {
         return null;
     }
     
-    // para el historial de compras y llos boletos que el usuario puede revender
+    //boletos que el usuario puede revender
     public List<BoletoUsuarioDTO> buscarPaginadoBoletosTablaUsuario(int limit, int offset, UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
         try {
             List<BoletoUsuarioDTO> listaBoletos = null;
@@ -240,6 +242,7 @@ public class BoletosDAO {
                                INNER JOIN TRANSACCIONES ON TRANSACCIONES.CODIGOBOLETO = b.CODIGOBOLETO
                                INNER JOIN TRANSACCIONESCOMPRAS tra ON tra.CODIGOTRANSACCION = TRANSACCIONES.CODIGOTRANSACCION
                                WHERE b.codigoUsuario = ?
+                               AND b.ESTADO = 1 AND b.REVENTA = 0 AND APARTADO = 0
                                LIMIT ? OFFSET ?;
                                """;
 

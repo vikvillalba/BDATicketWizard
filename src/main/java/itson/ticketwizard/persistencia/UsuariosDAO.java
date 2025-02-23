@@ -1,6 +1,5 @@
 package itson.ticketwizard.persistencia;
 
-import itson.ticketwizard.dtos.NuevaCompraDTO;
 import itson.ticketwizard.dtos.NuevoDomicilioUsuarioDTO;
 import itson.ticketwizard.dtos.NuevoUsuarioDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
@@ -12,7 +11,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
@@ -134,7 +132,7 @@ public Usuario registrarUsuario(NuevoUsuarioDTO nuevoUsuarioDTO, NuevoDomicilioU
     
     
     //actualiza los datos del usuario
-    public boolean actualizarUsuario(NuevoUsuarioDTO usuarioActualizado) {
+    public boolean actualizarUsuario(NuevoUsuarioDTO usuarioActualizado, NuevoDomicilioUsuarioDTO domicilioActualizado) {
     String sql = """
                  UPDATE USUARIOS
                  SET NOMBRES = ?, APELLIDOPATERNO = ?, APELLIDOMATERNO = ?,
