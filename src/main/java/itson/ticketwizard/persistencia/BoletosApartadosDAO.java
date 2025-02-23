@@ -2,8 +2,6 @@ package itson.ticketwizard.persistencia;
 
 import itson.ticketwizard.dtos.BoletoApartadoDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
-import itson.ticketwizard.enums.TipoCompra;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -64,4 +62,6 @@ public class BoletosApartadosDAO {
             throw new PersistenciaException("No se pudo conectar a la base de datos.");
         }
     }
+    
+    
 }

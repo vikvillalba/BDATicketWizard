@@ -355,4 +355,61 @@ public class BoletosDAO {
 
         return new BoletoReventaDTO(nombre, recinto, fila, asiento, ciudad, estado, precioReventa, numeroSerie, codigoBoleto, codigoBoleto, numeroTransaccion, fechaHoraCompra, fechaHora, precioReventa);
      }
+     
+     
+     
+      public List<BoletoUsuarioDTO> buscarBoletosApartadosUsuario(int limit, int offset, UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
+        try {
+            List<BoletoUsuarioDTO> listaBoletos = null;
+
+            Connection conexion = this.manejadorConexiones.crearConexion();
+            String codigoSQL = """
+                               SELECT b.CODIGOBOLETO, e.NOMBRE, e.FECHA, e.RECINTO, b.FILA, b.ASIENTO, e.CIUDAD, e.ESTADO,
+                               b.PRECIO, b.NUMEROSERIE
+                               FROM BOLETOS b 
+                               INNER JOIN EVENTOS e ON b.CODIGOEVENTO = e.CODIGOEVENTO
+                               INNER JOIN BOLETOSAPARTADOS ap ON ap.NUMEROSERIEBOLETO = b.NUMEROSERIE
+                               WHERE ap.CODIGOUSUARIO = ?
+                               AND b.APARTADO = 1
+                               LIMIT ? OFFSET ?;
+                               """;
+
+            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+
+            comando.setInt(1, usuarioRegistradoDTO.getCodigoUsuario());
+            comando.setInt(2, limit);
+            comando.setInt(3, offset);
+
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                if (listaBoletos == null) {
+                    listaBoletos = new ArrayList<>();
+                }
+                
+                String evento = resultado.getString("nombre");
+                Timestamp fecha = resultado.getTimestamp("fecha");
+                LocalDateTime fechaHora = fecha.toLocalDateTime();
+                String recinto = resultado.getString("recinto");
+                String fila = resultado.getString("fila");
+                String asiento = resultado.getString("asiento");
+                String ciudad = resultado.getString("ciudad");
+                String estado = resultado.getString("estado");
+                BigDecimal precio = resultado.getBigDecimal("precio");
+                Integer codigoBoleto = resultado.getInt("codigoboleto");
+                String numeroSerie = resultado.getString("numeroserie");
+                
+                BoletoUsuarioDTO boleto = new BoletoUsuarioDTO(evento, fechaHora, recinto, fila, asiento, ciudad, estado, precio, numeroSerie, codigoBoleto);
+                listaBoletos.add(boleto);
+            }
+            conexion.close();
+            return listaBoletos;
+        } catch (SQLException ex) {
+
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Error al recuperar los boletos.");
+        }
+    }
+   
+    
 }
