@@ -72,13 +72,25 @@ public class BoletoUsuarioDTO {
         this.fechaHoraCompra = fechaHoraCompra;
     }
 
+    public BoletoUsuarioDTO(String nombreEvento, LocalDateTime fechaEvento, String recinto, String fila, String asiento, String ciudad, String estado, BigDecimal precio, String numeroSerie, Integer codigoBoleto) {
+        this.nombreEvento = nombreEvento;
+        this.fechaEvento = fechaEvento;
+        this.recinto = recinto;
+        this.fila = fila;
+        this.asiento = asiento;
+        this.ciudad = ciudad;
+        this.estado = estado;
+        this.precio = precio;
+        this.numeroSerie = numeroSerie;
+        this.codigoBoleto = codigoBoleto;
+    }
+
+    
+    
     public BoletoUsuarioDTO(String numeroSerie) {
         this.numeroSerie = numeroSerie;
     }
     
-    
-    
-
     public String getNombreEvento() {
         return nombreEvento;
     }

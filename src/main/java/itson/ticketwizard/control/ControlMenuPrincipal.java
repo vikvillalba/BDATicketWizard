@@ -75,4 +75,8 @@ public class ControlMenuPrincipal {
     public void mostrarResultadosBusqueda(UsuarioRegistradoDTO usuarioRegistradoDTO){
         controlResultadosBusqueda.mostrarResultadosBusqueda(usuarioRegistradoDTO);
     }
+    
+    public void mostrarBoletosApartados(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        controlComprarBoletos.mostrarBoletosApartados(usuarioRegistradoDTO);
+    }
 }

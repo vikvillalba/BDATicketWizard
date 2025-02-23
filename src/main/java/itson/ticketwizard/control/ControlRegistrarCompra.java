@@ -3,6 +3,7 @@ package itson.ticketwizard.control;
 import itson.ticketwizard.dtos.BoletoApartadoDTO;
 import itson.ticketwizard.dtos.BoletoCompraDTO;
 import itson.ticketwizard.dtos.BoletoDTO;
+import itson.ticketwizard.dtos.BoletoUsuarioDTO;
 import itson.ticketwizard.dtos.NuevaCompraDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.persistencia.BoletosApartadosDAO;
@@ -10,8 +11,11 @@ import itson.ticketwizard.persistencia.BoletosDAO;
 import itson.ticketwizard.persistencia.ComprasDAO;
 import itson.ticketwizard.persistencia.PersistenciaException;
 import itson.ticketwizard.persistencia.UsuariosDAO;
+import itson.ticketwizard.presentacion.FrmBoletosApartados;
 import itson.ticketwizard.presentacion.FrmDetallesBoletoCompra;
+import itson.ticketwizard.utilidades.Utilidades;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /** Control que maneja el flujo para el caso de uso de registrar la compra de boletos, así como mostrar los boletos adquiridos.
@@ -21,6 +25,7 @@ import javax.swing.JOptionPane;
 public class ControlRegistrarCompra {
     
     private FrmDetallesBoletoCompra detallesBoletoCompra;
+    private FrmBoletosApartados boletosApartados;
     private final BoletosDAO boletosDAO;
     private final ComprasDAO comprasDAO;
     private UsuariosDAO usuariosDAO;
@@ -94,5 +99,22 @@ public class ControlRegistrarCompra {
                 JOptionPane.INFORMATION_MESSAGE);
 
         detallesBoletoCompra.dispose();
+    }
+    
+    public void mostrarBoletosApartados(UsuarioRegistradoDTO usuarioRegistradoDTO){
+        this.boletosApartados = new FrmBoletosApartados(this, usuarioRegistradoDTO);
+        this.boletosApartados.setVisible(true);
+    }
+    
+    public List<BoletoUsuarioDTO> obtenerBoletosApartados(int limit, int pagina, UsuarioRegistradoDTO usuarioRegistradoDTO) throws ControlException {
+        int offset = Utilidades.RegresarOFFSETMySQL(limit, pagina);
+
+        try {
+            return this.boletosDAO.buscarBoletosApartadosUsuario(limit, offset, usuarioRegistradoDTO);
+
+        } catch (PersistenciaException ex) {
+            throw new ControlException("error");
+        }
+
     }
 }
