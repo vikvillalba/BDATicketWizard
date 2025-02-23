@@ -1,7 +1,6 @@
 package itson.ticketwizard;
 
 import itson.ticketwizard.control.ControlActualizarPerfil;
-import itson.ticketwizard.control.ControlBoletosUsuario;
 import itson.ticketwizard.control.ControlDepositarSaldo;
 import itson.ticketwizard.control.ControlIniciarSesion;
 import itson.ticketwizard.control.ControlMenuPrincipal;
@@ -43,12 +42,11 @@ public class TicketWizard {
         ControlRegistrarCompra controlRegistrarCompra = new ControlRegistrarCompra(boletosDAO, comprasDAO, usuariosDAO);
         ControlActualizarPerfil controlActualizarPerfil = new ControlActualizarPerfil(usuariosDAO, direccionesDAO);
         ControlIniciarSesion control = new ControlIniciarSesion(usuariosDAO, direccionesDAO);
-        ControlRegistrarReventa controlRegistrarReventa = new ControlRegistrarReventa(boletosDAO, reventasDAO);
         ControlResultadosBusqueda controlResultadosBusqueda = new ControlResultadosBusqueda(boletosDAO, controlRegistrarCompra);
         ControlDepositarSaldo controlDepositoSaldo = new ControlDepositarSaldo(depositosDAO);
-        ControlBoletosUsuario controlBoletosUsuario = new ControlBoletosUsuario(boletosDAO, controlRegistrarReventa);
+        ControlRegistrarReventa controlRegistrarReventa = new ControlRegistrarReventa(boletosDAO, reventasDAO);
 
-        ControlMenuPrincipal controlMenuPrincipal = new ControlMenuPrincipal(control, controlActualizarPerfil, controlRegistrarCompra, controlRegistrarReventa, controlDepositoSaldo,controlResultadosBusqueda, controlBoletosUsuario);
+        ControlMenuPrincipal controlMenuPrincipal = new ControlMenuPrincipal(control, controlActualizarPerfil, controlRegistrarCompra, controlRegistrarReventa, controlDepositoSaldo,controlResultadosBusqueda);
         control.setControlMenuPrincipal(controlMenuPrincipal);
   
         control.iniciar();
