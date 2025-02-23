@@ -7,6 +7,7 @@ import itson.ticketwizard.dtos.BoletoUsuarioDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.persistencia.BoletosDAO;
 import itson.ticketwizard.persistencia.PersistenciaException;
+import itson.ticketwizard.presentacion.FrmBoletosReventa;
 import itson.ticketwizard.presentacion.FrmBoletosUsuario;
 import itson.ticketwizard.presentacion.FrmHistorialReventas;
 import itson.ticketwizard.utilidades.Utilidades;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class ControlBoletosUsuario {
     private FrmBoletosUsuario boletosUsuario;
+    private FrmBoletosReventa boletosReventa;
     private FrmHistorialReventas historialReventas;
     private BoletosDAO boletosDAO;
     private ControlRegistrarReventa controlRegistrarReventa;
@@ -42,6 +44,11 @@ public class ControlBoletosUsuario {
     public void mostrarBoletosUsuario(UsuarioRegistradoDTO usuarioRegistradoDTO){
         this.boletosUsuario = new FrmBoletosUsuario(this, usuarioRegistradoDTO);
         this.boletosUsuario.setVisible(true);
+    }
+    
+    public void mostrarBoletosParaReventa(UsuarioRegistradoDTO usuarioRegistradoDTO, List<BoletoUsuarioDTO> listaBoletos){
+        this.boletosReventa = new FrmBoletosReventa(this, usuarioRegistradoDTO, listaBoletos);
+        this.boletosReventa.setVisible(true);
     }
 
 }
