@@ -155,9 +155,7 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
 
         txtFechaFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
 
-        btnBuscar.setBackground(new java.awt.Color(95, 84, 163));
         btnBuscar.setFont(new java.awt.Font("Galvji", 1, 16)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,9 +238,7 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
         txtCodigoBoleto.setEditable(false);
         txtCodigoBoleto.setEnabled(false);
 
-        btnSeleccionar.setBackground(new java.awt.Color(95, 84, 163));
         btnSeleccionar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,9 +246,7 @@ public class FrmResultadosBusqueda extends javax.swing.JFrame {
             }
         });
 
-        btnRegresarMenu.setBackground(new java.awt.Color(119, 118, 126));
         btnRegresarMenu.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnRegresarMenu.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresarMenu.setText("Regresar al Menú");
         btnRegresarMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

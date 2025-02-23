@@ -96,9 +96,7 @@ public class FrmHistorialDepositos extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(223, 218, 255));
 
-        btnRegresar.setBackground(new java.awt.Color(119, 118, 126));
         btnRegresar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresar.setText("Regresar al menú");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

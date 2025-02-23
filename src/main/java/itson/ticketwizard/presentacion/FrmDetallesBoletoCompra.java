@@ -120,9 +120,7 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(223, 218, 255));
 
-        btnComprar.setBackground(new java.awt.Color(95, 84, 163));
         btnComprar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnComprar.setForeground(new java.awt.Color(255, 255, 255));
         btnComprar.setText("Comprar");
         btnComprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,9 +128,7 @@ public class FrmDetallesBoletoCompra extends javax.swing.JFrame {
             }
         });
 
-        btnVolverMenu1.setBackground(new java.awt.Color(119, 118, 126));
         btnVolverMenu1.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnVolverMenu1.setForeground(new java.awt.Color(255, 255, 255));
         btnVolverMenu1.setText("Cancelar");
         btnVolverMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

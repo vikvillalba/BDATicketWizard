@@ -53,9 +53,7 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Depósito de Saldo");
 
-        btnRealizarDeposito.setBackground(new java.awt.Color(95, 84, 163));
         btnRealizarDeposito.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnRealizarDeposito.setForeground(new java.awt.Color(255, 255, 255));
         btnRealizarDeposito.setText("Realizar depósito");
         btnRealizarDeposito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,9 +61,7 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(119, 118, 126));
         jButton2.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

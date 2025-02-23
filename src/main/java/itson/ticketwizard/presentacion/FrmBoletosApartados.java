@@ -86,9 +86,7 @@ public class FrmBoletosApartados extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(223, 218, 255));
 
-        btnVolverMenu.setBackground(new java.awt.Color(119, 118, 126));
         btnVolverMenu.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnVolverMenu.setForeground(new java.awt.Color(255, 255, 255));
         btnVolverMenu.setText("Regresar al menú");
         btnVolverMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

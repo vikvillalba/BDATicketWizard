@@ -52,9 +52,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoPequeno1.png"))); // NOI18N
 
-        btnCerrarSesion.setBackground(new java.awt.Color(95, 84, 163));
         btnCerrarSesion.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,9 +60,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnActualizar.setBackground(new java.awt.Color(95, 84, 163));
         btnActualizar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar Perfil");
         btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -73,9 +69,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btmAgregarSaldo.setBackground(new java.awt.Color(95, 84, 163));
         btmAgregarSaldo.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btmAgregarSaldo.setForeground(new java.awt.Color(255, 255, 255));
         btmAgregarSaldo.setText("Agregar Saldo");
         btmAgregarSaldo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,9 +112,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(223, 218, 255));
 
-        btnBuscarBoleto.setBackground(new java.awt.Color(119, 118, 126));
         btnBuscarBoleto.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnBuscarBoleto.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscarBoleto.setText("Buscar Boletos");
         btnBuscarBoleto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,9 +120,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnVerBoletos.setBackground(new java.awt.Color(119, 118, 126));
         btnVerBoletos.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnVerBoletos.setForeground(new java.awt.Color(255, 255, 255));
         btnVerBoletos.setText("Ver Mis Boletos");
         btnVerBoletos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,9 +128,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnVerHistorialCompras.setBackground(new java.awt.Color(119, 118, 126));
         btnVerHistorialCompras.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnVerHistorialCompras.setForeground(new java.awt.Color(255, 255, 255));
         btnVerHistorialCompras.setText("Consultar Historial de Compras");
         btnVerHistorialCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,9 +136,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnVerHistorialVentas.setBackground(new java.awt.Color(119, 118, 126));
         btnVerHistorialVentas.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnVerHistorialVentas.setForeground(new java.awt.Color(255, 255, 255));
         btnVerHistorialVentas.setText("Consultar Historial de Ventas");
         btnVerHistorialVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,14 +144,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnVerBoletosApartados.setBackground(new java.awt.Color(119, 118, 126));
         btnVerBoletosApartados.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnVerBoletosApartados.setForeground(new java.awt.Color(255, 255, 255));
         btnVerBoletosApartados.setText("Mis Boletos Apartados");
 
-        btnVerDepositos.setBackground(new java.awt.Color(119, 118, 126));
         btnVerDepositos.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnVerDepositos.setForeground(new java.awt.Color(255, 255, 255));
         btnVerDepositos.setText("Consultar Historial de Depósitos");
         btnVerDepositos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -172,9 +172,7 @@ public class FrmActualizarPerfil extends javax.swing.JFrame {
 
         jScrollPane13.setViewportView(txtCodigoPostal);
 
-        btnCancelar.setBackground(new java.awt.Color(119, 118, 126));
         btnCancelar.setFont(new java.awt.Font("Galvji", 1, 24)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,9 +184,7 @@ public class FrmActualizarPerfil extends javax.swing.JFrame {
 
         cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas", "Chihuahua", "Ciudad de México ", "Coahuila ", "Colima ", "Durango ", "Estado de México ", "Guanajuato ", "Guerrero ", "Hidalgo ", "Jalisco ", "Michoacán ", "Morelos ", "Nayarit ", "Nuevo León ", "Oaxaca ", "Puebla ", "Querétaro ", "Quintana Roo ", "San Luis Potosí ", "Sinaloa ", "Sonora ", "Tabasco ", "Tamaulipas ", "Tlaxcala ", "Veracruz ", "Yucatán ", "Zacatecas " }));
 
-        btnRegistrar.setBackground(new java.awt.Color(95, 84, 163));
         btnRegistrar.setFont(new java.awt.Font("Galvji", 1, 24)); // NOI18N
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Aceptar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

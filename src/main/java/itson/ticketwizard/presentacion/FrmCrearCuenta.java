@@ -169,9 +169,7 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
 
         jScrollPane13.setViewportView(txtCodigoPostal);
 
-        btnRegistrar.setBackground(new java.awt.Color(95, 84, 163));
         btnRegistrar.setFont(new java.awt.Font("Galvji", 1, 24)); // NOI18N
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Aceptar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -75,9 +75,7 @@ public class FrmInicioSesion extends JFrame {
         pnl2.add(jLabel3);
         jLabel3.setBounds(50, 210, 140, 29);
 
-        btnIngresar.setBackground(new java.awt.Color(119, 118, 126));
         btnIngresar.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
-        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("Ingresar");
         btnIngresar.setFocusPainted(false);
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
