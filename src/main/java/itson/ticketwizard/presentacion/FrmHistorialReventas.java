@@ -29,7 +29,7 @@ public class FrmHistorialReventas extends javax.swing.JFrame {
         this.usuarioRegistradoDTO = usuarioRegistradoDTO;
         this.cargarMetodosIniciales();
     }
-        public void cargarMetodosIniciales() {
+    public void cargarMetodosIniciales() {
         this.cargarBoletosEnTabla();
         this.estadoPagina();
     }
@@ -65,8 +65,8 @@ public class FrmHistorialReventas extends javax.swing.JFrame {
 
     }
 
-        public void cargarBoletosEnTabla() {
-           
+    public void cargarBoletosEnTabla() {
+
         try {
             List<BoletoReventaDTO> listaBoletos = this.control.obtenerBoletosReventa(LIMITE, pagina, usuarioRegistradoDTO);
             this.llenarTablaBoletos(listaBoletos);
@@ -196,7 +196,7 @@ public class FrmHistorialReventas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-        private void estadoPagina() {
+    private void estadoPagina() {
         String numPagina = String.valueOf(pagina);
         lblPagina.setText("Pagina " + numPagina);
         estatusBotonAtras();

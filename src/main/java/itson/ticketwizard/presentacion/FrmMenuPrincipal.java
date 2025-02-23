@@ -146,6 +146,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         btnVerBoletosApartados.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVerBoletosApartados.setText("Mis Boletos Apartados");
+        btnVerBoletosApartados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerBoletosApartadosActionPerformed(evt);
+            }
+        });
 
         btnVerDepositos.setFont(new java.awt.Font("Galvji", 1, 18)); // NOI18N
         btnVerDepositos.setText("Consultar Historial de Depósitos");
@@ -259,6 +264,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private void btnVerDepositosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDepositosActionPerformed
         control.mostrarHistorialDepositos(this.usuarioRegistradoDTO);
     }//GEN-LAST:event_btnVerDepositosActionPerformed
+
+    private void btnVerBoletosApartadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerBoletosApartadosActionPerformed
+        control.mostrarBoletosApartados(usuarioRegistradoDTO);
+    }//GEN-LAST:event_btnVerBoletosApartadosActionPerformed
 
  
 
