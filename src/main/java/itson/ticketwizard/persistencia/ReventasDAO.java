@@ -2,18 +2,12 @@ package itson.ticketwizard.persistencia;
 
 import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.NuevaReventaDTO;
-import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
-import itson.ticketwizard.entidades.TransaccionReventa;
-import itson.ticketwizard.enums.TipoCompra;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -34,7 +28,7 @@ public class ReventasDAO {
 
         String codigoSQLEstadoBoleto = """
                                    UPDATE BOLETOS 
-                                   SET ESTADO = 1, REVENTA = 1, PRECIO = ?
+                                   SET ESTADO = 1, REVENTA = 1, APARTADO = 0, PRECIO = ?
                                    WHERE CODIGOBOLETO = ?;
                                    """;
 

@@ -2,6 +2,7 @@ package itson.ticketwizard.persistencia;
 
 import itson.ticketwizard.dtos.BoletoCompraDTO;
 import itson.ticketwizard.dtos.BoletoDTO;
+import itson.ticketwizard.dtos.BoletoReventaDTO;
 import itson.ticketwizard.dtos.BoletoUsuarioDTO;
 import itson.ticketwizard.dtos.BusquedaBoletoFechasDTO;
 import itson.ticketwizard.dtos.BusquedaBoletoNombreDTO;
@@ -242,7 +243,7 @@ public class BoletosDAO {
                                INNER JOIN TRANSACCIONES ON TRANSACCIONES.CODIGOBOLETO = b.CODIGOBOLETO
                                INNER JOIN TRANSACCIONESCOMPRAS tra ON tra.CODIGOTRANSACCION = TRANSACCIONES.CODIGOTRANSACCION
                                WHERE b.codigoUsuario = ?
-                               AND b.ESTADO = 1 AND b.REVENTA = 0 AND APARTADO = 0
+                               AND b.ESTADO = 0 AND b.REVENTA = 0 
                                LIMIT ? OFFSET ?;
                                """;
 
@@ -293,6 +294,65 @@ public class BoletosDAO {
     }
     
 
+    public List<BoletoReventaDTO> buscarBoletosRevendidos(int limit, int offset, UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
+        try {
+            List<BoletoReventaDTO> listaBoletos = null;
 
+            Connection conexion = this.manejadorConexiones.crearConexion();
+            String codigoSQL = """
+                               SELECT b.CODIGOBOLETO, e.NOMBRE, e.FECHA, e.RECINTO, b.FILA, b.ASIENTO, e.CIUDAD, e.ESTADO,
+                               tra.CODIGOTRANSACCION, b.PRECIO, b.NUMEROSERIE, TRANSACCIONES.FECHAHORA, tra.FECHALIMITE, tra.PRECIOVENTA
+                               FROM BOLETOS b 
+                               INNER JOIN EVENTOS e ON b.CODIGOEVENTO = e.CODIGOEVENTO
+                               INNER JOIN TRANSACCIONES ON TRANSACCIONES.CODIGOBOLETO = b.CODIGOBOLETO
+                               INNER JOIN TRANSACCIONESREVENTAS tra ON tra.CODIGOTRANSACCION = TRANSACCIONES.CODIGOTRANSACCION
+                               WHERE b.codigoUsuario = ?
+                               AND b.ESTADO = 1 AND REVENTA = 1
+                               LIMIT ? OFFSET ?;
+                               """;
 
+            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+
+            comando.setInt(1, usuarioRegistradoDTO.getCodigoUsuario());
+            comando.setInt(2, limit);
+            comando.setInt(3, offset);
+
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                if (listaBoletos == null) {
+                    listaBoletos = new ArrayList<>();
+                }
+                BoletoReventaDTO boleto = this.boletoReventaDTO(resultado);
+                boleto.setCodigoUsuario(usuarioRegistradoDTO.getCodigoUsuario());
+                listaBoletos.add(boleto);
+            }
+            conexion.close();
+            return listaBoletos;
+        } catch (SQLException ex) {
+
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Error al recuperar los boletos.");
+        }
+    }
+
+     private BoletoReventaDTO boletoReventaDTO(ResultSet resultado) throws SQLException {
+
+        Integer codigoBoleto = resultado.getInt("codigoBoleto");
+        String nombre = resultado.getString("nombre");
+        String recinto = resultado.getString("recinto");
+        String fila = resultado.getString("fila");
+        String asiento = resultado.getString("asiento");
+        String ciudad = resultado.getString("ciudad");
+        String estado = resultado.getString("estado");
+        Integer numeroTransaccion = resultado.getInt("codigoTransaccion");       
+        Timestamp fechaTran = resultado.getTimestamp("fechahora");
+        LocalDateTime fechaHora = fechaTran.toLocalDateTime();
+        BigDecimal precioReventa = resultado.getBigDecimal("precioVenta");
+        String numeroSerie = resultado.getString("numeroSerie");       
+        Timestamp fechaLim = resultado.getTimestamp("fechaLimite");
+        LocalDateTime fechaHoraCompra = fechaLim.toLocalDateTime();
+
+        return new BoletoReventaDTO(nombre, recinto, fila, asiento, ciudad, estado, precioReventa, numeroSerie, codigoBoleto, codigoBoleto, numeroTransaccion, fechaHoraCompra, fechaHora, precioReventa);
+     }
 }

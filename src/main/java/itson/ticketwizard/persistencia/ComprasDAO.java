@@ -63,7 +63,7 @@ public class ComprasDAO {
     public boolean actualizarDuenioBoleto(NuevaCompraDTO compraDTO, BoletoDTO boletoDTO) throws PersistenciaException {
         String codigoSQL = """
                        UPDATE BOLETOS
-                       SET NUMEROSERIE = ?, CODIGOUSUARIO = ?, ESTADO = 0
+                       SET NUMEROSERIE = ?, CODIGOUSUARIO = ?, ESTADO = 0, REVENTA = 0, APARTADO = 0
                        WHERE CODIGOBOLETO = ?;
                        """;
 
