@@ -13,24 +13,23 @@ public class TransaccionReventa extends Transaccion{
     private Integer codigoTransaccion;
     private Date fechaLimite;
     private BigDecimal precioVenta;
-    private Integer codigoComprador;
 
     public TransaccionReventa() {
     }
 
-    public TransaccionReventa(Date fechaLimite, BigDecimal precioVenta, Integer codigoComprador, Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto) {
+    public TransaccionReventa(Date fechaLimite, BigDecimal precioVenta, Integer codigoTransaccion, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto) {
         super(codigoTransaccion, codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
         this.fechaLimite = fechaLimite;
         this.precioVenta = precioVenta;
-        this.codigoComprador = codigoComprador;
     }
 
-    public TransaccionReventa(Date fechaLimite, BigDecimal precioVenta, Integer codigoComprador, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto) {
+    public TransaccionReventa(Integer codigoTransaccion, Date fechaLimite, BigDecimal precioVenta, Integer codigoUsuario, LocalDateTime fechaHoraTransaccion, BigDecimal monto, String numeroSerieBoleto) {
         super(codigoUsuario, fechaHoraTransaccion, monto, numeroSerieBoleto);
+        this.codigoTransaccion = codigoTransaccion;
         this.fechaLimite = fechaLimite;
         this.precioVenta = precioVenta;
-        this.codigoComprador = codigoComprador;
     }
+
 
    
 
@@ -58,14 +57,6 @@ public class TransaccionReventa extends Transaccion{
         this.precioVenta = precioVenta;
     }
 
-    public Integer getCodigoComprador() {
-        return codigoComprador;
-    }
-
-    public void setCodigoComprador(Integer codigoComprador) {
-        this.codigoComprador = codigoComprador;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -90,7 +81,7 @@ public class TransaccionReventa extends Transaccion{
 
     @Override
     public String toString() {
-        return "TransaccionReventa{" + "codigoTransaccion=" + codigoTransaccion + ", fechaLimite=" + fechaLimite + ", precioVenta=" + precioVenta + ", codigoComprador=" + codigoComprador + '}';
+        return "TransaccionReventa{" + "codigoTransaccion=" + codigoTransaccion + ", fechaLimite=" + fechaLimite + ", precioVenta=" + precioVenta + '}';
     }
 
       
