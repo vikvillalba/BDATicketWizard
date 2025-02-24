@@ -3,7 +3,6 @@ package itson.ticketwizard.presentacion;
 import itson.ticketwizard.control.ControlException;
 import itson.ticketwizard.control.ControlRegistrarReventa;
 import itson.ticketwizard.dtos.BoletoReventaDTO;
-import itson.ticketwizard.dtos.BoletoUsuarioDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import java.util.List;
 import javax.swing.JOptionPane;
