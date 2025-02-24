@@ -1,11 +1,8 @@
 package itson.ticketwizard.control;
 
-import itson.ticketwizard.dtos.NuevoDomicilioUsuarioDTO;
-import itson.ticketwizard.dtos.NuevoUsuarioDTO;
+import itson.ticketwizard.dtos.UsuarioDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
-import itson.ticketwizard.entidades.DomicilioUsuario;
 import itson.ticketwizard.entidades.Usuario;
-import itson.ticketwizard.persistencia.DireccionesDAO;
 import itson.ticketwizard.persistencia.UsuariosDAO;
 import itson.ticketwizard.presentacion.FrmCrearCuenta;
 import itson.ticketwizard.presentacion.FrmInicioSesion;
@@ -30,13 +27,11 @@ public class ControlIniciarSesion {
     private FrmCrearCuenta crearCuenta;
     private FrmMenuPrincipal menuPrincipal;
     private UsuariosDAO usuariosDAO;
-    private DireccionesDAO direccionesDAO;
 
     private ControlMenuPrincipal controlMenuPrincipal;
 
-    public ControlIniciarSesion(UsuariosDAO usuariosDAO, DireccionesDAO direccionesDAO) {
+    public ControlIniciarSesion(UsuariosDAO usuariosDAO) {
         this.usuariosDAO = usuariosDAO;
-        this.direccionesDAO = direccionesDAO;
     }
 
     public void setControlMenuPrincipal(ControlMenuPrincipal controlMenuPrincipal) {
@@ -54,13 +49,13 @@ public class ControlIniciarSesion {
         this.crearCuenta.setVisible(true);
     }
 
-    public void registrarUsuario(NuevoUsuarioDTO nuevoUsuarioDTO, NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
-        if (!validarDatosUsuario(nuevoUsuarioDTO) && !validarDatosDomicilio(nuevoDomicilioDTO)) {
+    public void registrarUsuario(UsuarioDTO nuevoUsuarioDTO) {
+        if (!validarDatosUsuario(nuevoUsuarioDTO) && !validarDatosDomicilio(nuevoUsuarioDTO)) {
             JOptionPane.showMessageDialog(crearCuenta, "Datos inválidos. Intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        Usuario usuarioRegistrado = this.usuariosDAO.registrarUsuario(nuevoUsuarioDTO, nuevoDomicilioDTO);
+        Usuario usuarioRegistrado = this.usuariosDAO.registrarUsuario(nuevoUsuarioDTO);
 
         if (usuarioRegistrado == null) {
             JOptionPane.showMessageDialog(crearCuenta, "Error al registrar usuario.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -71,7 +66,7 @@ public class ControlIniciarSesion {
         this.crearCuenta.dispose();
     }
 
-    private boolean validarDatosUsuario(NuevoUsuarioDTO nuevoUsuarioDTO) {
+    private boolean validarDatosUsuario(UsuarioDTO nuevoUsuarioDTO) {
         // Validaciones para los datos del usuario
         if (!validarTexto(nuevoUsuarioDTO.getNombres(), "nombres")
                 || !validarTexto(nuevoUsuarioDTO.getApellidoPaterno(), "apellido paterno")
@@ -84,13 +79,13 @@ public class ControlIniciarSesion {
         return true;
     }
 
-    private boolean validarDatosDomicilio(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
+    private boolean validarDatosDomicilio(UsuarioDTO nuevoUsuarioDTO) {
         // Validaciones para los datos del domicilio
-        if (!validarTexto(nuevoDomicilioDTO.getCalle(), "calle")
-                || !validarTexto(nuevoDomicilioDTO.getCiudad(), "ciudad")
-                || !validarTexto(nuevoDomicilioDTO.getColonia(), "colonia")
-                || !validarNumeroCasa(nuevoDomicilioDTO)
-                || !validarCodigoPostal(nuevoDomicilioDTO.getCodigoPostal())) {
+        if (!validarTexto(nuevoUsuarioDTO.getCalle(), "calle")
+                || !validarTexto(nuevoUsuarioDTO.getCiudad(), "ciudad")
+                || !validarTexto(nuevoUsuarioDTO.getColonia(), "colonia")
+                || !validarNumeroCasa(nuevoUsuarioDTO)
+                || !validarCodigoPostal(nuevoUsuarioDTO.getCodigoPostal())) {
             return false;
         }
         return true;
@@ -133,7 +128,7 @@ public class ControlIniciarSesion {
         JOptionPane.showMessageDialog(inicioSesion, "El usuario no existe. Intente nuevamente o cree una cuenta.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    public boolean validarNombreUsuario(NuevoUsuarioDTO usuarioDTO) {
+    public boolean validarNombreUsuario(UsuarioDTO usuarioDTO) {
         String nombreUsuario = usuarioDTO.getNombreUsuario().trim();
         List<UsuarioRegistradoDTO> cuentasExistentes = this.usuariosDAO.ObtenerCuentasExistentes();
 
@@ -171,7 +166,7 @@ public class ControlIniciarSesion {
         return true;
     }
 
-    public boolean validarContrasenia(NuevoUsuarioDTO usuarioDTO) {
+    public boolean validarContrasenia(UsuarioDTO usuarioDTO) {
         String contrasenia = usuarioDTO.getContrasenia().trim();
         if (contrasenia.isEmpty()) {
             JOptionPane.showMessageDialog(crearCuenta, "No se pueden dejar campos vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -184,8 +179,8 @@ public class ControlIniciarSesion {
         return true;
     }
 
-    public boolean validarNumeroCasa(NuevoDomicilioUsuarioDTO nuevoDomicilioDTO) {
-        String numeroCasa = nuevoDomicilioDTO.getNumero().trim();
+    public boolean validarNumeroCasa(UsuarioDTO nuevoUsuarioDTO) {
+        String numeroCasa = nuevoUsuarioDTO.getNumero().trim();
         if (numeroCasa.isEmpty()) {
             JOptionPane.showMessageDialog(crearCuenta, "No se pueden dejar campos vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -220,7 +215,7 @@ public class ControlIniciarSesion {
     }
 
 
-    public boolean validarCorreoElectronico(NuevoUsuarioDTO usuarioDTO) {
+    public boolean validarCorreoElectronico(UsuarioDTO usuarioDTO) {
         String correo = usuarioDTO.getCorreoElectronico();
         if (correo == null || correo.trim().isEmpty()) {
             JOptionPane.showMessageDialog(crearCuenta, "El correo no puede estar vacio.", "Error", JOptionPane.ERROR_MESSAGE);

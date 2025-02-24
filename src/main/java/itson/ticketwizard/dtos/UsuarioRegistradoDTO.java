@@ -11,6 +11,7 @@ public class UsuarioRegistradoDTO {
     private String usuario;
     private String contrasenia;
     private BigDecimal saldo;
+    
 
     public UsuarioRegistradoDTO(Integer codigoUsuario, String usuario, String contrasenia) {
         this.codigoUsuario = codigoUsuario;

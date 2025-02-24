@@ -1,12 +1,10 @@
 package itson.ticketwizard.control;
 
-import itson.ticketwizard.dtos.NuevoDomicilioUsuarioDTO;
-import itson.ticketwizard.dtos.NuevoUsuarioDTO;
+import itson.ticketwizard.dtos.UsuarioDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.presentacion.FrmActualizarPerfil;
 import itson.ticketwizard.persistencia.UsuariosDAO;
-import itson.ticketwizard.persistencia.DireccionesDAO;
-import java.util.Date;
+import itson.ticketwizard.persistencia.PersistenciaException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -24,12 +22,10 @@ import javax.swing.JOptionPane;
 public class ControlActualizarPerfil {
     private FrmActualizarPerfil actualizarPerfil;
     private UsuariosDAO usuariosDAO;
-    private DireccionesDAO direccionesDAO;
     
     
-    public ControlActualizarPerfil(UsuariosDAO usuariosDAO, DireccionesDAO direccionesDAO){
+    public ControlActualizarPerfil(UsuariosDAO usuariosDAO){
         this.usuariosDAO = usuariosDAO;
-        this.direccionesDAO = direccionesDAO;
     }
     
     public void mostrarPantallaActualizarPerfil(UsuarioRegistradoDTO usuarioRegistradoDTO){      
@@ -37,40 +33,46 @@ public class ControlActualizarPerfil {
         this.actualizarPerfil.setVisible(true);
     }
     
+    public UsuarioDTO obtenerDatosUsuario(UsuarioRegistradoDTO usuarioRegistradoDTO) throws ControlException{
+        try {
+            return this.usuariosDAO.obtenerUsuarioDTO(usuarioRegistradoDTO);
+        } catch (PersistenciaException ex) {
+           throw new ControlException("error.");
+        }
+    }
+    
     /**
      * Método para actualizar el perfil de un usuario con su información personal y domicilio.
      * @param usuarioDTO Contiene la información personal del usuario.
-     * @param domicilioDTO Contiene la información del domicilio del usuario.
      */
-    public void actualizarPerfil(NuevoUsuarioDTO usuarioDTO, NuevoDomicilioUsuarioDTO domicilioDTO) {
+    public void actualizarPerfil(UsuarioDTO usuarioDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) {
         if (!validarCorreoElectronico(usuarioDTO.getCorreoElectronico()) ||
             !validarTexto(usuarioDTO.getApellidoPaterno(), "Apellido Paterno") ||
             !validarTexto(usuarioDTO.getApellidoMaterno(), "Apellido Materno") ||
             !validarTexto(usuarioDTO.getNombres(), "Nombres") ||
             !validarTexto(usuarioDTO.getNombreUsuario(), "Nombre de usuario") ||
-            !validarTexto(usuarioDTO.getContrasenia(), "Contraseña") ||
-            !validarTexto(domicilioDTO.getCalle(), "Calle") ||
-            !validarTexto(domicilioDTO.getNumero(), "Número de casa") ||
-            !validarTexto(domicilioDTO.getColonia(), "Colonia") ||
-            !validarTexto(domicilioDTO.getCiudad(), "Ciudad") ||
-            !validarTexto(domicilioDTO.getEstado(), "Estado") ||
-            !validarCodigoPostal(String.valueOf(domicilioDTO.getCodigoPostal()))) 
+            !validarContrasena(usuarioDTO.getContrasenia(), "Contraseña") ||
+            !validarTexto(usuarioDTO.getCalle(), "Calle") ||
+            !validarTexto(usuarioDTO.getNumero(), "Número de casa") ||
+            !validarTexto(usuarioDTO.getColonia(), "Colonia") ||
+            !validarTexto(usuarioDTO.getCiudad(), "Ciudad") ||
+            !validarTexto(usuarioDTO.getEstado(), "Estado") ||
+            !validarCodigoPostal(String.valueOf(usuarioDTO.getCodigoPostal()))) 
             return;
+        
+        
+            boolean usuarioActualizado = this.usuariosDAO.actualizarUsuario(usuarioDTO, usuarioRegistradoDTO);
+            
+            if(usuarioActualizado){
+                this.mostrarMensajeExito();
+                this.actualizarPerfil.dispose();
+            } else {
+                this.mostrarMensajeError();
+            }
         }
         
-//        se actualiza la informacion del usuario en la base de datos.
-////        se usan las dao para verificar si las operaciones son exitosas.
-////        si ambos son exitosos muestra mensaje de exito, si falla muestra mensaje de error.
-//        
-//        boolean usuarioActualizado = usuariosDAO.registrarUsuario(usuarioDTO) != null; // cambiar metodo
-//        boolean domicilioRegistrado = direccionesDAO.registrarDireccion(domicilioDTO, usuarioDTO) != null;
-//        
-//        if (usuarioActualizado && domicilioRegistrado) {
-//            mostrarMensajeExito();
-//        } else {
-//            mostrarMensajeError();
-//        }
-//    }
+
+      
     
     /**
      * Valida que el correo electrónico tenga el formato correcto.
@@ -99,6 +101,18 @@ public class ControlActualizarPerfil {
             return false;
         }
         if (texto.length() > 50) {
+            JOptionPane.showMessageDialog(actualizarPerfil, "El campo " + campo + " sobrepasa el límite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
+        private boolean validarContrasena(String texto, String campo) {
+        if (texto == null || texto.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(actualizarPerfil, "El campo " + campo + " no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (texto.length() > 60) {
             JOptionPane.showMessageDialog(actualizarPerfil, "El campo " + campo + " sobrepasa el límite de caracteres permitidos.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }

@@ -1,5 +1,6 @@
 package itson.ticketwizard.entidades;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ public class Usuario {
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     private float saldoDisponible;
     private String nombreUsuario;
     private String contrasenia;
@@ -21,7 +22,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Integer codigoUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, float saldoDisponible, String nombreUsuario, String contrasenia, String correoElectronico) {
+    public Usuario(Integer codigoUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, LocalDate fechaNacimiento, float saldoDisponible, String nombreUsuario, String contrasenia, String correoElectronico) {
         this.codigoUsuario = codigoUsuario;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -33,7 +34,7 @@ public class Usuario {
         this.correoElectronico = correoElectronico;
     }
 
-    public Usuario(String nombres, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, float saldoDisponible, String nombreUsuario, String contrasenia, String correoElectronico) {
+    public Usuario(String nombres, String apellidoPaterno, String apellidoMaterno, LocalDate fechaNacimiento, float saldoDisponible, String nombreUsuario, String contrasenia, String correoElectronico) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -76,11 +77,11 @@ public class Usuario {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

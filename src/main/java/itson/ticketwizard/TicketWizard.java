@@ -11,7 +11,6 @@ import itson.ticketwizard.persistencia.BoletosApartadosDAO;
 import itson.ticketwizard.persistencia.BoletosDAO;
 import itson.ticketwizard.persistencia.ComprasDAO;
 import itson.ticketwizard.persistencia.DepositosDAO;
-import itson.ticketwizard.persistencia.DireccionesDAO;
 import itson.ticketwizard.persistencia.ManejadorConexiones;
 import itson.ticketwizard.persistencia.ReventasDAO;
 import itson.ticketwizard.persistencia.UsuariosDAO;
@@ -31,7 +30,6 @@ public class TicketWizard {
         
         // clases DAO
         UsuariosDAO usuariosDAO = new UsuariosDAO(manejadorConexiones);
-        DireccionesDAO direccionesDAO = new DireccionesDAO(manejadorConexiones);
         BoletosDAO boletosDAO = new BoletosDAO(manejadorConexiones);
         DepositosDAO depositosDAO = new DepositosDAO(manejadorConexiones);
         ComprasDAO comprasDAO = new ComprasDAO(manejadorConexiones);
@@ -40,8 +38,8 @@ public class TicketWizard {
 
         // clases de control
         ControlRegistrarCompra controlRegistrarCompra = new ControlRegistrarCompra(boletosDAO, comprasDAO, usuariosDAO, boletosApartadosDAO);
-        ControlActualizarPerfil controlActualizarPerfil = new ControlActualizarPerfil(usuariosDAO, direccionesDAO);
-        ControlIniciarSesion control = new ControlIniciarSesion(usuariosDAO, direccionesDAO);
+        ControlActualizarPerfil controlActualizarPerfil = new ControlActualizarPerfil(usuariosDAO);
+        ControlIniciarSesion control = new ControlIniciarSesion(usuariosDAO);
         ControlResultadosBusqueda controlResultadosBusqueda = new ControlResultadosBusqueda(boletosDAO, controlRegistrarCompra);
         ControlDepositarSaldo controlDepositoSaldo = new ControlDepositarSaldo(depositosDAO);
         ControlRegistrarReventa controlRegistrarReventa = new ControlRegistrarReventa(boletosDAO, reventasDAO);
