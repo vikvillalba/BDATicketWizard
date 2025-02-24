@@ -1,14 +1,11 @@
 package itson.ticketwizard.presentacion;
 
 import itson.ticketwizard.control.ControlException;
-import itson.ticketwizard.control.ControlRegistrarCompra;
 import itson.ticketwizard.control.ControlResultadosBusqueda;
-import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.BoletoUsuarioDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
 /**

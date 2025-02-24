@@ -6,13 +6,29 @@ import java.math.BigDecimal;
 
 
 public class NuevoDepositoDTO {
-    private final BigDecimal saldo;
-    
-    public NuevoDepositoDTO(BigDecimal saldo){
+    private BigDecimal saldo;
+    private Integer codigoUsuario;
+
+    public NuevoDepositoDTO(BigDecimal saldo, Integer codigoUsuario) {
         this.saldo = saldo;
+        this.codigoUsuario = codigoUsuario;
+    }
+
+    public Integer getCodigoUsuario() {
+        return codigoUsuario;
+    }
+
+    public void setCodigoUsuario(Integer codigoUsuario) {
+        this.codigoUsuario = codigoUsuario;
     }
 
     public BigDecimal getSaldo() {
         return saldo;
     }
+
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
+    }
+    
+    
 }

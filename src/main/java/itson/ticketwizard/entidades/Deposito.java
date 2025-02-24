@@ -24,11 +24,13 @@ public class Deposito {
         this.fechaHora = fechaHora;
     }
 
-    public Deposito(Integer codigoUsuario, BigDecimal monto, LocalDateTime fechaHora) {
-        this.codigoUsuario = codigoUsuario;
+    public Deposito(Integer codigoDeposito, BigDecimal monto, LocalDateTime fechaHora) {
+        this.codigoDeposito = codigoDeposito;
         this.monto = monto;
         this.fechaHora = fechaHora;
     }
+    
+    
 
     public Integer getCodigoDeposito() {
         return codigoDeposito;

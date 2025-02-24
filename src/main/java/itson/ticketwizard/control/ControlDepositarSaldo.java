@@ -3,13 +3,14 @@ package itson.ticketwizard.control;
 import itson.ticketwizard.dtos.NuevoDepositoDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.entidades.Deposito;
-import itson.ticketwizard.entidades.Usuario;
 import itson.ticketwizard.persistencia.DepositosDAO;
 import itson.ticketwizard.persistencia.PersistenciaException;
-import itson.ticketwizard.persistencia.UsuariosDAO;
 import itson.ticketwizard.presentacion.FrmDepositoSaldo;
 import itson.ticketwizard.presentacion.FrmHistorialDepositos;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,7 +34,7 @@ public class ControlDepositarSaldo {
     public void realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
         try {
             if (validarDeposito(nuevoDepositoDTO)) {
-                Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO, usuarioRegistradoDTO);
+                Deposito deposito = this.depositosDAO.realizarDeposito(nuevoDepositoDTO);
                 if (deposito != null) {
                     mostrarMensajeDepositoExitoso();
                     depositarSaldo.dispose();
@@ -67,7 +68,15 @@ public class ControlDepositarSaldo {
     
 
     public void mostrarHistorialDepositos(UsuarioRegistradoDTO usuarioRegistradoDTO){
-        this.historialDepositos = new FrmHistorialDepositos(this);
+        this.historialDepositos = new FrmHistorialDepositos(this, usuarioRegistradoDTO);
         this.historialDepositos.setVisible(true);
+    }
+    
+    public List<Deposito> obtenerDepositosUsuario(int limit, int pagina, UsuarioRegistradoDTO usuarioRegistradoDTO) throws ControlException{
+        try {
+            return this.depositosDAO.obtenerDepositosUsuario(usuarioRegistradoDTO);
+        } catch (PersistenciaException ex) {
+            throw new ControlException("error");
+        }
     }
 }

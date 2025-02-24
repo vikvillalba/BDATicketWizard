@@ -9,10 +9,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
-import java.sql.Types;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,22 +27,18 @@ public class DepositosDAO {
         this.manejadorConexiones = manejadorConexiones;
     }
      
-    public Deposito realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO, UsuarioRegistradoDTO usuarioRegistradoDTO) throws SQLException, PersistenciaException{
+    public Deposito realizarDeposito(NuevoDepositoDTO nuevoDepositoDTO) throws SQLException, PersistenciaException{
+        
         try(Connection conexion = manejadorConexiones.crearConexion();
-            CallableStatement comando = conexion.prepareCall("{CALL GESTIONAR_TRANSACCION(?,?,?,?,?,?)}")){
+            CallableStatement comando = conexion.prepareCall("{CALL SP_Deposito(?,?)}")){
             //se usa CallableStatement para procedimientos almacenados
-            comando.setString(1, "DEPOSITO");
-            comando.setInt(2, usuarioRegistradoDTO.getCodigoUsuario());
-            comando.setNull(3, Types.VARCHAR);
-            comando.setBigDecimal(4, nuevoDepositoDTO.getSaldo());
-            comando.setNull(5, Types.INTEGER);
-            comando.setNull(6, Types.TIMESTAMP);
-            // para mandar los valores null se utiliza el setNull, se le manda el lugar y el tipo de dato que es
+ 
+            comando.setInt(1, nuevoDepositoDTO.getCodigoUsuario());
+            comando.setBigDecimal(2, nuevoDepositoDTO.getSaldo());
             
             int filasAfectadas = comando.executeUpdate();
-            System.out.println("Filas afectadas: " + filasAfectadas);
 
-            return new Deposito(usuarioRegistradoDTO.getCodigoUsuario(), nuevoDepositoDTO.getSaldo(), LocalDateTime.now());
+            return new Deposito(nuevoDepositoDTO.getCodigoUsuario(), nuevoDepositoDTO.getSaldo(), LocalDateTime.now());
 
         }catch(SQLException e){
             System.err.println("ERROR SQL:" + e.getMessage());
@@ -48,4 +46,38 @@ public class DepositosDAO {
         }
      
 }
+    
+    public List<Deposito> obtenerDepositosUsuario(UsuarioRegistradoDTO usuarioRegistradoDTO) throws PersistenciaException {
+        List<Deposito> depositosRealizados = new ArrayList<>();
+
+        String codigoSQL = """
+                           SELECT CODIGODEPOSITO, MONTO, FECHAHORA
+                           FROM DEPOSITOS
+                           WHERE CODIGOUSUARIO = ?;
+                           """;
+
+        try {
+            Connection conexion = manejadorConexiones.crearConexion();
+            PreparedStatement comando = conexion.prepareStatement(codigoSQL);
+            comando.setInt(1, usuarioRegistradoDTO.getCodigoUsuario());
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                Integer codigoDeposito = resultado.getInt("CODIGODEPOSITO");
+                BigDecimal monto = resultado.getBigDecimal("MONTO");
+                Timestamp fecha = resultado.getTimestamp("FECHAHORA");
+                LocalDateTime fechaHora = fecha.toLocalDateTime();
+
+                Deposito deposito = new Deposito(codigoDeposito, monto, fechaHora);
+                depositosRealizados.add(deposito);
+            }
+
+            conexion.close();
+            return depositosRealizados;
+        } catch (SQLException ex) {
+
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Error al recuperar los boletos.");
+        }
+    }
 }

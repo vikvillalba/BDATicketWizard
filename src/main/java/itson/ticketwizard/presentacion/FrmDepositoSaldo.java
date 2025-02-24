@@ -129,7 +129,7 @@ public class FrmDepositoSaldo extends javax.swing.JFrame {
         String monto = txtSaldo.getText();
         try{
             BigDecimal montoDecimal = new BigDecimal(monto);
-            NuevoDepositoDTO nuevoDepositoDTO = new NuevoDepositoDTO(montoDecimal);
+            NuevoDepositoDTO nuevoDepositoDTO = new NuevoDepositoDTO(montoDecimal, usuarioRegistradoDTO.getCodigoUsuario());
             this.controlDepositarSaldo.realizarDeposito(nuevoDepositoDTO, this.usuarioRegistradoDTO);
         }catch(NumberFormatException e){
              JOptionPane.showMessageDialog(this, "Por favor ingrese un monto válido.", "Error", JOptionPane.ERROR_MESSAGE);
