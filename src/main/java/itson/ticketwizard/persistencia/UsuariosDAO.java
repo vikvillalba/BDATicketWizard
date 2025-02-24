@@ -1,5 +1,6 @@
 package itson.ticketwizard.persistencia;
 
+import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.UsuarioDTO;
 import itson.ticketwizard.dtos.UsuarioRegistradoDTO;
 import itson.ticketwizard.entidades.Usuario;
@@ -255,8 +256,20 @@ public class UsuariosDAO { // almacena usuarios en la bd
             throw new PersistenciaException("Error al recuperar al usuario.");
             
         }
-    
+
         return null;
+    }
+
+    public void ejecutarEventoBoletosApartados(BoletoDTO boletoDTO) {
+        String query = "UPDATE CONFIGURACIONEVENTO SET CODIGOBOLETO = ? WHERE id = 1";
+
+        try (Connection conexion = manejadorConexiones.crearConexion(); PreparedStatement stmt = conexion.prepareStatement(query)) {
+
+            stmt.setString(1, boletoDTO.getNumeroSerie());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar el código del boleto: " + e.getMessage());
+        }
     }
 
 }

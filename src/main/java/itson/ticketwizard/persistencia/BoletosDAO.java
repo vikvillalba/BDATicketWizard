@@ -1,5 +1,6 @@
 package itson.ticketwizard.persistencia;
 
+import itson.ticketwizard.dtos.BoletoApartadoDTO;
 import itson.ticketwizard.dtos.BoletoCompraDTO;
 import itson.ticketwizard.dtos.BoletoDTO;
 import itson.ticketwizard.dtos.BoletoReventaDTO;
@@ -371,6 +372,7 @@ public class BoletosDAO {
                                INNER JOIN BOLETOSAPARTADOS ap ON ap.NUMEROSERIEBOLETO = b.NUMEROSERIE
                                WHERE ap.CODIGOUSUARIO = ?
                                AND b.APARTADO = 1
+                               AND ap.VENDIDO = 0
                                LIMIT ? OFFSET ?;
                                """;
 
@@ -410,6 +412,27 @@ public class BoletosDAO {
             throw new PersistenciaException("Error al recuperar los boletos.");
         }
     }
-   
-    
+
+    public boolean obtenerBoletoApartado(BoletoDTO boletoDTO) throws PersistenciaException {
+        String codigoSQL = """
+                       SELECT NUMEROSERIEBOLETO
+                       FROM BOLETOSAPARTADOS
+                       WHERE NUMEROSERIEBOLETO = ?
+                       LIMIT 1
+                       """;
+
+        try (Connection conexion = manejadorConexiones.crearConexion(); PreparedStatement comando = conexion.prepareStatement(codigoSQL)) {
+
+            comando.setString(1, boletoDTO.getNumeroSerie()); // Utilizamos el número de serie del boleto
+
+            ResultSet rs = comando.executeQuery();
+
+            // Si la consulta devuelve un resultado, significa que el boleto está apartado
+            return rs.next();  // Esto devolverá true si el boleto está apartado
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Error al verificar si el boleto está apartado.");
+        }
+    }
+
 }

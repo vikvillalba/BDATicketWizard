@@ -61,10 +61,18 @@ public class ControlRegistrarCompra {
             // Comprobar si el usuario tiene suficiente saldo
             if (usuarioConSaldo.getSaldo().compareTo(boletoDTO.getPrecio()) < 0) {
                 System.out.println("No hay dinero suficiente para comprar el boleto.");
-               
-                BoletoApartadoDTO boletoApartadoDTO = new BoletoApartadoDTO(usuarioRegistradoDTO.getCodigoUsuario(), boletoDTO.getCodigoBoleto(), boletoDTO.getNumeroSerie(), LocalDateTime.now(), boletoDTO.getPrecio());               
-                this.boletosApartadosDAO.apartarBoleto(boletoApartadoDTO, usuarioRegistradoDTO);
-                this.mostrarMensajeBoletoApartado();
+
+                BoletoApartadoDTO boletoApartadoDTO = new BoletoApartadoDTO(usuarioRegistradoDTO.getCodigoUsuario(), boletoDTO.getCodigoBoleto(), boletoDTO.getNumeroSerie(), LocalDateTime.now(), boletoDTO.getPrecio());
+
+                if (!this.boletosDAO.obtenerBoletoApartado(boletoDTO)) {
+                    this.boletosApartadosDAO.apartarBoleto(boletoApartadoDTO, usuarioRegistradoDTO);
+                    this.mostrarMensajeBoletoApartado();
+                    this.usuariosDAO.ejecutarEventoBoletosApartados(boletoDTO);
+                } else {
+
+                    JOptionPane.showMessageDialog(detallesBoletoCompra, "ya apartaste este boleto.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                }
+
                 return;
             }
             NuevaCompraDTO nuevaCompraDTO = new NuevaCompraDTO(usuarioRegistradoDTO.getCodigoUsuario(), boletoDTO.getNumeroSerie(), boletoDTO.getPrecio());
